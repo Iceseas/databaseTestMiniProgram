@@ -82,6 +82,8 @@
 
 .init_detai_text {
     font-size: 24rpx;
+    line-height: 30rpx;
+    padding-top: 41rpx;
 }
 
 swiper-item {

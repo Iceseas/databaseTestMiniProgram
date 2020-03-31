@@ -126,24 +126,27 @@ Page({
     res_user_count() {
         if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify) {
             this.uploaderToCloudimage()
-            console.log('consoleUser', this.data.userMessage)
-            resUser('mini_users_models', this.data.userMessage)
-                .then(res => {
-                    if (res.errMsg == 'collection.add:ok') {
-                        wx.showToast({
-                            title: '注册成功！',
-                            duration: 2000,
-                            icon: 'success'
+                .then((res) => {
+                    console.log('consoleUser', this.data.userMessage)
+                    console.log('consoleUser', res)
+                    resUser('mini_users_models', this.data.userMessage)
+                        .then(res => {
+                            if (res.errMsg == 'collection.add:ok') {
+                                wx.showToast({
+                                    title: '注册成功！',
+                                    duration: 2000,
+                                    icon: 'success'
+                                })
+                                this.swichisloginres()
+                            }
                         })
-                        this.swichisloginres()
-                    }
-                })
-                .catch(err => {
-                    wx.showToast({
-                        title: err.msg,
-                        duration: 2000,
-                        icon: 'none'
-                    })
+                        .catch(err => {
+                            wx.showToast({
+                                title: err.msg,
+                                duration: 2000,
+                                icon: 'none'
+                            })
+                        })
                 })
         } else {
             wx.showToast({
@@ -191,18 +194,20 @@ Page({
         }
     },
     uploaderToCloudimage() {
-        wx.cloud.uploadFile({
-            cloudPath: `${this.data.userMessage.countName}.jpg`,
-            filePath: this.data.user_image[0], // 文件路径
-        }).then(res => {
-            // get resource ID
-            console.log('uploader', res)
-            this.setData({
-                [image]: res.fileID
+        return new Promise((resolve, reject) => {
+            wx.cloud.uploadFile({
+                cloudPath: `${this.data.userMessage.countName}.jpg`,
+                filePath: this.data.user_image[0], // 文件路径
+            }).then(res => {
+                // get resource ID 
+                this.setData({
+                    [image]: res.fileID
+                })
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+                    // handle error
             })
-        }).catch(error => {
-            console.log(error)
-                // handle error
         })
     }
 })

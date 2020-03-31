@@ -2,27 +2,27 @@
   <text class="navigationText_title" style="z-index:2">答题</text>
    <view class="question_title ">
      <text class="question_ID_text">第1道</text>
-       把大象装冰箱拢共分几步？
+       以下关于数据的逻辑结构的叙述中，哪一条是不正确的？（）
    </view>
    <image wx:if="{{item.url}}" mode="aspectFit" class="question_image" src="{{item.url}}" />
    <view class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="handleSelectItem">
         <i class="iconfont icon-101 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">1</text>
+        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构是数据间关系的描述</text>
     </view>
     <view class="user_center_menulist_item {{item2classControl}}" id="B" bind:tap="handleSelectItem">
         <i class="iconfont icon-201 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">2</text>
+        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构抽象地反映数据元素间的逻辑关系</text>
     </view>
     <view class="user_center_menulist_item {{item3classControl}}" id="C" bind:tap="handleSelectItem">
         <i class="iconfont icon-301 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">3</text>
+        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构具体地反映数据在计算机中的存储方式</text>
     </view>
     <view class="user_center_menulist_item {{item4classControl}}" id="D" bind:tap="handleSelectItem">
         <i class="iconfont icon-401 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">4</text>
+        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构分为线性结构和非线性结构</text>
     </view>
      <view class="question_explains">
        <text class="Explanins_title" >题目解析</text>  
-       <text class="question_explains_text" >111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</text>  
+       <text class="question_explains_text" >具体地反映数据在计算机中的存储方式</text>  
    </view>
 </view>

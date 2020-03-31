@@ -20,6 +20,7 @@ Page({
             .then(res => {
                 console.log('center', res)
                 this.setData({
+                    user_img: res.data[0].img,
                     user_name: res.data[0].name,
                     user_major: res.data[0].major
                 })
@@ -55,15 +56,4 @@ Page({
             center_box_top: 0
         })
     },
-    downloadFile() {
-        wx.cloud.downloadFile({
-            fileID: res.data[0].img
-        }).then(res => {
-            // get temp file path
-            console.log('download', res.tempFilePath)
-            this.setData({
-                user_img: res.tempFilePath,
-            })
-        })
-    }
 })

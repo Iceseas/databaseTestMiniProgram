@@ -59,7 +59,7 @@ Page({
         });
         //判断test的类型
         switch (app.globalData.TestType) {
-            case 'single_C1':
+            case 'sequenceTest':
                 //得到随机测试的题
                 getQuestion(db, 'single_C1_models')
                     .then(res => {
@@ -73,9 +73,9 @@ Page({
                     })
                 wx.hideLoading()
                 break;
-            case 'sequenceTest':
+            case 'single_C1':
                 //得到顺序测试的题
-                getCollectionSum(db, collectionName)
+                getCollectionSum(db, 'single_C1_models')
                     .then(res => {
                         this.setData({
                             questionSum: res.total
@@ -84,7 +84,7 @@ Page({
                     .catch(err => {
                         console.log(err)
                     })
-                getSequenceQuestion(db, collectionName, _, app.globalData.questionNum)
+                getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionNum)
                     .then(res => {
                         pushGetlist(res.data)
                     })
