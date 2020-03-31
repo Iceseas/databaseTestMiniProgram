@@ -115,8 +115,6 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
-                console.log(res)
-
                 that.setData({
                     user_image: res.tempFilePaths,
                     userimg: true
@@ -128,7 +126,8 @@ Page({
     res_user_count() {
         if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify) {
             this.uploaderToCloudimage()
-            resUser(db, 'mini_users_models', this.data.userMessage)
+            console.log('consoleUser', this.data.userMessage)
+            resUser('mini_users_models', this.data.userMessage)
                 .then(res => {
                     if (res.errMsg == 'collection.add:ok') {
                         wx.showToast({
@@ -163,11 +162,9 @@ Page({
                 isCountNameverify: true
             })
         }
-        console.log(this.data.userMessage.countName)
     },
     getPassword(e) {
         //console.log(e)
-
         if (e.detail.value != '') {
             this.setData({
                 [password]: e.detail.value,
@@ -177,8 +174,6 @@ Page({
     },
     getMajor(e) {
         //console.log(e)
-
-
         if (e.detail.value != '') {
             this.setData({
                 [major]: e.detail.value,
@@ -188,8 +183,6 @@ Page({
     },
     getName(e) {
         //console.log(e)
-
-
         if (e.detail.value != '') {
             this.setData({
                 [name]: e.detail.value,
@@ -198,13 +191,12 @@ Page({
         }
     },
     uploaderToCloudimage() {
-        console.log(this.data.user_image)
         wx.cloud.uploadFile({
             cloudPath: `${this.data.userMessage.countName}.jpg`,
             filePath: this.data.user_image[0], // 文件路径
         }).then(res => {
             // get resource ID
-            console.log(res)
+            console.log('uploader', res)
             this.setData({
                 [image]: res.fileID
             })

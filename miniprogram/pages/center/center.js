@@ -18,15 +18,6 @@ Page({
         console.log('options:', options)
         getUser(db, 'mini_users_models', options, 'get')
             .then(res => {
-                wx.cloud.downloadFile({
-                    fileID: res.data[0].img
-                }).then(res => {
-                    // get temp file path
-                    console.log(res.tempFilePath)
-                    this.setData({
-                        user_img: res.tempFilePath,
-                    })
-                })
                 console.log('center', res)
                 this.setData({
                     user_name: res.data[0].name,
@@ -64,4 +55,15 @@ Page({
             center_box_top: 0
         })
     },
+    downloadFile() {
+        wx.cloud.downloadFile({
+            fileID: res.data[0].img
+        }).then(res => {
+            // get temp file path
+            console.log('download', res.tempFilePath)
+            this.setData({
+                user_img: res.tempFilePath,
+            })
+        })
+    }
 })

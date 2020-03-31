@@ -1,10 +1,10 @@
 import getUser from './getuser'
-
-export default function resUser(db, collectionName, data) {
+const db = wx.cloud.database();
+export default function resUser(collectionName, data) {
+    console.log('resdata', data)
     return new Promise((resolve, reject) => {
         getUser(db, collectionName, data, 'check')
             .then(res => {
-                console.log('res', res)
                 db.collection(collectionName).add({
                         // data 字段表示需新增的 JSON 数据
                         data: data
@@ -13,7 +13,7 @@ export default function resUser(db, collectionName, data) {
                         resolve(res)
                     })
                     .catch(err => {
-
+                        reject(err)
                     })
             })
 
