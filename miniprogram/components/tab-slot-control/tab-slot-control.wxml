@@ -1,0 +1,12 @@
+<view class="tab-slot-control-body">
+    <view class="tab-slot-control-left">
+        <slot name="tab_slot_control_left"></slot>
+    </view>
+    <view class="tab-slot-control-mid">
+        <slot name="tab_slot_control_mid"></slot>
+    </view>
+    <view class="tab-slot-control-right">
+        <slot name="tab_slot_control_right"></slot>
+    </view>
+</view>
+  

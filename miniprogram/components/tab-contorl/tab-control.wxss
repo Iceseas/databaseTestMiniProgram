@@ -1,0 +1,23 @@
+.TestTabbar {
+    display: flex;
+    height: 60rpx;
+    padding: 16rpx 0;
+    border-bottom: 2rpx solid #BDBDBD;
+}
+
+.TestTabbar-item {
+    flex: 1;
+    text-align: center;
+    line-height: 60rpx;
+    font-weight: 550;
+    color: #212121;
+}
+
+.TestTabbarActive {
+    color: #00BCD4;
+}
+
+.TestTabbarActive text {
+    border-bottom: #00BCD4 solid 6rpx;
+    padding: 18rpx 1rpx;
+}

@@ -1,0 +1,28 @@
+<view class="detai_body" style="height:{{detail_height}}rpx">
+  <text class="navigationText_title" style="z-index:2">答题</text>
+   <view class="question_title ">
+     <text class="question_ID_text">第1道</text>
+       把大象装冰箱拢共分几步？
+   </view>
+   <image wx:if="{{item.url}}" mode="aspectFit" class="question_image" src="{{item.url}}" />
+   <view class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="handleSelectItem">
+        <i class="iconfont icon-101 user_center_menulist_item_icon_init"></i>
+        <text class="user_center_menulist_item_title init_detai_text">1</text>
+    </view>
+    <view class="user_center_menulist_item {{item2classControl}}" id="B" bind:tap="handleSelectItem">
+        <i class="iconfont icon-201 user_center_menulist_item_icon_init"></i>
+        <text class="user_center_menulist_item_title init_detai_text">2</text>
+    </view>
+    <view class="user_center_menulist_item {{item3classControl}}" id="C" bind:tap="handleSelectItem">
+        <i class="iconfont icon-301 user_center_menulist_item_icon_init"></i>
+        <text class="user_center_menulist_item_title init_detai_text">3</text>
+    </view>
+    <view class="user_center_menulist_item {{item4classControl}}" id="D" bind:tap="handleSelectItem">
+        <i class="iconfont icon-401 user_center_menulist_item_icon_init"></i>
+        <text class="user_center_menulist_item_title init_detai_text">4</text>
+    </view>
+     <view class="question_explains">
+       <text class="Explanins_title" >题目解析</text>  
+       <text class="question_explains_text" >111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</text>  
+   </view>
+</view>

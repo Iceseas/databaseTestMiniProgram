@@ -1,0 +1,47 @@
+<view class="container_height" style="height:{{center_box_top}}rpx">
+<text class="navigationText_title" style="z-index:2">测验</text>
+<view class="anime_circle1">
+</view>
+<view class="anime_circle2">
+</view>
+<text class="anime_title yahei-font" decode="{{true}}">
+    千里之行
+        始于足下</text>
+  
+  
+<view class="test_tab">
+    <view class="test_tab_item" >
+        <view class="test_tab_item_select" bind:tap="godetail">
+            <i class="iconfont icon-suiji test_tab_item_icon"></i>
+            <text class="test_tab_item_text yahei-font">
+                随机测试
+            </text>
+        </view>
+    </view>
+    <view class="test_tab_item">
+        <view class="test_tab_item_select" bind:tap="godetail">
+            <i class="iconfont icon-zhuanyezhishijineng test_tab_item_icon" style="color:#badc58"></i>
+            <text class="test_tab_item_text yahei-font">
+                专项练习
+            </text>
+        </view>
+    </view>
+    <view class="test_tab_item" >
+        <view class="test_tab_item_select" bind:tap="godetail">
+            <i class="iconfont icon-jiachang_cuotiben test_tab_item_icon" style="color:#eb4d4b"></i>
+            <text class="test_tab_item_text yahei-font">
+                错题集
+            </text>
+        </view>
+    </view>
+    <view class="test_tab_item" >
+        <view class="test_tab_item_select" bind:tap="godetail">
+            <i class="iconfont icon-shoucang test_tab_item_icon" style="color:#f9ca24"></i>
+            <text class="test_tab_item_text yahei-font">
+                收藏夹
+            </text>
+        </view>
+    </view> 
+</view>
+</view>
+  

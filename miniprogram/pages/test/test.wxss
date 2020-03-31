@@ -1,0 +1,97 @@
+.anime_circle2 {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    width: 1010rpx;
+    top: -460rpx;
+    left: -135rpx;
+    height: 1010rpx;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    border-radius: 45%;
+    transform: rotate(0);
+    animation: rotate 14s linear infinite;
+}
+
+.anime_circle1 {
+    background: #fff;
+    position: absolute;
+    width: 1000rpx;
+    top: -460rpx;
+    left: -135rpx;
+    height: 1000rpx;
+    box-sizing: border-box;
+    z-index: 1;
+    background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
+    border-radius: 45%;
+    transform: rotate(0);
+    animation: rotate 18s linear infinite;
+}
+
+@keyframes rotate {
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container_height {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.test_tab {
+    width: 100%;
+    background: #fff;
+    margin-top: 650rpx;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    height: 600rpx;
+}
+
+.test_tab_item {
+    width: 50%;
+    height: 295rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.test_tab_item_select {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 250rpx;
+    height: 250rpx;
+    background: #fff;
+    border-radius: 20rpx;
+    box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
+    text-align: center;
+    padding-top: 75rpx;
+    box-sizing: border-box;
+}
+
+.test_tab_item_icon {
+    font-size: 60rpx;
+    color: #72afd3;
+}
+
+.test_tab_item_text {
+    font-weight: 600;
+    color: #636e72;
+}
+
+.anime_title {
+    z-index: 3;
+    position: absolute;
+    font-size: 30rpx;
+    color: #fff;
+    left: 90rpx;
+    top: 340rpx;
+    font-weight: 600;
+}

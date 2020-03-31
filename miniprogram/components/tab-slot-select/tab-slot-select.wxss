@@ -1,0 +1,19 @@
+.tab_slot_select_body {
+    height: 200rpx;
+    background: #fff;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.vertical_cut_off_line {
+    display: inline-block;
+    width: 2rpx;
+    background: #eee;
+    height: 140rpx;
+    margin-top: 30rpx;
+}
+
+.tab_slot_select_body_item {
+    flex-grow: 1;
+    box-sizing: border-box;
+}

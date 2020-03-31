@@ -1,0 +1,51 @@
+{
+    "pages": [
+        "pages/res/res",
+        "pages/find/find",
+        "pages/detail/detail",
+
+
+
+        "pages/test/test",
+        "pages/center/center"
+
+
+
+
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom"
+    },
+    "tabBar": {
+        "selectedColor": "#636e72",
+        "list": [{
+                "pagePath": "pages/test/test",
+                "text": "测验",
+                "iconPath": "src/listimage/test.png",
+                "selectedIconPath": "src/listimage/test2.png"
+            }, {
+                "pagePath": "pages/find/find",
+                "text": "发现",
+                "iconPath": "src/listimage/find.png",
+                "selectedIconPath": "src/listimage/find2.png"
+            },
+            {
+                "pagePath": "pages/center/center",
+                "text": "我的",
+
+                "iconPath": "src/listimage/user.png",
+                "selectedIconPath": "src/listimage/user2.png"
+            }
+        ]
+    },
+    "usingComponents": {
+        "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+        "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
+        "van-icon": "/miniprogram_npm/@vant/weapp/icon/index"
+    },
+    "sitemapLocation": "sitemap3.json"
+}

@@ -1,0 +1,112 @@
+.user_reslogin_box {
+    width: 100%;
+    color: #fff;
+    box-sizing: border-box;
+    padding-top: 180rpx;
+    background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
+}
+
+.user_image {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 100%;
+    box-sizing: border-box;
+    border: 6rpx solid #fff;
+    box-shadow: -5rpx 5rpx 15rpx #74ebd5;
+    overflow: hidden;
+    position: relative;
+    left: 40%;
+    text-align: center;
+}
+
+.user_icon {
+    font-size: 100rpx;
+    font-weight: 500;
+    color: #fff;
+}
+
+.navigationText_title,
+.user_image_icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navigationText_title {
+    top: 70rpx;
+    font-weight: 500;
+}
+
+.user_name,
+.user_password,
+.user_major {
+    height: 90rpx;
+    margin-left: 90rpx;
+    margin-right: 90rpx;
+    background: #fff;
+    margin-top: 10rpx;
+    box-shadow: -5rpx 5rpx 15rpx #74ebd5;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.user_name_title,
+.user_password_title,
+.user_major_title {
+    color: #fff;
+    margin-left: 117rpx;
+    display: block;
+    font-size: 24rpx;
+    margin-top: 40rpx;
+    font-weight: 600;
+}
+
+.user_button {
+    margin-top: 70rpx;
+    width: 580rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-radius: 20rpx;
+    box-shadow: -5rpx 5rpx 15rpx #74ebd5;
+    background: #fff;
+    color: #636e72;
+}
+
+.user_image_icon {
+    top: 355rpx;
+    font-size: 40rpx;
+}
+
+.user_name_haven {
+    color: #fff;
+    margin-left: 117rpx;
+    font-size: 20rpx;
+    margin-top: 40rpx;
+    display: inline-block;
+}
+
+.swich_user_login_res {
+    display: inline-block;
+    margin-left: 40rpx;
+    cursor: pointer;
+}
+
+.user_reslogin_icon_init,
+.user_reslogin_input {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.user_reslogin_icon_init {
+    color: #636e72;
+    font-size: 40rpx;
+    left: 20rpx;
+}
+
+.user_reslogin_input {
+    color: #636e72;
+    height: 80%;
+    left: 80rpx;
+    width: 80%;
+}

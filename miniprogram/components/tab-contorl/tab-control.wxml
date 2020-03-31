@@ -1,0 +1,9 @@
+<view class="TestTabbar">
+ <block wx:for="{{titles}}" wx:key="index">
+   <view class="TestTabbar-item yahei-font {{currentIndex==index?'TestTabbarActive':''}}"
+         bind:tap="handleClickTab"
+         data-index="{{index}}">
+     <text class="TestTabbarText">{{item}}</text>
+   </view>
+ </block> 
+</view>

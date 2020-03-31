@@ -1,0 +1,130 @@
+/**app.wxss**/
+
+@import '/iconfont/iconfont.wxss';
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+}
+
+.yahei-font {
+    font-family: -apple-system, Helvetica, sans-serif;
+}
+
+.fontinit {
+    font-size: 20rpx;
+}
+
+.positionright {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+}
+
+.line {
+    display: block;
+    height: 10rpx;
+    background: #eee;
+}
+
+.cut_off_rule {
+    display: block;
+    height: 40rpx;
+    background: #eee;
+}
+
+.icontback {
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 100%;
+    display: inline-block;
+    background: purple;
+    box-shadow: 0 0 8rpx #BDBDBD;
+}
+
+button {
+    line-height: 40rpx;
+}
+
+.iconfontinit {
+    font-size: 36rpx;
+    color: #212121;
+    vertical-align: middle;
+}
+
+.answer_text {
+    color: slateblue;
+    font-weight: 600;
+}
+
+.showAnswer {
+    margin: 15rpx 0;
+}
+
+.Flex_grow_1 {
+    flex-grow: 1;
+}
+
+.linear-gradient-back {
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
+
+.input_box_init {
+    border-radius: 20rpx;
+}
+
+.palceholder_init {
+    color: #636e72;
+}
+
+.navigationText_title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    top: 70rpx;
+}
+
+.user_center_menulist {
+    width: 100%;
+    background: #fff;
+    color: #74ebd5;
+    margin-top: 140rpx;
+    box-sizing: border-box;
+    height: auto;
+}
+
+.user_center_menulist_item {
+    height: 120rpx;
+    margin-top: 40rpx;
+    margin-left: 70rpx;
+    margin-right: 70rpx;
+    background: #fff;
+    border-radius: 20rpx;
+    box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
+    line-height: 120rpx;
+    padding-left: 40rpx;
+    box-sizing: border-box;
+    display: flex;
+    color: #636e72;
+}
+
+.user_center_menulist_item:nth-of-type(4) {
+    margin-bottom: 40rpx;
+}
+
+.user_center_menulist_item_icon_init {
+    font-size: 40rpx;
+    width: 60rpx;
+}
+
+.user_center_menulist_item_title {
+    display: inline-block;
+    height: 100%;
+    flex-grow: 1;
+}

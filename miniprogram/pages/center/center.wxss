@@ -1,0 +1,67 @@
+.user_center_box {
+    position: relative;
+    height: 520rpx;
+    width: 100%;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+    color: #fff;
+    border-bottom-left-radius: 100rpx;
+    border-bottom-right-radius: 100rpx;
+}
+
+.user_center_image {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 100%;
+    top: 140rpx;
+    box-sizing: border-box;
+    border: 6rpx solid #fff;
+}
+
+.navigationText_title,
+.user_center_image,
+.user_center_username,
+.user_center_major,
+.user_center_tab {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navigationText_title {
+    top: 70rpx;
+}
+
+.user_center_username {
+    font-size: 28rpx;
+    top: 320rpx;
+}
+
+.user_center_major {
+    top: 360rpx;
+    font-size: 30rpx;
+}
+
+.user_center_tab {
+    background: #fff;
+    height: 140rpx;
+    width: 600rpx;
+    top: 448rpx;
+    border-radius: 20rpx;
+    box-shadow: -5rpx 10rpx 20rpx #74ebd5;
+    display: flex;
+}
+
+.user_center_tab_item {
+    flex-grow: 1;
+    color: #636e72;
+    text-align: center;
+    line-height: 140rpx;
+}
+
+.cut_off_line {
+    width: 2rpx;
+    height: 40rpx;
+    margin-top: 50rpx;
+    display: inline-block;
+    background: #8e99cc;
+}

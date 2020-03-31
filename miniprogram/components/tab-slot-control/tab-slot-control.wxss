@@ -1,0 +1,16 @@
+.tab-slot-control-body {
+    display: flex;
+    height: 100rpx;
+}
+
+.tab-slot-control-left {
+    width: 20%;
+}
+
+.tab-slot-control-mid {
+    flex-grow: 1;
+}
+
+.tab-slot-control-right {
+    width: 20%;
+}
