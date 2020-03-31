@@ -83,7 +83,7 @@ button {
 }
 
 .navigationText_title {
-    position: absolute;
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     color: #fff;

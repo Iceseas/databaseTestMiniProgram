@@ -1,12 +1,9 @@
-import handleItemID from '../../packaging/handleItemID.js';
-import getQuestion from '../../packaging/getquestion.js'
 import getSequenceQuestion from '../../packaging/getSequenceQuestion.js'
 import judgeRightOrError from '../../packaging/judgeRightOrError.js'
 import getCollectionSum from '../../packaging/getCollectionSum.js'
-import handleCleanitemClass from '../../packaging/handleCleanitemClass.js'
-import handleSwiperCurrentChange from '../../packaging/handleSwiperCurrentChange.js'
 import handleCorrectItemClass from '../../packaging/handleCorrectItemClass.js'
 import handleFailItemClass from '../../packaging/handleFailItemClass.js'
+import handleCleanItemClass from '../../packaging/handleCleanitemClass.js'
 
 const db = wx.cloud.database() //操作数据库
 let app = getApp();
@@ -26,8 +23,7 @@ Page({
     data: {
         detail_height: null,
         questions: [], //存放接收的题库
-        CurrentIndex: 0, //存放当前的swiper Index
-        swiperDuration: 0, //控制swiper切换动画
+        CurrentIndex: 0, //存放当前的Index
         questionSum: 0, //题目总数
         NowQuestionNum: 0, //现在的题目数
         SystemWindowHeight: 1000, //初始化swiper的高度
@@ -40,9 +36,8 @@ Page({
         isCollection: '',
         isdisabled: false,
         buttonBindTap: 'handleSelectItem',
-        isexplainsHidden: false,
-        isCorrectTipHidden: true,
-        isFailTipHidden: true
+        tab_slot_contorl: true,
+        tabControlTop: 1120
 
     },
     /**
@@ -59,20 +54,6 @@ Page({
         });
         //判断test的类型
         switch (app.globalData.TestType) {
-            case 'sequenceTest':
-                //得到随机测试的题
-                getQuestion(db, 'single_C1_models')
-                    .then(res => {
-                        pushGetlist(res.list)
-                    })
-                    .then(() => {
-                        that.setData({
-                            questions: app.globalData.getlist,
-                            questionSum: 100
-                        })
-                    })
-                wx.hideLoading()
-                break;
             case 'single_C1':
                 //得到顺序测试的题
                 getCollectionSum(db, 'single_C1_models')
@@ -99,6 +80,12 @@ Page({
                 wx.hideLoading();
                 break;
         }
+
+    },
+    onShow: function() {
+        this.setData({
+            detail_height: app.globalData.SystemWindowHeight
+        })
     },
     /**
      * 生命周期函数--监听页面卸载
@@ -109,13 +96,9 @@ Page({
         app.globalData.getlist = []
         app.globalData.answerArray = []
         app.globalData.CollectionArray = []
+
     },
-    onShow: function() {
-        this.setData({
-            detail_height: app.globalData.SystemWindowHeight
-        })
-        console.log(this.data.detail_height)
-    },
+
     /**
      * 用户点击右上角分享
      */
@@ -152,76 +135,6 @@ Page({
                 handleFailItemClass(e.currentTarget.id, this)
                 handleCorrectItemClass(RightAnswer, this)
             })
-            //控制swiper-item转换逻辑
-            //handleSwiperCurrentChange(this.data.CurrentIndex, this.data.questions.length - 1, this)
-
-    },
-    swiperCurrentChange(e) {
-        handleCleanitemClass(this, e);
-        let that = this
-        let DecideItemData = app.globalData.answerArray[e.detail.current]
-        let CollectionData = app.globalData.CollectionArray[e.detail.current]
-            //如果手动划swiper划到了目前渲染的最后一页，那么就开始请求数据
-        if (e.detail.current == this.data.questions.length - 1) {
-            wx.showLoading({
-                title: '加载中',
-                mask: true,
-            });
-            switch (app.globalData.TestType) {
-                case 'RandomTest':
-                    getQuestion(db, collectionName)
-                        .then(res => {
-                            //把新请求到的数据push到getlist中
-                            pushGetlist(res.list)
-                        })
-                        .then(() => {
-                            //再把新getlist赋值给questions，页面会相应的进行增加渲染
-                            that.setData({
-                                questions: app.globalData.getlist
-                            })
-                            wx.hideLoading();
-                        })
-                    break;
-                case 'sequenceTest':
-                    app.globalData.questionNum = app.globalData.questionNum + 5
-                    getSequenceQuestion(db, collectionName, _, app.globalData.questionNum)
-                        .then(res => {
-                            pushGetlist(res.data)
-                        })
-                        .then(() => {
-                            that.setData({
-                                questions: app.globalData.getlist
-                            })
-                            wx.hideLoading();
-                        })
-                    break;
-            }
-        }
-        //目前的swiper的index值就是目前的题号
-        this.setData({
-                NowQuestionNum: e.detail.current
-            })
-            //如果在这一页的Current对应app.globalData.CollectionArray的[current位]有数据，那么给收藏加样式
-        if (CollectionData) {
-            //如果收藏存在
-            this.setData({
-                isCollection: 'activeCollection'
-            })
-        } else {
-            this.setData({
-                isCollection: ''
-            })
-        }
-        if (DecideItemData) {
-            //如果用户答过这一题
-            if (DecideItemData.isCorrect == true) {
-                handleCorrectItemClass(DecideItemData.CurrentTargetID, this)
-            } else if (DecideItemData.isCorrect == false) {
-                handleFailItemClass(DecideItemData.CurrentTargetID, this)
-                handleCorrectItemClass(DecideItemData.RightItemID, this)
-            }
-        }
-
     },
     handleCollection(e) {
         wx.showToast({
@@ -239,6 +152,63 @@ Page({
                 })
 
             },
+        })
+    },
+    goToNextQuestion() {
+        if (this.data.NowQuestionNum == 4) {
+            wx.showToast({
+                title: '这已经是最后一道题了！',
+                icon: 'none',
+                duration: 500
+            })
+        } else {
+            this.setData({
+                CurrentIndex: this.data.CurrentIndex + 1,
+                NowQuestionNum: this.data.NowQuestionNum + 1
+            })
+            handleCleanItemClass(this)
+            this.handleRememberAnsweredItemClass(this.data.CurrentIndex)
+        }
+    },
+    goToLastQuestion() {
+        if (this.data.NowQuestionNum == 0) {
+            wx.showToast({
+                title: '这已经是第一道题了！',
+                icon: 'none',
+                duration: 500
+            })
+        } else {
+            this.setData({
+                CurrentIndex: this.data.CurrentIndex - 1,
+                NowQuestionNum: this.data.NowQuestionNum - 1
+            })
+            wx.nextTick(() => {
+                handleCleanItemClass(this)
+                this.handleRememberAnsweredItemClass(this.data.CurrentIndex)
+            })
+        }
+
+    },
+    handleRememberAnsweredItemClass(CurrentIndex) {
+        let DecideItemData = app.globalData.answerArray[CurrentIndex]
+        console.log(DecideItemData)
+        if (DecideItemData) {
+            if (DecideItemData.isCorrect == true) {
+                handleCorrectItemClass(DecideItemData.Answer, this)
+            } else if (DecideItemData.isCorrect == false) {
+                handleFailItemClass(DecideItemData.UserAnswer, this)
+                handleCorrectItemClass(DecideItemData.Answer, this)
+            }
+        }
+    },
+    onPageScroll: function(e) {
+        this.setData({
+            tabControlTop: 1120 + (e.scrollTop * 2)
+        })
+    },
+    openGradeTab() {
+        this.setData({
+            tab_slot_contorl: !this.data.tab_slot_contorl
         })
     }
 

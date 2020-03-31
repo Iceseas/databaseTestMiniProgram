@@ -17,10 +17,9 @@
 
 .question_title {
     font-size: 30rpx;
-    height: 640rpx;
+    height: auto;
     font-weight: 500;
     padding-left: 20rpx;
-    box-sizing: border-box;
     padding-top: 150rpx;
     color: #fff;
     background-image: linear-gradient(-225deg, #50A7C2 0%, #B7F8DB 100%);
@@ -28,6 +27,11 @@
     top: 0;
     z-index: 1;
     box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
+}
+
+.question_title_text {
+    padding-bottom: 140rpx;
+    display: block;
 }
 
 .question_image {
@@ -57,7 +61,8 @@
     padding-left: 40rpx;
     box-sizing: border-box;
     color: #636e72;
-    word-break: break-all
+    word-break: break-all;
+    font-size: 28rpx;
 }
 
 .Explanins_title::before {
@@ -94,6 +99,7 @@
     bottom: 20rpx;
     font-size: 24rpx;
     line-height: 60rpx;
+    color: #757575;
 }
 
 .question_title_next {
@@ -102,4 +108,76 @@
 
 .question_title_last {
     right: 240rpx;
+}
+
+.tab-slot-control {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2rpx solid #eee;
+    background: #fff;
+}
+
+.detail_tab_slot_control_left,
+.detail_tab_slot_control_mid,
+.detail_tab_slot_control_right {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 100rpx;
+    font-size: 20rpx;
+}
+
+.detail_tab_slot_control_left {
+    color: #2d3436;
+}
+
+.detail_tab_slot_control_mid {
+    display: flex;
+}
+
+.detail_tab_slot_control_mid_right {
+    flex-grow: 1;
+    color: #d63031;
+}
+
+.detail_tab_slot_control_mid_left {
+    flex-grow: 1;
+    color: #0984e3;
+}
+
+.detail_tab_slot_control_right {
+    color: #b2bec3;
+}
+
+.tab_slot_control_text {
+    display: inline-block;
+    padding-left: 15rpx;
+}
+
+.tab_slot_icon {
+    font-size: 24rpx;
+}
+
+.openGradeTab {
+    z-index: 99;
+    position: absolute;
+    right: 55rpx;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 100%;
+    line-height: 80rpx;
+    background: #fff;
+    color: #636e72;
+    box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
+    text-align: center;
+    font-size: 24rpx;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.3s;
+}
+
+.switch {
+    transform: rotateZ(-90deg);
 }

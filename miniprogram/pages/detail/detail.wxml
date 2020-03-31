@@ -1,30 +1,53 @@
-<view class="detai_body" style="height:{{detail_height}}rpx">
-  <text class="navigationText_title" style="z-index:2">答题</text>
+<text class="navigationText_title" style="z-index:2">答题</text>
+<view class="detail_body" style="height:{{detail_height}}px;">
    <view class="question_title ">
-     <text class="question_ID_text">第1道</text>
-       <text>以下关于数据的逻辑结构的叙述中，哪一条是不正确的？（）</text>
-       <button class="question_title_next">下一题</button>
-       <button class="question_title_last">上一题</button>
+     <text class="question_ID_text">第{{CurrentIndex+1}}道</text>
+       <text class="question_title_text">{{questions[CurrentIndex].Question}}</text>
+       <button class="question_title_next" bind:tap="goToNextQuestion">下一题</button>
+       <button class="question_title_last" bind:tap="goToLastQuestion">上一题</button>
    </view>
    <image wx:if="{{item.url}}" mode="aspectFit" class="question_image" src="{{item.url}}" />
    <view class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="handleSelectItem">
         <i class="iconfont icon-101 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构是数据间关系的描述</text>
+        <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item1}}</text>
     </view>
     <view class="user_center_menulist_item {{item2classControl}}" id="B" bind:tap="handleSelectItem">
         <i class="iconfont icon-201 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构抽象地反映数据元素间的逻辑关系</text>
+        <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item2}}</text>
     </view>
     <view class="user_center_menulist_item {{item3classControl}}" id="C" bind:tap="handleSelectItem">
         <i class="iconfont icon-301 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构具体地反映数据在计算机中的存储方式</text>
+        <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item3}}</text>
     </view>
     <view class="user_center_menulist_item {{item4classControl}}" id="D" bind:tap="handleSelectItem">
         <i class="iconfont icon-401 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title init_detai_text">数据的逻辑结构分为线性结构和非线性结构</text>
+        <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item4}}</text>
     </view>
      <view class="question_explains">
        <text class="Explanins_title" >题目解析</text>  
-       <text class="question_explains_text" >具体地反映数据在计算机中的存储方式</text>  
+       <text class="question_explains_text" >1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</text>  
    </view>
+   <button class="openGradeTab {{!tab_slot_contorl?'switch':''}}" bind:tap="openGradeTab" style="top:{{tabControlTop}}rpx;"><i class="iconfont icon-jiantou-copy"></i></button>
 </view>
+<view  hidden="{{tab_slot_contorl}}">
+    <tab-slot-control id="tab-slot-control" class="tab-slot-control">
+    <view class="detail_tab_slot_control_left {{isCollection}}" 
+          slot="tab_slot_control_left" 
+          bind:tap="handleCollection">
+      <i class="iconfont icon-shoucang tab_slot_icon"></i><text class="tab_slot_control_text">收藏</text>
+    </view>
+    <view class="detail_tab_slot_control_mid" slot="tab_slot_control_mid">
+    <view class="detail_tab_slot_control_mid_left">
+      <i class="iconfont icon-dui tab_slot_icon"></i><text class="tab_slot_control_text">正确</text>
+    </view>
+    <view class="detail_tab_slot_control_mid_right">
+      <i class="iconfont icon-cuo tab_slot_icon"></i><text class="tab_slot_control_text">错误</text>
+    </view>
+    </view>
+    <view class="detail_tab_slot_control_right" slot="tab_slot_control_right">
+    <i class="iconfont icon-tubiao1 tab_slot_icon"></i><text class="tab_slot_control_text">{{NowQuestionNum+1}}/{{questionSum}}</text>
+    </view>
+  </tab-slot-control>
+</view>
+  
+

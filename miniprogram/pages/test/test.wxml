@@ -1,4 +1,4 @@
-<view class="container_height" style="height:{{center_box_top}}rpx">
+<view class="container_height" style="height:{{center_box_top}}px">
 <text class="navigationText_title" style="z-index:2">测验</text>
 <view class="anime_circle1">
 </view>

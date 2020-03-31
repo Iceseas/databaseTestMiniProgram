@@ -30,11 +30,12 @@ App({
             wx.getSystemInfo({
                 success: (result) => {
                     console.log(result)
-                    this.globalData.SystemWindowHeight = (result.windowHeight) * 2
+                    this.globalData.SystemWindowHeight = (result.windowHeight)
                 },
                 fail: () => {},
                 complete: () => {}
             });
+
     },
     globalData: {
         userInfo: null,
