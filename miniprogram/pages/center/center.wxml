@@ -5,15 +5,18 @@
     <text class="user_center_major">{{user_major}}</text>
     <view class="user_center_tab">
         <view class="user_center_tab_item">
-            签到
+            <i class="iconfont icon-rili user_center_tab_item_iconinit"></i>
+            <text class="user_center_tab_item_text">签到</text>    
         </view>
         <text class="cut_off_line"></text> 
         <view class="user_center_tab_item">
-            记录
+            <i class="iconfont icon-jiludanzilishijilu user_center_tab_item_iconinit"></i>
+            <text class="user_center_tab_item_text">记录</text>   
         </view> 
         <text class="cut_off_line"></text> 
-        <view class="user_center_tab_item">
-            退出
+        <view class="user_center_tab_item" bind:tap="handleUserQuit">
+            <i class="iconfont icon-tuichu3 user_center_tab_item_iconinit"></i>
+           <text class="user_center_tab_item_text">退出</text>   
         </view>
     </view>
 </view>
@@ -23,14 +26,16 @@
         <text class="user_center_menulist_item_title">个人设置</text>
         <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
-    <view class="user_center_menulist_item">
+    <view class="user_center_menulist_item" bind:tap="shareToFriend">
          <i class="iconfont icon-fenxiang user_center_menulist_item_icon_init"></i>
          <text class="user_center_menulist_item_title">推荐给好友</text>
          <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
+    <button class="shareBtn" open-type="share">share</button>
     <view class="user_center_menulist_item">
         <i class="iconfont icon-guanyu user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title">关于</text>
         <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
+     <van-dialog  id="van-dialog" />
 </view>

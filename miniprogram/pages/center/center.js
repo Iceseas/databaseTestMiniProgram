@@ -1,6 +1,7 @@
 // pages/find/find.js
 let app = getApp();
-
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import relaunch from '../../packaging/wxRelaunch.js'
 import getUser from '../../packaging/getuser.js'
 const db = wx.cloud.database() //操作数据库
 Page({
@@ -12,33 +13,34 @@ Page({
         center_box_top: 0,
         user_major: '',
         user_name: '',
-        user_img: ''
+        user_img: '',
+        dialogshow: false
     },
     onLoad: function(options) {
-        console.log('options:', options)
         getUser(db, 'mini_users_models', options, 'get')
             .then(res => {
-                console.log('center', res)
+                // console.log('center', res)
+                if (res.error != 0) {
+                    this.hideTabBar()
+                    Dialog.confirm({
+                        title: '登录状态有误',
+                        message: '请重新登录！',
+                        showCancelButton: false
+                    }).then(() => {
+                        // on confirm
+                        relaunch('res')
+                    })
+                }
                 this.setData({
-                    user_img: res.data[0].img,
-                    user_name: res.data[0].name,
-                    user_major: res.data[0].major
+                    user_img: res.data.data[0].img,
+                    user_name: res.data.data[0].name,
+                    user_major: res.data.data[0].major
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log('err', err)
             })
-        wx.cloud.downloadFile({
-            fileID: options.fileID
-        }).then(res => {
-            // get temp file path
-            console.log(res.tempFilePath)
-            this.setData({
-                user_img: res.tempFilePath
-            })
-        }).catch(error => {
-            // handle error
-        })
+        console.log('nowOnlineUser', app.globalData.nowOnlineUser)
     },
     onShow: function() {
 
@@ -49,11 +51,39 @@ Page({
     onShareAppMessage: function() {
 
     },
-    onPageScroll: function(e) {
-        // 页面滚动时执行
-        console.log(e)
-        this.setData({
-            center_box_top: 0
+    handleUserQuit() {
+        Dialog.confirm({
+            title: '退出',
+            message: '您确定要退出吗？'
+        }).then(() => {
+            // on confirm
+            app.globalData.nowOnlineUser = '';
+            relaunch('res')
+            wx.showToast({
+                title: '您已退出！',
+                duration: 1000,
+                icon: 'success'
+            })
+        }).catch(() => {
+            // on cancel
+
+        });
+    },
+    shareToFriend() {
+        wx.showShareMenu({
+            withShareTicket: true
         })
     },
+    hideTabBar() {
+        wx.hideTabBar({
+            animation: false,
+            success: function(res) {
+                console.log(res)
+            }
+
+        })
+    },
+    onUnload: function() {
+        app.globalData.nowOnlineUser = ''
+    }
 })

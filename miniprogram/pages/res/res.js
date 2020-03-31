@@ -15,18 +15,18 @@ Page({
      */
     data: {
         user_image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3959542671,3569689889&fm=26&gp=0.jpg',
-        login: '注册',
-        navigationText_title: "注册",
-        ishaventip: '已有帐号？',
-        loginorretip: '登录',
-        isloginres: app.globalData.islogin,
+        login: '登录',
+        navigationText_title: "登录",
+        ishaventip: '没有帐号？',
+        loginorretip: '注册',
+        isloginres: null,
         userimg: false,
         fileList: [],
         isCountNameverify: false,
         isPasswordverify: false,
         isMajorverify: false,
         isNameverify: false,
-        isloginOrRes_button: 'res_user_count',
+        isloginOrRes_button: 'gotocenter',
         userMessage: {
             name: '',
             password: '',
@@ -35,6 +35,11 @@ Page({
             countName: ''
         },
         fileID: ''
+    },
+    onLoad: function(options) {
+        this.setData({
+            isloginres: app.globalData.islogin
+        })
     },
     onShow: function() {
         wx.getSystemInfo({
@@ -93,6 +98,7 @@ Page({
                     icon: 'success',
                     success: (result => {
                         wxRelaunch('center', { countName: this.data.userMessage.countName })
+                        app.globalData.nowOnlineUser = this.data.userMessage.countName
                     })
                 })
 

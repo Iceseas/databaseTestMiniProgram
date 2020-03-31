@@ -38,7 +38,7 @@ App({
     },
     globalData: {
         userInfo: null,
-        isgetSetting: false,
+        isgetSetting: true,
         questionType: 'c1',
         answerArray: [],
         questionAnswerArray: [],
@@ -46,7 +46,8 @@ App({
         TestType: 'single_C1',
         questionNum: 5,
         CollectionArray: [],
-        islogin: false,
-        SystemWindowHeight: null
+        islogin: true,
+        SystemWindowHeight: null,
+        nowOnlineUser: ''
     }
 })

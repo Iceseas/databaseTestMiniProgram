@@ -1,14 +1,14 @@
 {
     "pages": [
-
-
+        "pages/detail/detail",
+        "pages/center/center",
         "pages/res/res",
         "pages/find/find",
 
-        "pages/detail/detail",
 
-        "pages/test/test",
-        "pages/center/center"
+
+        "pages/test/test"
+
 
 
 
@@ -46,7 +46,8 @@
     "usingComponents": {
         "van-button": "/miniprogram_npm/@vant/weapp/button/index",
         "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
-        "van-icon": "/miniprogram_npm/@vant/weapp/icon/index"
+        "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+        "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
     },
     "sitemapLocation": "sitemap3.json"
 }

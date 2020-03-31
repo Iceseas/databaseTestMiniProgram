@@ -2,7 +2,9 @@
   <text class="navigationText_title" style="z-index:2">答题</text>
    <view class="question_title ">
      <text class="question_ID_text">第1道</text>
-       以下关于数据的逻辑结构的叙述中，哪一条是不正确的？（）
+       <text>以下关于数据的逻辑结构的叙述中，哪一条是不正确的？（）</text>
+       <button class="question_title_next">下一题</button>
+       <button class="question_title_last">上一题</button>
    </view>
    <image wx:if="{{item.url}}" mode="aspectFit" class="question_image" src="{{item.url}}" />
    <view class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="handleSelectItem">
