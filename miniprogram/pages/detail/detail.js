@@ -40,7 +40,9 @@ Page({
         tabControlTop: 1120,
         correctNum: 0,
         failNum: 0,
-        van_action_show: true
+        van_action_show: false,
+        questionGetNumMultiple: 1,
+        anction_e_id: null
     },
     /**
      * 生命周期函数--监听页面加载
@@ -67,8 +69,9 @@ Page({
                     .catch(err => {
                         console.log(err)
                     })
-                getSequenceQuestion(db, 'single_C1_models')
+                getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionGetNum)
                     .then(res => {
+                        console.log('res', res)
                         pushGetlist(res.data)
                     })
                     .then(() => {
@@ -163,7 +166,8 @@ Page({
         })
     },
     goToNextQuestion() {
-        if (this.data.NowQuestionNum == 4) {
+        this.isTimeToGetNewData(this.data.CurrentIndex + 1)
+        if (this.data.NowQuestionNum == this.data.questionSum - 1) {
             wx.showToast({
                 title: '这已经是最后一道题了！',
                 icon: 'none',
@@ -230,12 +234,47 @@ Page({
         })
     },
     selectActionQuestionNum(e) {
-        console.log(e)
-        this.setData({
-            NowQuestionNum: e.currentTarget.dataset.id,
-            CurrentIndex: e.currentTarget.dataset.id
-        })
+        let result = this.isTimeToGetNewData(e.currentTarget.dataset.id)
+        if (result) {
+            this.setData({
+                NowQuestionNum: e.currentTarget.dataset.id,
+                CurrentIndex: e.currentTarget.dataset.id
+            })
+        }
+
         this.close_van_action()
+    },
+    getOtherQuestion(Multiple) {
+        console.log('multiple', Multiple)
+        let that = this
+        getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionGetNum * (Multiple + 1))
+            .then(res => {
+                pushGetlist(res.data)
+                app.globalData.nowMaxQuestionSum = 20 * (Multiple + 1)
+            })
+            .then(() => {
+                that.setData({
+                    questions: app.globalData.getlist
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    isTimeToGetNewData(CurrentID) {
+        console.log('curID+1', CurrentID + 1)
+        console.log('app.globalData.nowMaxQuestionSum', app.globalData.nowMaxQuestionSum)
+        if ((CurrentID + 1) == app.globalData.nowMaxQuestionSum) {
+            this.getOtherQuestion(parseInt((CurrentID + 1) / 20))
+            return true
+        } else if ((CurrentID + 1) > app.globalData.nowMaxQuestionSum) {
+            wx.showToast({
+                title: '前20道题还没有答完哦！',
+                icon: 'none',
+                duration: 1000
+            })
+            return false
+        }
     }
 
 })

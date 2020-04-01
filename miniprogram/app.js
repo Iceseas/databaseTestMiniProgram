@@ -45,10 +45,11 @@ App({
         questionAnswerArray: [],
         getlist: [],
         TestType: 'single_C1',
-        questionNum: 5,
+        questionGetNum: 20,
         CollectionArray: [],
         islogin: true,
         SystemWindowHeight: null,
-        nowOnlineUser: ''
+        nowOnlineUser: '',
+        nowMaxQuestionSum: 20
     }
 })

@@ -1,9 +1,9 @@
 {
     "pages": [
-        "pages/detail/detail",
+
         "pages/res/res",
         "pages/find/find",
-
+        "pages/detail/detail",
         "pages/center/center",
 
 
