@@ -26,7 +26,7 @@ Page({
         CurrentIndex: 0, //存放当前的Index
         questionSum: 0, //题目总数
         NowQuestionNum: 0, //现在的题目数
-        SystemWindowHeight: 1000, //初始化swiper的高度
+        SystemWindowHeight: 1000, //初始化高度
         item1classControl: '',
         item2classControl: '',
         item3classControl: '',
@@ -37,8 +37,10 @@ Page({
         isdisabled: false,
         buttonBindTap: 'handleSelectItem',
         tab_slot_contorl: true,
-        tabControlTop: 1120
-
+        tabControlTop: 1120,
+        correctNum: 0,
+        failNum: 0,
+        van_action_show: true
     },
     /**
      * 生命周期函数--监听页面加载
@@ -65,7 +67,7 @@ Page({
                     .catch(err => {
                         console.log(err)
                     })
-                getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionNum)
+                getSequenceQuestion(db, 'single_C1_models')
                     .then(res => {
                         pushGetlist(res.data)
                     })
@@ -122,6 +124,9 @@ Page({
                     grade: 1,
                     isCorrect: true,
                 })
+                that.setData({
+                    correctNum: this.data.correctNum + 1
+                })
                 handleCorrectItemClass(e.currentTarget.id, this)
             })
             .catch(() => {
@@ -131,6 +136,9 @@ Page({
                     Answer: RightAnswer,
                     grade: 0,
                     isCorrect: false,
+                })
+                that.setData({
+                    failNum: this.data.failNum + 1
                 })
                 handleFailItemClass(e.currentTarget.id, this)
                 handleCorrectItemClass(RightAnswer, this)
@@ -210,6 +218,24 @@ Page({
         this.setData({
             tab_slot_contorl: !this.data.tab_slot_contorl
         })
+    },
+    open_van_action() {
+        this.setData({
+            van_action_show: !this.data.van_action_show
+        })
+    },
+    close_van_action() {
+        this.setData({
+            van_action_show: false
+        })
+    },
+    selectActionQuestionNum(e) {
+        console.log(e)
+        this.setData({
+            NowQuestionNum: e.currentTarget.dataset.id,
+            CurrentIndex: e.currentTarget.dataset.id
+        })
+        this.close_van_action()
     }
 
 })

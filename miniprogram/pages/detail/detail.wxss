@@ -181,3 +181,26 @@
 .switch {
     transform: rotateZ(-90deg);
 }
+
+.van_action_slot {
+    height: 800rpx;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 30rpx;
+}
+
+.van_action_slot_item {
+    width: 100rpx;
+    height: 100rpx;
+    text-align: center;
+    line-height: 90rpx;
+    box-sizing: border-box;
+    border: 2rpx solid #636e72;
+    margin: 20rpx;
+    border-radius: 100%;
+}
+
+.van_action_slot_item_selected {
+    border: 4rpx solid #409EFF;
+}

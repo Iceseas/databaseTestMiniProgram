@@ -28,6 +28,24 @@
        <text class="question_explains_text" >1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</text>  
    </view>
    <button class="openGradeTab {{!tab_slot_contorl?'switch':''}}" bind:tap="openGradeTab" style="top:{{tabControlTop}}rpx;"><i class="iconfont icon-jiantou-copy"></i></button>
+   <van-action-sheet 
+   show="{{ van_action_show }}" 
+   title="答题卡"
+   bind:close="close_van_action"
+   bind:click-overlay="close_van_action"
+   close-on-click-overlay="{{true}}">
+  <view class="van_action_slot">
+  <block wx:for="{{questionSum-0}}" wx:key="index">
+    <view data-id="{{index}}" 
+          bind:tap="selectActionQuestionNum" 
+          class="van_action_slot_item {{NowQuestionNum==index?'van_action_slot_item_selected':''}}" >
+      {{index+1}}
+    </view>
+      
+  </block>
+    
+  </view>
+</van-action-sheet>
 </view>
 <view  hidden="{{tab_slot_contorl}}">
     <tab-slot-control id="tab-slot-control" class="tab-slot-control">
@@ -37,14 +55,14 @@
       <i class="iconfont icon-shoucang tab_slot_icon"></i><text class="tab_slot_control_text">收藏</text>
     </view>
     <view class="detail_tab_slot_control_mid" slot="tab_slot_control_mid">
-    <view class="detail_tab_slot_control_mid_left">
-      <i class="iconfont icon-dui tab_slot_icon"></i><text class="tab_slot_control_text">正确</text>
+    <view class="detail_tab_slot_control_mid_left" bind:tap="open_van_action">
+      <i class="iconfont icon-dui tab_slot_icon"></i><text class="tab_slot_control_text">正确</text><text class="tab_slot_control_text">{{correctNum}}</text>
     </view>
-    <view class="detail_tab_slot_control_mid_right">
-      <i class="iconfont icon-cuo tab_slot_icon"></i><text class="tab_slot_control_text">错误</text>
+    <view class="detail_tab_slot_control_mid_right" bind:tap="open_van_action">
+      <i class="iconfont icon-cuo tab_slot_icon"></i><text class="tab_slot_control_text">错误</text><text class="tab_slot_control_text">{{failNum}}</text>
     </view>
     </view>
-    <view class="detail_tab_slot_control_right" slot="tab_slot_control_right">
+    <view class="detail_tab_slot_control_right" slot="tab_slot_control_right" bind:tap="open_van_action">
     <i class="iconfont icon-tubiao1 tab_slot_icon"></i><text class="tab_slot_control_text">{{NowQuestionNum+1}}/{{questionSum}}</text>
     </view>
   </tab-slot-control>
