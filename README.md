@@ -12,8 +12,5 @@
 
 ## 界面
 
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/QQ%E6%88%AA%E5%9B%BE20200331111553.jpg)
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/QQ%E6%88%AA%E5%9B%BE20200331120617.jpg)
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/QQ%E6%88%AA%E5%9B%BE20200331115209.jpg)
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/QQ%E6%88%AA%E5%9B%BE20200331115220.jpg)
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/QQ%E6%88%AA%E5%9B%BE20200331115952.jpg)
+![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/initpintu_%E5%89%AF%E6%9C%AC4.png)
+
