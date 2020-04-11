@@ -19,7 +19,7 @@ Page({
     onLoad: function(options) {
         getUser(db, 'mini_users_models', options, 'get')
             .then(res => {
-                // console.log('center', res)
+                console.log('center', res)
                 if (res.error != 0) {
                     this.hideTabBar()
                     Dialog.confirm({
@@ -30,20 +30,33 @@ Page({
                         // on confirm
                         relaunch('res')
                     })
+                } else {
+                    this.showTabBar()
+                    app.globalData.nowOnlineUser = res.data.data[0].countName
+                    app.globalData.nowOnlineUserClass = res.data.data[0].major
+                    app.globalData.nowOnlineUserID = res.data.data[0].stuID
+                    app.globalData.nowOnlineUserName = res.data.data[0].name
+                    this.setData({
+                        user_img: res.data.data[0].img,
+                        user_name: res.data.data[0].name,
+                        user_major: res.data.data[0].major
+                    })
+
                 }
-                this.setData({
-                    user_img: res.data.data[0].img,
-                    user_name: res.data.data[0].name,
-                    user_major: res.data.data[0].major
-                })
+
+
             })
             .catch(err => {
                 console.log('err', err)
             })
-        console.log('nowOnlineUser', app.globalData.nowOnlineUser)
     },
     onShow: function() {
-
+        wx.showTabBar({
+            animation: false,
+            success: function(res) {
+                console.log(res)
+            }
+        })
     },
     /**
      * 用户点击右上角分享
@@ -81,6 +94,14 @@ Page({
                 console.log(res)
             }
 
+        })
+    },
+    showTabBar() {
+        wx.showTabBar({
+            animation: false,
+            success: function(res) {
+                console.log(res)
+            }
         })
     },
     onUnload: function() {

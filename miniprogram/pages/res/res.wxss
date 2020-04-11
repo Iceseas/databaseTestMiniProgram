@@ -7,8 +7,8 @@
 }
 
 .user_image {
-    width: 160rpx;
-    height: 160rpx;
+    width: 140rpx;
+    height: 140rpx;
     border-radius: 100%;
     box-sizing: border-box;
     border: 6rpx solid #fff;
@@ -40,14 +40,14 @@
 .user_name,
 .user_password,
 .user_major {
-    height: 90rpx;
+    height: 70rpx;
+    line-height: 70rpx;
     margin-left: 90rpx;
     margin-right: 90rpx;
     background: #fff;
     margin-top: 10rpx;
     box-shadow: -5rpx 5rpx 15rpx #74ebd5;
     position: relative;
-    box-sizing: border-box;
 }
 
 .user_name_title,
@@ -64,8 +64,8 @@
 .user_button {
     margin-top: 70rpx;
     width: 580rpx;
-    height: 90rpx;
-    line-height: 90rpx;
+    height: 70rpx;
+    line-height: 70rpx;
     border-radius: 20rpx;
     box-shadow: -5rpx 5rpx 15rpx #74ebd5;
     background: #fff;
@@ -100,13 +100,17 @@
 
 .user_reslogin_icon_init {
     color: #636e72;
-    font-size: 40rpx;
+    font-size: 30rpx;
     left: 20rpx;
+    display: inline-block;
 }
 
 .user_reslogin_input {
     color: #636e72;
+    font-size: 32rpx;
     height: 80%;
     left: 80rpx;
+    line-height: 100rpx;
+    padding-left: 10rpx;
     width: 80%;
 }

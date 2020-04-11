@@ -1,3 +1,27 @@
-<van-button type="primary">按钮</van-button>
+<view class="Subjective_problems_submit">
+    <text class="navigationText_title" style="z-index:2">主观题提交</text>
+    <van-field
+    value="{{ Subjective_problems.problem_Title }}"
+    required
+    clearable
+    label="作业名"
+    icon="question-o"
+    bind:change="getTitle"
+    placeholder="请输入作业名"
+    bind:click-icon="onClickIcon"
+  />
+    <button class="add_new_Subjective_problems_btn Subjective_menu_btn" bind:tap="submit_Subjective_Problems">提交</button>
+    <button class="add_new_Subjective_problems_btn Subjective_menu_btn" bind:tap="handleAddAnswer">添加作答</button>
+</view>
+  
+<view class="Subjective_problems_body">
+    <block wx:for="{{Subjective_problems.problemsAnswer}}" wx:key="index">
+        <button class="add_new_Subjective_problems_btn">添加图片</button>
+        <view class="Subjective_problems_answer_body">
+            <textarea   class="add_new_Subjective_problems_textarea" data-name="value" data-id="{{index}}" bindinput="getInputValue" placeholder="请在此作答" auto-height="{{true}}" maxlength="-1" ></textarea>
+        </view>
+    </block>
+
+</view>
   
   

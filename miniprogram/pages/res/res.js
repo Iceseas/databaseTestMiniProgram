@@ -7,6 +7,7 @@ let password = 'userMessage.password'
 let major = 'userMessage.major'
 let name = 'userMessage.name'
 let image = 'userMessage.img'
+let stuID = 'userMessage.stuID'
 let app = getApp();
 Page({
 
@@ -26,13 +27,15 @@ Page({
         isPasswordverify: false,
         isMajorverify: false,
         isNameverify: false,
+        isStuIDverify: false,
         isloginOrRes_button: 'gotocenter',
         userMessage: {
             name: '',
             password: '',
             img: '',
             major: '',
-            countName: ''
+            countName: '',
+            stuID: ''
         },
         fileID: ''
     },
@@ -98,7 +101,6 @@ Page({
                     icon: 'success',
                     success: (result => {
                         wxRelaunch('center', { countName: this.data.userMessage.countName })
-                        app.globalData.nowOnlineUser = this.data.userMessage.countName
                     })
                 })
 
@@ -130,13 +132,14 @@ Page({
 
     },
     res_user_count() {
-        if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify) {
+        if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify && this.data.isStuIDverify) {
             this.uploaderToCloudimage()
                 .then((res) => {
                     console.log('consoleUser', this.data.userMessage)
                     console.log('consoleUser', res)
                     resUser('mini_users_models', this.data.userMessage)
                         .then(res => {
+                            console.log('res', res)
                             if (res.errMsg == 'collection.add:ok') {
                                 wx.showToast({
                                     title: '注册成功！',
@@ -144,6 +147,12 @@ Page({
                                     icon: 'success'
                                 })
                                 this.swichisloginres()
+                            } else {
+                                wx.showToast({
+                                    title: err.msg,
+                                    duration: 2000,
+                                    icon: 'none'
+                                })
                             }
                         })
                         .catch(err => {
@@ -178,6 +187,14 @@ Page({
             this.setData({
                 [password]: e.detail.value,
                 isPasswordverify: true
+            })
+        }
+    },
+    getStuID(e) {
+        if (e.detail.value != '') {
+            this.setData({
+                [stuID]: e.detail.value,
+                isStuIDverify: true
             })
         }
     },

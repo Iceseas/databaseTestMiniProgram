@@ -1,8 +1,9 @@
 {
     "pages": [
-
         "pages/res/res",
         "pages/find/find",
+
+
         "pages/detail/detail",
         "pages/center/center",
 
@@ -48,7 +49,8 @@
         "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
         "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
         "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
-        "van-action-sheet": "/miniprogram_npm/@vant/weapp/action-sheet/index"
+        "van-action-sheet": "/miniprogram_npm/@vant/weapp/action-sheet/index",
+        "van-field": "/miniprogram_npm/@vant/weapp/field/index"
     },
     "sitemapLocation": "sitemap3.json"
 }

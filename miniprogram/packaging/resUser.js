@@ -16,6 +16,9 @@ export default function resUser(collectionName, data) {
                         reject(err)
                     })
             })
+            .catch(err => {
+                reject(err)
+            })
 
     })
 

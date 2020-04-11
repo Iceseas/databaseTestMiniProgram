@@ -50,6 +50,9 @@ App({
         islogin: true,
         SystemWindowHeight: null,
         nowOnlineUser: '',
+        nowOnlineUserClass: '',
+        nowOnlineUserID: '',
+        nowOnlineUserName: '',
         nowMaxQuestionSum: 20
     }
 })

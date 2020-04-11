@@ -22,7 +22,12 @@
     <text wx:if="{{!isloginres}}" class="user_major_title">专业:</text>
     <view wx:if="{{!isloginres}}" class="user_major input_box_init">
         <i class="iconfont icon-zhuanye- user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getMajor" type="text" placeholder="请输入专业" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" bindinput="getMajor" type="text" placeholder="请输入专业及班级" placeholder-class="palceholder_init" />
+    </view>
+    <text wx:if="{{!isloginres}}" class="user_major_title">学号:</text>
+    <view wx:if="{{!isloginres}}" class="user_major input_box_init">
+        <i class="iconfont icon-zhuanye- user_reslogin_icon_init"></i>
+        <input class="user_reslogin_input" bindinput="getStuID" type="text" placeholder="请输入学号" placeholder-class="palceholder_init" />
     </view>
     <text wx:if="{{!isloginres}}" class="user_major_title">姓名:</text>
     <view wx:if="{{!isloginres}}" class="user_major input_box_init">

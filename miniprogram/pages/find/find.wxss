@@ -1,0 +1,67 @@
+.Subjective_problems_body {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: scroll;
+    padding-top: 420rpx;
+}
+
+page {
+    background: #13547a;
+}
+
+.Subjective_problems_answer_body {
+    height: 400rpx;
+    margin: 20rpx;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    overflow: hidden;
+    background: #eee;
+}
+
+.add_new_Subjective_problems_textarea {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 20rpx;
+    color: #636e72;
+    box-sizing: border-box;
+    font-size: 24rpx;
+    min-height: 400rpx;
+}
+
+.add_new_Subjective_problems_btn {
+    display: inline-block;
+    margin-left: 20rpx;
+    width: 140rpx;
+    height: 60rpx;
+    font-size: 20rpx;
+    background: #fff;
+    padding: 0;
+    border: 2rpx solid #eee;
+    border-radius: 20rpx;
+    line-height: 60rpx;
+    text-align: center;
+    box-sizing: border-box;
+    color: #636e72;
+}
+
+.Subjective_problems_submit {
+    height: 400rpx;
+    width: 100%;
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    position: fixed;
+    top: 0rpx;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+    z-index: 99;
+}
+
+.Subjective_menu_btn {
+    position: absolute;
+    right: 20rpx;
+    bottom: 20rpx;
+}
+
+.Subjective_menu_btn:nth-of-type(2) {
+    right: 195rpx;
+}
