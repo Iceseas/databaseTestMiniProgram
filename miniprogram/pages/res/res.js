@@ -1,6 +1,11 @@
 import wxRelaunch from '../../packaging/wxRelaunch'
 import resUser from '../../packaging/resUser.js'
 import verifyUserCount from '../../packaging/verifyUserCount.js'
+import showToast from '../../packaging/showToast.js'
+
+
+
+
 const db = wx.cloud.database() //操作数据库
 let countName = 'userMessage.countName'
 let password = 'userMessage.password'
@@ -94,24 +99,19 @@ Page({
     gotocenter() {
         verifyUserCount(db, 'mini_users_models', { countName: this.data.userMessage.countName, password: this.data.userMessage.password })
             .then(res => {
-                console.log(res)
-                wx.showToast({
-                    title: '登录成功',
-                    duration: 1000,
-                    icon: 'success',
-                    success: (result => {
-                        wxRelaunch('center', { countName: this.data.userMessage.countName })
-                    })
-                })
-
+                console.log('res.jsres', res)
+                if (res.error == 0) {
+                    showToast(res.msg, 1000, 'success')
+                    wxRelaunch('center', { countName: this.data.userMessage.countName })
+                }
             })
             .catch(err => {
-                console.log(err)
-                wx.showToast({
-                    title: '帐号或密码错误，请重试！',
-                    duration: 2000,
-                    icon: 'none'
-                })
+                console.log('reserr', err)
+                if (err.error) {
+                    showToast(err.msg, 1000, 'none')
+                } else {
+                    showToast(err.res.userexist, 1000, 'none')
+                }
             })
 
     },

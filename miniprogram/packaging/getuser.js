@@ -31,7 +31,7 @@ export default function getUser(db, collectionName, data, how) {
             })
         } else {
             resolve({
-                userexist: '您未登录，请重新登录！',
+                userexist: '请输入用户名！',
                 error: -3
             })
         }

@@ -21,15 +21,15 @@ Page({
             .then(res => {
                 console.log('center', res)
                 if (res.error != 0) {
-                    this.hideTabBar()
-                    Dialog.confirm({
-                        title: '登录状态有误',
-                        message: '请重新登录！',
-                        showCancelButton: false
-                    }).then(() => {
-                        // on confirm
-                        relaunch('res')
-                    })
+                    // this.hideTabBar()
+                    // Dialog.confirm({
+                    //     title: '登录状态有误',
+                    //     message: '请重新登录！',
+                    //     showCancelButton: false
+                    // }).then(() => {
+                    //     // on confirm
+                    //     relaunch('res')
+                    // })
                 } else {
                     this.showTabBar()
                     app.globalData.nowOnlineUser = res.data.data[0].countName
@@ -95,6 +95,9 @@ Page({
             }
 
         })
+    },
+    goToSubjectiveGrade() {
+        relaunch('subjectivegrade')
     },
     showTabBar() {
         wx.showTabBar({

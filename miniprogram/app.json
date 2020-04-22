@@ -1,11 +1,11 @@
 {
     "pages": [
+
         "pages/res/res",
         "pages/find/find",
-
+        "pages/center/center",
 
         "pages/detail/detail",
-        "pages/center/center",
 
 
         "pages/test/test"

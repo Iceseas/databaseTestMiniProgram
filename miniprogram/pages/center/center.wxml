@@ -21,9 +21,9 @@
     </view>
 </view>
 <view class="user_center_menulist">
-    <view class="user_center_menulist_item">
+    <view class="user_center_menulist_item" bind:tap="goToSubjectiveGrade">
         <i class="iconfont icon-shezhi1 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title">个人设置</text>
+        <text class="user_center_menulist_item_title">查看综合题成绩</text>
         <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
     <view class="user_center_menulist_item" bind:tap="shareToFriend">

@@ -4,18 +4,27 @@ export default function verifyUserCount(db, collectionName, data) {
     return new Promise((resolve, reject) => {
         getUser(db, collectionName, data, 'get')
             .then(res => {
-                console.log('verifylogin', res)
-                if (res.data.data[0].password == data.password) {
-                    resolve({
-                        msg: 'verify ok',
-                        error: 0
-                    })
+                if (res.error == 0) {
+                    if (res.data.data[0].password == data.password) {
+                        resolve({
+                            msg: '登录成功！',
+                            error: 0
+                        })
+                    } else {
+                        reject({
+                            msg: '密码或用户名错误',
+                            error: -1
+                        })
+                    }
                 } else {
                     reject({
-                        msg: 'verify not ok',
-                        error: '-1'
+                        res
                     })
                 }
+
+            })
+            .catch(err => {
+                console.log('err', err)
             })
     })
 

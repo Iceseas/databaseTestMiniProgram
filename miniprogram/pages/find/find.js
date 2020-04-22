@@ -57,8 +57,7 @@ Page({
     },
     handleAddAnswer() {
         let newData = {
-            value: '',
-            key: Date().now
+            value: ''
         }
         let arrName = 'Subjective_problems.problemsAnswer'
         this.data.Subjective_problems.problemsAnswer.push(newData)
