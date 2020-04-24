@@ -4,15 +4,21 @@ let app = getApp();
 const _ = db.command; //操作数据库
 Page({
     data: {
-
+        activeNames: ['1'],
+        gradelist: []
     },
     //options(Object)
     onLoad: function(options) {
+        let that = this
         db.collection('subjective_modified_models').where({
                 stuID: app.globalData.nowOnlineUserID
             }).get()
             .then(res => {
                 console.log(res)
+                that.setData({
+                    gradelist: res.data
+                })
+                console.log(this.data.gradelist)
             })
     },
     onReady: function() {
@@ -29,6 +35,11 @@ Page({
     },
     onPullDownRefresh: function() {
 
+    },
+    onChange(event) {
+        this.setData({
+            activeNames: event.detail
+        });
     },
     onReachBottom: function() {
 

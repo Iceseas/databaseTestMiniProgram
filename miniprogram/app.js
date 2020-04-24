@@ -49,10 +49,10 @@ App({
         CollectionArray: [],
         islogin: true,
         SystemWindowHeight: null,
-        nowOnlineUser: '',
-        nowOnlineUserClass: '',
-        nowOnlineUserID: '',
-        nowOnlineUserName: '',
+        nowOnlineUser: 'syhloveyyr',
+        nowOnlineUserClass: '软件工程3班',
+        nowOnlineUserID: '2220150608',
+        nowOnlineUserName: '宋宇航',
         nowMaxQuestionSum: 20
     }
 })

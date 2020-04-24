@@ -1,0 +1,36 @@
+page {
+    background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+}
+
+.subjectivegrade_body {
+    margin-top: 250rpx;
+    width: 100%;
+}
+
+.subjective_list_item {
+    height: 120rpx;
+    margin-top: 40rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    background: #fff;
+    border-radius: 20rpx;
+    line-height: 120rpx;
+    padding-left: 40rpx;
+    box-sizing: border-box;
+    display: flex;
+    color: #636e72;
+}
+
+.gradeNum {
+    font-size: 32rpx;
+    color: red;
+    display: inline-block;
+    margin: 0 20rpx;
+    font-weight: 600;
+}
+
+.problemAnswerTitle {
+    font-size: 24rpx;
+    color: #636e72;
+    font-weight: 600;
+}
