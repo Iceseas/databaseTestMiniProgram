@@ -42,7 +42,9 @@ Page({
         failNum: 0,
         van_action_show: false,
         questionGetNumMultiple: 1,
-        anction_e_id: null
+        anction_e_id: null,
+        value: 1,
+        isChecked: false
     },
     /**
      * 生命周期函数--监听页面加载
@@ -103,16 +105,39 @@ Page({
         app.globalData.CollectionArray = []
 
     },
-
+    onChange(event) {
+        this.setData({
+            value: event.detail
+        });
+    },
     /**
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
 
     },
+    handledifficultStart(difficulty) {
+        switch (difficulty) {
+            case '简单':
+                return 1;
+            case '一般':
+                return 2;
+            case '中等':
+                return 3;
+            case '较难':
+                return 4;
+            case '困难':
+                return 5;
+        }
+    },
     handleSelectItem(e) {
         let that = this;
-        //用于控制每次请求的题数
+        let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
+        this.setData({
+                isChecked: true,
+                value: newValue
+            })
+            //用于控制每次请求的题数
         let RightAnswer = this.data.questions[this.data.CurrentIndex].Answer //正确答案
         let UserAnswer = e.currentTarget.id //用户点击的答案
         app.globalData.questionAnswerArray.push(RightAnswer) //存放正确答案数组
@@ -126,6 +151,7 @@ Page({
                     Answer: RightAnswer,
                     grade: 1,
                     isCorrect: true,
+                    difficulty: newValue
                 })
                 that.setData({
                     correctNum: this.data.correctNum + 1
@@ -139,6 +165,7 @@ Page({
                     Answer: RightAnswer,
                     grade: 0,
                     isCorrect: false,
+                    difficulty: newValue
                 })
                 that.setData({
                     failNum: this.data.failNum + 1
@@ -166,6 +193,16 @@ Page({
         })
     },
     goToNextQuestion() {
+        if (app.globalData.answerArray[this.data.CurrentIndex + 1]) {
+            this.setData({
+                isChecked: false,
+                value: app.globalData.answerArray[this.data.CurrentIndex + 1].difficulty
+            })
+        } else {
+            this.setData({
+                isChecked: false
+            })
+        }
         this.isTimeToGetNewData(this.data.CurrentIndex + 1)
         if (this.data.NowQuestionNum == this.data.questionSum - 1) {
             wx.showToast({
@@ -183,6 +220,16 @@ Page({
         }
     },
     goToLastQuestion() {
+        if (app.globalData.answerArray[this.data.CurrentIndex - 1]) {
+            this.setData({
+                isChecked: false,
+                value: app.globalData.answerArray[this.data.CurrentIndex - 1].difficulty
+            })
+        } else {
+            this.setData({
+                isChecked: false
+            })
+        }
         if (this.data.NowQuestionNum == 0) {
             wx.showToast({
                 title: '这已经是第一道题了！',
@@ -205,6 +252,9 @@ Page({
         let DecideItemData = app.globalData.answerArray[CurrentIndex]
         console.log(DecideItemData)
         if (DecideItemData) {
+            this.setData({
+                isChecked: true
+            })
             if (DecideItemData.isCorrect == true) {
                 handleCorrectItemClass(DecideItemData.Answer, this)
             } else if (DecideItemData.isCorrect == false) {

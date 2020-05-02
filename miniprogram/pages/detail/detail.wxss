@@ -110,6 +110,12 @@
     right: 240rpx;
 }
 
+.question_difficuty {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #ffd21e;
+}
+
 .tab-slot-control {
     position: fixed;
     bottom: 0;

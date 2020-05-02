@@ -23,9 +23,15 @@
         <i class="iconfont icon-401 user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item4}}</text>
     </view>
-     <view class="question_explains">
-       <text class="Explanins_title" >题目解析</text>  
-       <text class="question_explains_text" >1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</text>  
+     <view class="question_explains" wx:if="{{isChecked}}">
+       <text class="Explanins_title" >题目解析</text> 
+       <view class="question_explains_text">
+       难度：<van-rate readonly value="{{ value }}" bind:change="onChange" size="14" />
+         <text>
+         {{questions[CurrentIndex].Answer}}</text> 
+       </view>
+          
+        
    </view>
    <button class="openGradeTab {{!tab_slot_contorl?'switch':''}}" bind:tap="openGradeTab" style="top:{{tabControlTop}}rpx;"><i class="iconfont icon-jiantou-copy"></i></button>
    <van-action-sheet 
