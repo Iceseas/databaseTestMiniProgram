@@ -27,8 +27,12 @@
        <text class="Explanins_title" >题目解析</text> 
        <view class="question_explains_text">
        难度：<van-rate readonly value="{{ value }}" bind:change="onChange" size="14" />
-         <text>
-         {{questions[CurrentIndex].Answer}}</text> 
+      <text>
+      章节：{{questions[CurrentIndex].Chapter}}</text> 
+      <text>
+      知识点：{{questions[CurrentIndex].KN}}</text> 
+      <text>
+      答案：{{questions[CurrentIndex].Answer}}</text> 
        </view>
           
         

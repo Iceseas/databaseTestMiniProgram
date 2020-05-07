@@ -14,12 +14,12 @@
         <view class="test_tab_item_select" bind:tap="godetail">
             <i class="iconfont icon-suiji test_tab_item_icon"></i>
             <text class="test_tab_item_text yahei-font">
-                随机测试
+                模拟考试
             </text>
         </view>
     </view>
     <view class="test_tab_item">
-        <view class="test_tab_item_select" bind:tap="godetail">
+        <view class="test_tab_item_select" bind:tap="checkspecialItem">
             <i class="iconfont icon-zhuanyezhishijineng test_tab_item_icon" style="color:#badc58"></i>
             <text class="test_tab_item_text yahei-font">
                 专项练习
@@ -44,4 +44,12 @@
     </view> 
 </view>
 </view>
+<van-action-sheet
+  show="{{ show }}"
+  actions="{{ actions }}"
+  bind:close="onClose"
+  bind:select="onSelect"
+  cancel-text="取消"
+  description="您可以选择自己想要练习的题型进行专项训练"
+/>
   

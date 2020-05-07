@@ -99,6 +99,14 @@ button {
     height: auto;
 }
 
+.cut_off_line {
+    width: 2rpx;
+    height: 40rpx;
+    margin-top: 50rpx;
+    display: inline-block;
+    background: #8e99cc;
+}
+
 .user_center_menulist_item {
     height: 120rpx;
     margin-top: 40rpx;
@@ -112,6 +120,8 @@ button {
     box-sizing: border-box;
     display: flex;
     color: #636e72;
+    overflow: hidden;
+    padding: 10rpx;
 }
 
 .user_center_menulist_item:nth-of-type(4) {
@@ -119,8 +129,9 @@ button {
 }
 
 .user_center_menulist_item_icon_init {
-    font-size: 40rpx;
-    width: 60rpx;
+    width: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
 }
 
 .user_center_menulist_item_title {

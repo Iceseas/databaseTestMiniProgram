@@ -1,5 +1,13 @@
 <text class="navigationText_title" style="z-index:2">查看成绩</text>
 <view class="subjectivegrade_body">
+<van-nav-bar
+  title="标题"
+  left-text="返回"
+  right-text="按钮"
+  left-arrow
+  bind:click-left="onClickLeft"
+  bind:click-right="onClickRight"
+/>
 <van-collapse value="{{ activeNames }}" bind:change="onChange">
     <van-collapse-item title="第一次作业" name="1" icon="label-o">
     成绩：<text class="gradeNum">{{gradelist[0].finagrade}}</text>分

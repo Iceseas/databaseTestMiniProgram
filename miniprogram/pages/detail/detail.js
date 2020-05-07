@@ -250,7 +250,7 @@ Page({
     },
     handleRememberAnsweredItemClass(CurrentIndex) {
         let DecideItemData = app.globalData.answerArray[CurrentIndex]
-        console.log(DecideItemData)
+            //console.log(DecideItemData)
         if (DecideItemData) {
             this.setData({
                 isChecked: true
@@ -295,7 +295,7 @@ Page({
         this.close_van_action()
     },
     getOtherQuestion(Multiple) {
-        console.log('multiple', Multiple)
+        //console.log('multiple', Multiple)
         let that = this
         getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionGetNum * (Multiple + 1))
             .then(res => {
@@ -312,8 +312,8 @@ Page({
             })
     },
     isTimeToGetNewData(CurrentID) {
-        console.log('curID+1', CurrentID + 1)
-        console.log('app.globalData.nowMaxQuestionSum', app.globalData.nowMaxQuestionSum)
+        //console.log('curID+1', CurrentID + 1)
+        //console.log('app.globalData.nowMaxQuestionSum', app.globalData.nowMaxQuestionSum)
         if ((CurrentID + 1) == app.globalData.nowMaxQuestionSum) {
             this.getOtherQuestion(parseInt((CurrentID + 1) / 20))
             return true

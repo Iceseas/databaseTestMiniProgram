@@ -61,14 +61,6 @@
     box-sizing: border-box;
 }
 
-.cut_off_line {
-    width: 2rpx;
-    height: 40rpx;
-    margin-top: 50rpx;
-    display: inline-block;
-    background: #8e99cc;
-}
-
 .user_center_tab_item_iconinit {
     display: block;
     font-size: 34rpx;

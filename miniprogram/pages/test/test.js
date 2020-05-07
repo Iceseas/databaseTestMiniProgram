@@ -7,7 +7,21 @@ Page({
      */
     data: {
         center_box_top: null,
-        tab_width: null
+        tab_width: null,
+        show: false,
+        actions: [{
+                name: '单项选择'
+            },
+            {
+                name: '判断题'
+            },
+            {
+                name: '填空题',
+            },
+            {
+                name: '应用题',
+            }
+        ]
     },
 
     /**
@@ -49,5 +63,17 @@ Page({
             },
             complete: () => {}
         });
+    },
+    checkspecialItem() {
+        this.setData({
+            show: true
+        })
+    },
+    onClose() {
+        this.setData({ show: false });
+    },
+
+    onSelect(event) {
+        console.log(event.detail);
     }
 })

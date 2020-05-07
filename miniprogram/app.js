@@ -43,6 +43,8 @@ App({
         questionType: 'c1',
         answerArray: [],
         questionAnswerArray: [],
+        vacancyArr: [],
+        notevacancyArr: [],
         getlist: [],
         TestType: 'single_C1',
         questionGetNum: 20,

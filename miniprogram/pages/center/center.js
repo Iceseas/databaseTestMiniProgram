@@ -109,5 +109,6 @@ Page({
     },
     onUnload: function() {
         app.globalData.nowOnlineUser = ''
-    }
+    },
+
 })
