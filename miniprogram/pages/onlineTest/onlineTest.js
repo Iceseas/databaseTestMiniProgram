@@ -1,5 +1,5 @@
 import getpaper from '../../packaging/getOnlineTestPaper.js'
-
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 const db = wx.cloud.database() //操作数据库
 let app = getApp();
 Page({
@@ -19,7 +19,7 @@ Page({
         van_action_show: false,
         questionGetNumMultiple: 1,
         anction_e_id: null,
-        CountDownTime: '02:00:00',
+        countDown: 2 * 60 * 60 * 1000,
         nowSelectItem: '',
         Item1: 'A',
         Item2: 'B',
@@ -30,7 +30,7 @@ Page({
         Space3Answer: '',
         Space4Answer: '',
         isinputdone: false,
-        isInputdisabled: true,
+        Inputdisabled: true,
         isNextLastBtndisabled: false,
         isalterBtnhidden: true,
         alterBtnText: '填写'
@@ -40,17 +40,41 @@ Page({
      */
     onLoad: function(options) {
         let that = this
+        wx.showLoading({
+            title: '加载中',
+        })
         getpaper(db)
             .then(res => {
                 console.log(res)
                 for (let i = 0; i < res.length; i++) {
                     for (let j = 0; j < res[i].length; j++) {
+                        let noteArr = []
                         this.data.questions.push(res[i][j])
+                        if (res[i][j].Answer) {
+                            app.globalData.questionAnswerArray.push(res[i][j].Answer)
+                        } else if (res[i][j].Issequence) {
+                            noteArr.push(res[i][j].Issequence)
+                            if (res[i][j].Space1Answer) {
+                                noteArr.push(res[i][j].Space1Answer)
+                            }
+                            if (res[i][j].Space2Answer) {
+                                noteArr.push(res[i][j].Space2Answer)
+                            }
+                            if (res[i][j].Space3Answer) {
+                                noteArr.push(res[i][j].Space3Answer)
+                            }
+                            if (res[i][j].Space4Answer) {
+                                noteArr.push(res[i][j].Space4Answer)
+                            }
+                            app.globalData.questionAnswerArray.push(noteArr)
+                        }
                     }
                 }
                 that.setData({
                     questions: this.data.questions
                 })
+                wx.hideLoading()
+                console.log(app.globalData.questionAnswerArray)
                 console.log(this.data.questions)
             })
 
@@ -65,10 +89,7 @@ Page({
      */
     onUnload: function() {
         //将虚拟题库list清空
-        app.globalData.getlist = []
         app.globalData.answerArray = []
-        app.globalData.CollectionArray = []
-
     },
     onChange(event) {
         this.setData({
@@ -109,7 +130,7 @@ Page({
             } else {
                 app.globalData.vacancyArr = app.globalData.answerArray[this.data.CurrentIndex + 1]
                 this.setData({
-                    isInputdisabled: true,
+                    Inputdisabled: true,
                     Space1Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][0],
                     Space2Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][1],
                     Space3Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][2],
@@ -122,8 +143,7 @@ Page({
                 Space1Answer: '',
                 Space2Answer: '',
                 Space3Answer: '',
-                Space4Answer: '',
-                isInputdisabled: false
+                Space4Answer: ''
             })
         }
         if (this.data.isinputdone) {
@@ -165,7 +185,7 @@ Page({
             } else {
                 app.globalData.vacancyArr = app.globalData.answerArray[this.data.CurrentIndex - 1]
                 this.setData({
-                    isInputdisabled: true,
+                    Inputdisabled: true,
                     Space1Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][0],
                     Space2Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][1],
                     Space3Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][2],
@@ -178,8 +198,7 @@ Page({
                 Space1Answer: '',
                 Space2Answer: '',
                 Space3Answer: '',
-                Space4Answer: '',
-                isInputdisabled: false
+                Space4Answer: ''
             })
         }
         if (this.data.isinputdone) {
@@ -248,7 +267,7 @@ Page({
     },
     goAlterVacancy() {
         this.setData({
-            isInputdisabled: false,
+            Inputdisabled: false,
             isNextLastBtndisabled: true,
             alterBtnText: '完成',
 
@@ -257,7 +276,7 @@ Page({
     alterDone() {
         this.setData({
             isNextLastBtndisabled: false,
-            isInputdisabled: true,
+            Inputdisabled: true,
             isinputdone: true,
             alterBtnText: '填写',
         })
@@ -265,5 +284,76 @@ Page({
     },
     cleanvacancyArry() {
         app.globalData.vacancyArr = []
+    },
+    submitPaper() {
+        let that = this
+        Dialog.confirm({
+            title: '提交试卷',
+            message: '您确定要提交吗？'
+        }).then(() => {
+            if (app.globalData.vacancyArr.length > 0) {
+                app.globalData.answerArray[that.data.CurrentIndex] = app.globalData.vacancyArr
+            }
+            if (that.data.isinputdone) {
+                that.cleanvacancyArry()
+            }
+            wx.showLoading({
+                title: '正在算分中..',
+            })
+            for (let i = 0; i < app.globalData.answerArray.length; i++) {
+                if (typeof(app.globalData.answerArray[i]) == 'object') {
+                    if (app.globalData.questionAnswerArray[i][0] == 'true') {
+                        for (let j = 0; j < app.globalData.answerArray[i].length;) {
+                            if (app.globalData.answerArray[i][j].search(app.globalData.questionAnswerArray[i][j + 1]) != -1) {
+                                app.globalData.finalGrade = app.globalData.finalGrade + 1
+                                j++
+                            } else {
+                                j++
+                            }
+                        }
+                    } else if (app.globalData.questionAnswerArray[i][0] == 'false') {
+                        for (let k = 1; k < app.globalData.questionAnswerArray[i].length; k++) {
+                            for (let l = 0; l < app.globalData.answerArray[i].length; l++) {
+                                if (app.globalData.questionAnswerArray[i][k].indexOf('(') != -1) {
+                                    let reg = /\([^\)]+\)/g
+                                    app.globalData.questionAnswerArray[i][k] = app.globalData.questionAnswerArray[i][k].match(reg)
+                                    for (let y = 0; y < app.globalData.questionAnswerArray[i][k].length; y++) {
+                                        app.globalData.questionAnswerArray[i][k][y] = app.globalData.questionAnswerArray[i][k][y].substring(1, app.globalData.questionAnswerArray[i][k][y].length - 1)
+                                    }
+                                    for (let x = 0; x < app.globalData.questionAnswerArray[i][k].length; x++) {
+                                        if (app.globalData.answerArray[i][l].includes(app.globalData.questionAnswerArray[i][k][x]) != -1) {
+                                            app.globalData.answerArray[i].splice(l, 1)
+                                            app.globalData.finalGrade = app.globalData.finalGrade + 1
+                                            l = app.globalData.answerArray[i].length
+                                            x = app.globalData.questionAnswerArray[i][k].length
+                                        }
+                                    }
+                                } else {
+                                    if (app.globalData.answerArray[i][l].includes(app.globalData.questionAnswerArray[i][k]) != -1) {
+                                        app.globalData.answerArray[i].splice(l, 1)
+                                        app.globalData.finalGrade = app.globalData.finalGrade + 1
+                                        l = app.globalData.answerArray[i].length
+                                    }
+                                }
+                            }
+                            console.log('跳出for l')
+                        }
+                    }
+                } else if (typeof(app.globalData.answerArray[i]) == 'string') {
+                    // console.log('app.globalData.answerArray[i]:', app.globalData.answerArray[i])
+                    // console.log('app.globalData.questionAnswerArray[i]:', app.globalData.questionAnswerArray[i])
+                    if (app.globalData.answerArray[i] == app.globalData.questionAnswerArray[i]) {
+                        app.globalData.finalGrade += 1
+                    }
+                }
+            }
+            wx.hideLoading()
+            console.log(app.globalData.finalGrade)
+            console.log(app.globalData.questionAnswerArray)
+            console.log(app.globalData.answerArray)
+        }).catch(() => {
+            // on cancel
+
+        });
     }
 })

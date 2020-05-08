@@ -97,8 +97,12 @@ Page({
         }
     },
     gotocenter() {
+        wx.showLoading({
+            title: '验证中',
+        })
         verifyUserCount(db, 'mini_users_models', { countName: this.data.userMessage.countName, password: this.data.userMessage.password })
             .then(res => {
+                wx.hideLoading()
                 console.log('res.jsres', res)
                 if (res.error == 0) {
                     showToast(res.msg, 1000, 'success')

@@ -1,6 +1,8 @@
 {
     "pages": [
+
         "pages/onlineTest/onlineTest",
+
         "pages/res/res",
         "pages/test/test",
         "pages/detail/detail",
@@ -59,7 +61,8 @@
         "van-collapse": "/miniprogram_npm/@vant/weapp/collapse/index",
         "van-collapse-item": "/miniprogram_npm/@vant/weapp/collapse-item/index",
         "van-rate": "/miniprogram_npm/@vant/weapp/rate/index",
-        "van-nav-bar": "/miniprogram_npm/@vant/weapp/nav-bar/index"
+        "van-nav-bar": "/miniprogram_npm/@vant/weapp/nav-bar/index",
+        "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index"
     },
     "sitemapLocation": "sitemap3.json"
 }

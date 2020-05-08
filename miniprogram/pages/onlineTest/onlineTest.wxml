@@ -57,7 +57,7 @@
                placeholder="请输入第一个空的答案" 
                type="text"
                value="{{Space1Answer}}"
-               disabled="{{isInputdisabled}}"></input>
+               disabled="{{Inputdisabled}}"></input>
     </view>
     <view wx:if="{{questions[CurrentIndex].Space2Answer.length>0}}" 
           class="user_center_menulist_item {{item2classControl}}" 
@@ -71,7 +71,7 @@
                placeholder="请输入第二个空的答案" 
                type="text"
                value="{{Space2Answer}}"
-               disabled="{{isInputdisabled}}"></input>
+               disabled="{{Inputdisabled}}"></input>
     </view>
     <view wx:if="{{questions[CurrentIndex].Space3Answer.length>0}}" 
           class="user_center_menulist_item {{item3classControl}}" 
@@ -85,7 +85,7 @@
                placeholder="请输入第三个空的答案" 
                type="text"
                value="{{Space3Answer}}"
-               disabled="{{isInputdisabled}}"></input>
+               disabled="{{Inputdisabled}}"></input>
     </view>
     <view wx:if="{{questions[CurrentIndex].Space4Answer.length>0}}" 
           class="user_center_menulist_item {{item4classControl}}" 
@@ -99,7 +99,7 @@
                placeholder="请输入第四个空的答案" 
                type="text"
                value="{{Space4Answer}}"
-               disabled="{{isInputdisabled}}"></input>
+               disabled="{{Inputdisabled}}"></input>
     </view>
 
    <van-action-sheet 
@@ -123,7 +123,7 @@
 </view>
 <view class="TestStateCard">
   <view class="TestStateCard_item CountDownTime">
-    <text>{{CountDownTime}}</text>
+    <van-count-down class="CountDownTime_time" time="{{ countDown }}" />
   </view>
   <text class="cut_off_line"></text> 
   <view class="TestStateCard_item">
@@ -131,7 +131,14 @@
   </view>
   <text class="cut_off_line"></text> 
   <view class="TestStateCard_item" bind:tap="open_van_action">
-    <i class="iconfont icon-tixing"></i>
+    <i class="iconfont icon-tixing online_icon_init_tab"></i>
+  </view>
+  <text class="cut_off_line"></text> 
+  <view class="TestStateCard_item" bind:tap="submitPaper">
+    <i class="iconfont icon-tijiao online_icon_init_submit"></i>
   </view>
 </view>
+<van-dialog  id="van-dialog" >
+
+</van-dialog>
   

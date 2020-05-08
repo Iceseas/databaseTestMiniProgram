@@ -11,7 +11,7 @@
   
 <view class="test_tab">
     <view class="test_tab_item" >
-        <view class="test_tab_item_select" bind:tap="godetail">
+        <view class="test_tab_item_select" bind:tap="gotoOnlineTest">
             <i class="iconfont icon-suiji test_tab_item_icon"></i>
             <text class="test_tab_item_text yahei-font">
                 模拟考试
@@ -27,7 +27,7 @@
         </view>
     </view>
     <view class="test_tab_item" >
-        <view class="test_tab_item_select" bind:tap="godetail">
+        <view class="test_tab_item_select">
             <i class="iconfont icon-jiachang_cuotiben test_tab_item_icon" style="color:#eb4d4b"></i>
             <text class="test_tab_item_text yahei-font">
                 错题集
@@ -35,7 +35,7 @@
         </view>
     </view>
     <view class="test_tab_item" >
-        <view class="test_tab_item_select" bind:tap="godetail">
+        <view class="test_tab_item_select">
             <i class="iconfont icon-shoucang test_tab_item_icon" style="color:#f9ca24"></i>
             <text class="test_tab_item_text yahei-font">
                 收藏夹

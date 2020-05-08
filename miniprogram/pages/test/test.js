@@ -52,9 +52,9 @@ Page({
     onShareAppMessage: function() {
 
     },
-    godetail() {
+    gotoOnlineTest() {
         wx.navigateTo({
-            url: '../detail/detail',
+            url: '../onlineTest/onlineTest',
             success: (result) => {
                 // console.log(result)
             },

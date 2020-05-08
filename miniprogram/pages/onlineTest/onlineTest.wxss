@@ -242,10 +242,26 @@
     box-sizing: border-box;
 }
 
-.CountDownTime {
-    color: #757575;
+.CountDownTime_time {
+    display: inline-block;
 }
 
 .SelectItemClass {
+    color: #50A7C2;
+}
+
+input[disabled] {
+    filter: alpha(opacity=100);
+    opacity: 0.6;
+    background: #fff;
+}
+
+.online_icon_init_tab {
+    font-size: 40rpx;
+    color: #50A7C2;
+}
+
+.online_icon_init_submit {
+    font-size: 70rpx;
     color: #8e99cc;
 }
