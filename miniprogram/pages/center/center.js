@@ -21,7 +21,19 @@ Page({
         wx.showLoading({
             title: '加载中',
         })
-        getUser(db, 'mini_users_models', options, 'get')
+        let checkUserData
+        if (options.countName) {
+            checkUserData = options
+        } else {
+            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
+            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserClass)
+            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserID)
+            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserName)
+            checkUserData.countName = app.globalData.nowOnlineUser
+        }
+
+        console.log('checkUserData', checkUserData)
+        getUser(db, 'mini_users_models', checkUserData, 'get')
             .then(res => {
                 console.log('center', res)
                 if (res.error != 0) {
@@ -47,6 +59,7 @@ Page({
                         user_major: res.data.data[0].major
                     })
                     wx.hideLoading()
+                    console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
                 }
 
 

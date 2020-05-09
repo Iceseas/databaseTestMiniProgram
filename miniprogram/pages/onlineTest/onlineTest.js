@@ -358,6 +358,7 @@ Page({
                 }
             }
             wx.hideLoading()
+            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
             relaunch('finaGrade')
         }).catch(() => {
             // on cancel
