@@ -1,6 +1,10 @@
 /**app.wxss**/
 
 @import '/iconfont/iconfont.wxss';
+.yahei-font {
+    font-family: Microsoft Yahei;
+}
+
 .container {
     height: 100%;
     display: flex;
@@ -9,10 +13,6 @@
     justify-content: space-between;
     padding: 200rpx 0;
     box-sizing: border-box;
-}
-
-.yahei-font {
-    font-family: -apple-system, Helvetica, sans-serif;
 }
 
 .fontinit {

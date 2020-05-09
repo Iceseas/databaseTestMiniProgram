@@ -21,9 +21,9 @@ Page({
                 name: '填空题',
                 questionType: 'vacancy_C1_models'
             },
-            {
-                name: '应用题',
-            }
+            // {
+            //     name: '应用题',
+            // }
         ],
         SelectQuestionType: ''
     },

@@ -1,5 +1,7 @@
 import getpaper from '../../packaging/getOnlineTestPaper.js'
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import relaunch from '../../packaging/wxRelaunch.js'
+
 const db = wx.cloud.database() //操作数据库
 let app = getApp();
 Page({
@@ -149,7 +151,7 @@ Page({
         if (this.data.isinputdone) {
             this.cleanvacancyArry()
         }
-        if (this.data.NowQuestionNum == 99) {
+        if (this.data.NowQuestionNum == 14) {
             wx.showToast({
                 title: '这已经是最后一道题了！',
                 icon: 'none',
@@ -356,9 +358,7 @@ Page({
                 }
             }
             wx.hideLoading()
-            console.log(app.globalData.finalGrade)
-            console.log(app.globalData.questionAnswerArray)
-            console.log(app.globalData.answerArray)
+            relaunch('finaGrade')
         }).catch(() => {
             // on cancel
 

@@ -16,7 +16,6 @@
   
 <view class="Subjective_problems_body">
     <block wx:for="{{Subjective_problems.problemsAnswer}}" wx:key="index">
-        <button class="add_new_Subjective_problems_btn">添加图片</button>
         <view class="Subjective_problems_answer_body">
             <textarea   class="add_new_Subjective_problems_textarea" data-name="value" data-id="{{index}}" bindinput="getInputValue" placeholder="请在此作答" auto-height="{{true}}" maxlength="-1" ></textarea>
         </view>

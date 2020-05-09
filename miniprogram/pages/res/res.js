@@ -137,6 +137,9 @@ Page({
     },
     res_user_count() {
         if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify && this.data.isStuIDverify) {
+            wx.showLoading({
+                title: '注册中',
+            })
             this.uploaderToCloudimage()
                 .then((res) => {
                     console.log('consoleUser', this.data.userMessage)
@@ -145,6 +148,7 @@ Page({
                         .then(res => {
                             console.log('res', res)
                             if (res.errMsg == 'collection.add:ok') {
+                                wx.hideLoading()
                                 wx.showToast({
                                     title: '注册成功！',
                                     duration: 2000,
@@ -152,6 +156,7 @@ Page({
                                 })
                                 this.swichisloginres()
                             } else {
+                                wx.hideLoading()
                                 wx.showToast({
                                     title: err.msg,
                                     duration: 2000,
@@ -160,6 +165,7 @@ Page({
                             }
                         })
                         .catch(err => {
+                            wx.hideLoading()
                             wx.showToast({
                                 title: err.msg,
                                 duration: 2000,
@@ -168,6 +174,7 @@ Page({
                         })
                 })
         } else {
+            wx.hideLoading()
             wx.showToast({
                 title: '请填写好信息',
                 duration: 2000,

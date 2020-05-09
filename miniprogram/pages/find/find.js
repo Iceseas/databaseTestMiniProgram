@@ -6,6 +6,7 @@ const stuID = 'Subjective_problems.stuID'
 const stuClass = 'Subjective_problems.stuClass'
 const submitTime = 'Subjective_problems.submitTime'
 const problemTitle = 'Subjective_problems.problem_Title'
+const problemsAnswer = 'Subjective_problems.problemsAnswer'
 const Id = 'Subjective_problems.Id'
 const db = wx.cloud.database() //操作数据库
 const _ = db.command; //操作数据库
@@ -83,28 +84,41 @@ Page({
         })
     },
     submit_Subjective_Problems() {
+        let that = this
+        wx.showLoading({
+            title: '提交中...',
+        })
         getCollectionSum(db, 'subjective_publish_models')
             .then(res => {
-                let dt = new Date(msg);
+                let dt = new Date();
                 let yy = dt.getFullYear();
                 let mm = (dt.getMonth() + 1).toString().padStart(2, '0');
                 let ww = (dt.getDate()).toString().padStart(2, '0');
                 let hh = (dt.getHours()).toString().padStart(2, '0');
                 let m = (dt.getMinutes()).toString().padStart(2, '0');
                 let ss = (dt.getSeconds()).toString().padStart(2, '0');
-                console.log(`${yy}-${mm}-${ww} ${hh}:${m}:${ss}`);
                 this.setData({
                     [Id]: res.total + 1,
                     [stuname]: app.globalData.nowOnlineUserName,
                     [stuID]: app.globalData.nowOnlineUserID,
                     [stuClass]: app.globalData.nowOnlineUserClass,
-                    [submitTime]: Date.now()
+                    [submitTime]: `${yy}-${mm}-${ww} ${hh}:${m}:${ss}`
                 })
                 console.log('submit')
                 submitSubjectiveAnswer('subjective_publish_models', this.data.Subjective_problems)
                     .then(res => {
+                        wx.hideLoading()
+                        wx.showToast({
+                            title: '上传成功！',
+                            duration: 2000,
+                            icon: 'success'
+                        })
                         console.log('submit')
                         console.log(res)
+                        that.setData({
+                            [problemTitle]: '',
+                            [problemsAnswer]: []
+                        })
                     })
                     .catch(err => {
                         console.log(err)

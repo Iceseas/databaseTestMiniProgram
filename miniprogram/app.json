@@ -1,9 +1,13 @@
 {
     "pages": [
+
         "pages/res/res",
-        "pages/center/center",
-        "pages/test/test",
         "pages/finaGrade/finaGrade",
+        "pages/test/test",
+        "pages/center/center",
+
+
+
         "pages/onlineTest/onlineTest",
         "pages/detail/detail",
         "pages/subjectivegrade/subjectivegrade",

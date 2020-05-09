@@ -109,7 +109,7 @@
    bind:click-overlay="close_van_action"
    close-on-click-overlay="{{true}}">
   <view class="van_action_slot">
-  <block wx:for="{{100}}" wx:key="index">
+  <block wx:for="{{15}}" wx:key="index">
     <view data-id="{{index}}" 
           bind:tap="selectActionQuestionNum" 
           class="van_action_slot_item {{NowQuestionNum==index?'van_action_slot_item_selected':''}}" >
@@ -127,7 +127,7 @@
   </view>
   <text class="cut_off_line"></text> 
   <view class="TestStateCard_item">
-    {{CurrentIndex+1}}/100
+    {{CurrentIndex+1}}/15
   </view>
   <text class="cut_off_line"></text> 
   <view class="TestStateCard_item" bind:tap="open_van_action">

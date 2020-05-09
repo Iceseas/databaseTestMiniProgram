@@ -18,19 +18,23 @@ Page({
         isCalendarOpen: false
     },
     onLoad: function(options) {
+        wx.showLoading({
+            title: '加载中',
+        })
         getUser(db, 'mini_users_models', options, 'get')
             .then(res => {
                 console.log('center', res)
                 if (res.error != 0) {
-                    // this.hideTabBar()
-                    // Dialog.confirm({
-                    //     title: '登录状态有误',
-                    //     message: '请重新登录！',
-                    //     showCancelButton: false
-                    // }).then(() => {
-                    //     // on confirm
-                    //     relaunch('res')
-                    // })
+                    wx.hideLoading()
+                    this.hideTabBar()
+                    Dialog.confirm({
+                        title: '登录状态有误',
+                        message: '请重新登录！',
+                        showCancelButton: false
+                    }).then(() => {
+                        // on confirm
+                        relaunch('res')
+                    })
                 } else {
                     this.showTabBar()
                     app.globalData.nowOnlineUser = res.data.data[0].countName
@@ -42,7 +46,7 @@ Page({
                         user_name: res.data.data[0].name,
                         user_major: res.data.data[0].major
                     })
-
+                    wx.hideLoading()
                 }
 
 
@@ -98,7 +102,12 @@ Page({
         })
     },
     goToSubjectiveGrade() {
-        relaunch('subjectivegrade')
+        wx.navigateTo({
+            url: '../subjectivegrade/subjectivegrade',
+            success: function(res) {
+                console.log(res)
+            }
+        })
     },
     showTabBar() {
         wx.showTabBar({
