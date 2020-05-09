@@ -10,18 +10,22 @@ Page({
         tab_width: null,
         show: false,
         actions: [{
-                name: '单项选择'
+                name: '单项选择',
+                questionType: 'single_models'
             },
             {
-                name: '判断题'
+                name: '判断题',
+                questionType: 'decide_models'
             },
             {
                 name: '填空题',
+                questionType: 'vacancy_C1_models'
             },
             {
                 name: '应用题',
             }
-        ]
+        ],
+        SelectQuestionType: ''
     },
 
     /**
@@ -75,5 +79,19 @@ Page({
 
     onSelect(event) {
         console.log(event.detail);
+        this.setData({
+            SelectQuestionType: event.detail.questionType
+        })
+        wx.navigateTo({
+            url: '../detail/detail',
+            success: (result) => {
+                console.log(result)
+                result.eventChannel.emit('ToDetailData', { Type: this.data.SelectQuestionType })
+            },
+            fail: (err) => {
+                console.log(err)
+            },
+            complete: () => {}
+        });
     }
 })

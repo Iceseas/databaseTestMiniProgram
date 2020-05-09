@@ -1,26 +1,13 @@
 {
     "pages": [
-
-        "pages/onlineTest/onlineTest",
-
         "pages/res/res",
-        "pages/test/test",
-        "pages/detail/detail",
         "pages/center/center",
+        "pages/test/test",
+        "pages/finaGrade/finaGrade",
+        "pages/onlineTest/onlineTest",
+        "pages/detail/detail",
         "pages/subjectivegrade/subjectivegrade",
-
         "pages/find/find"
-
-
-
-
-
-
-
-
-
-
-
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -62,7 +49,8 @@
         "van-collapse-item": "/miniprogram_npm/@vant/weapp/collapse-item/index",
         "van-rate": "/miniprogram_npm/@vant/weapp/rate/index",
         "van-nav-bar": "/miniprogram_npm/@vant/weapp/nav-bar/index",
-        "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index"
+        "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index",
+        "van-calendar": "/miniprogram_npm/@vant/weapp/calendar/index"
     },
     "sitemapLocation": "sitemap3.json"
 }

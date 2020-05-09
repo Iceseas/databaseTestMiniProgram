@@ -14,7 +14,8 @@ Page({
         user_major: '',
         user_name: '',
         user_img: '',
-        dialogshow: false
+        dialogshow: false,
+        isCalendarOpen: false
     },
     onLoad: function(options) {
         getUser(db, 'mini_users_models', options, 'get')
@@ -109,6 +110,23 @@ Page({
     },
     onUnload: function() {
         app.globalData.nowOnlineUser = ''
+    },
+    OpenClendar() {
+        this.setData({
+            isCalendarOpen: true
+        })
+    },
+    oncalendarClose() {
+        this.setData({
+            isCalendarOpen: false
+        })
+    },
+    oncalendarConfirm(event) {
+        console.log(this.formatDate(event.detail))
+    },
+    formatDate(date) {
+        date = new Date(date);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
     },
 
 })

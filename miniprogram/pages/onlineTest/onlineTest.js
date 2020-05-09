@@ -301,8 +301,10 @@ Page({
                 title: '正在算分中..',
             })
             for (let i = 0; i < app.globalData.answerArray.length; i++) {
+                //判断答案是否是填空
                 if (typeof(app.globalData.answerArray[i]) == 'object') {
                     if (app.globalData.questionAnswerArray[i][0] == 'true') {
+                        //遵循填空顺序，根据位置来遍历判断
                         for (let j = 0; j < app.globalData.answerArray[i].length;) {
                             if (app.globalData.answerArray[i][j].search(app.globalData.questionAnswerArray[i][j + 1]) != -1) {
                                 app.globalData.finalGrade = app.globalData.finalGrade + 1
@@ -312,18 +314,24 @@ Page({
                             }
                         }
                     } else if (app.globalData.questionAnswerArray[i][0] == 'false') {
+                        //不遵循填空顺序，分别用卷子对应题目的填空答案一个个去遍历用户对应题目的填空答案数组对比
                         for (let k = 1; k < app.globalData.questionAnswerArray[i].length; k++) {
+                            //控制卷子填空答案数组遍历
                             for (let l = 0; l < app.globalData.answerArray[i].length; l++) {
+                                //控制用户填空答案数组遍历
                                 if (app.globalData.questionAnswerArray[i][k].indexOf('(') != -1) {
+                                    //如果卷子填空答案有候选词，处理括号，保留括号里的数据，然后变成数组（此时卷子对应题目的填空题答案变成二维数组（外层为三维数组））
                                     let reg = /\([^\)]+\)/g
                                     app.globalData.questionAnswerArray[i][k] = app.globalData.questionAnswerArray[i][k].match(reg)
                                     for (let y = 0; y < app.globalData.questionAnswerArray[i][k].length; y++) {
                                         app.globalData.questionAnswerArray[i][k][y] = app.globalData.questionAnswerArray[i][k][y].substring(1, app.globalData.questionAnswerArray[i][k][y].length - 1)
                                     }
                                     for (let x = 0; x < app.globalData.questionAnswerArray[i][k].length; x++) {
+                                        //遍历处理完以后的数组，然后一个个去遍历用户对应题目的填空答案数组对比
                                         if (app.globalData.answerArray[i][l].includes(app.globalData.questionAnswerArray[i][k][x]) != -1) {
                                             app.globalData.answerArray[i].splice(l, 1)
                                             app.globalData.finalGrade = app.globalData.finalGrade + 1
+                                                //如果对比上，处理完立即跳出循环，不必再循环
                                             l = app.globalData.answerArray[i].length
                                             x = app.globalData.questionAnswerArray[i][k].length
                                         }
@@ -332,6 +340,7 @@ Page({
                                     if (app.globalData.answerArray[i][l].includes(app.globalData.questionAnswerArray[i][k]) != -1) {
                                         app.globalData.answerArray[i].splice(l, 1)
                                         app.globalData.finalGrade = app.globalData.finalGrade + 1
+                                            //如果对比上，处理完立即跳出循环，不必再循环
                                         l = app.globalData.answerArray[i].length
                                     }
                                 }
@@ -339,9 +348,8 @@ Page({
                             console.log('跳出for l')
                         }
                     }
+                    //判断答案是否是选择或者判断
                 } else if (typeof(app.globalData.answerArray[i]) == 'string') {
-                    // console.log('app.globalData.answerArray[i]:', app.globalData.answerArray[i])
-                    // console.log('app.globalData.questionAnswerArray[i]:', app.globalData.questionAnswerArray[i])
                     if (app.globalData.answerArray[i] == app.globalData.questionAnswerArray[i]) {
                         app.globalData.finalGrade += 1
                     }

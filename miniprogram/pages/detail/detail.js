@@ -7,9 +7,7 @@ import handleCleanItemClass from '../../packaging/handleCleanitemClass.js'
 
 const db = wx.cloud.database() //操作数据库
 let app = getApp();
-let collectionName = app.globalData.questionType + `_models` //控制选择的考试类型
 const _ = db.command; //操作数据库
-let timer = null;
 //处理将新请求的数据push到题库的后面
 function pushGetlist(resList) {
     for (let i = 0; i < resList.length; i++) {
@@ -44,34 +42,42 @@ Page({
         questionGetNumMultiple: 1,
         anction_e_id: null,
         value: 1,
-        isChecked: false
+        isChecked: false,
+        // 填空题
+        Space1Answer: '',
+        Space2Answer: '',
+        Space3Answer: '',
+        Space4Answer: '',
+        isinputdone: false,
+        Inputdisabled: true,
+        isNextLastBtndisabled: false,
+        isalterBtnhidden: true,
+        alterBtnText: '填写'
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        if (options.Type) {
-            app.globalData.TestType = options.Type //接受test页的数据
-        }
         let that = this
-        wx.showLoading({
-            title: '加载中',
-            mask: true,
-        });
-        //判断test的类型
-        switch (app.globalData.TestType) {
-            case 'single_C1':
-                //得到顺序测试的题
-                getCollectionSum(db, 'single_C1_models')
+        const eventChannel = this.getOpenerEventChannel()
+        eventChannel.on('ToDetailData', function(data) {
+            console.log(data)
+            if (data.Type) {
+                app.globalData.TestType = data.Type
+                wx.showLoading({
+                    title: '加载中',
+                    mask: true,
+                });
+                getCollectionSum(db, app.globalData.TestType)
                     .then(res => {
-                        this.setData({
+                        that.setData({
                             questionSum: res.total
                         })
                     })
                     .catch(err => {
                         console.log(err)
                     })
-                getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionGetNum)
+                getSequenceQuestion(db, app.globalData.TestType, _, app.globalData.questionGetNum)
                     .then(res => {
                         console.log('res', res)
                         pushGetlist(res.data)
@@ -85,8 +91,13 @@ Page({
                         console.log(err)
                     })
                 wx.hideLoading();
-                break;
-        }
+                if (data.Type == 'vacancy_C1_models') {
+                    that.setData({
+                        isalterBtnhidden: false
+                    })
+                }
+            }
+        })
 
     },
     onShow: function() {
@@ -100,6 +111,7 @@ Page({
     onUnload: function() {
         console.log('页面gg')
             //将虚拟题库list清空
+        app.globalData.TestType = ''
         app.globalData.getlist = []
         app.globalData.answerArray = []
         app.globalData.CollectionArray = []
@@ -193,15 +205,50 @@ Page({
         })
     },
     goToNextQuestion() {
+        if (app.globalData.vacancyArr.length > 0) {
+            app.globalData.answerArray[this.data.CurrentIndex] = app.globalData.vacancyArr
+        }
         if (app.globalData.answerArray[this.data.CurrentIndex + 1]) {
+
+            if (typeof(app.globalData.answerArray[this.data.CurrentIndex + 1]) == 'object') {
+                app.globalData.vacancyArr = app.globalData.answerArray[this.data.CurrentIndex + 1]
+                let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
+                this.setData({
+                    isalterBtnhidden: true,
+                    isChecked: true,
+                    value: newValue,
+                    Inputdisabled: true,
+                    Space1Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][0],
+                    Space2Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][1],
+                    Space3Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][2],
+                    Space4Answer: app.globalData.answerArray[this.data.CurrentIndex + 1][3],
+                })
+            } else {
+                this.setData({
+                    isChecked: false,
+                    value: app.globalData.answerArray[this.data.CurrentIndex + 1].difficulty
+                })
+            }
+        } else {
+            if (app.globalData.TestType != 'vacancy_C1_models') {
+                this.setData({
+                    isalterBtnhidden: true
+                })
+            } else {
+                this.setData({
+                    isalterBtnhidden: false
+                })
+            }
             this.setData({
                 isChecked: false,
-                value: app.globalData.answerArray[this.data.CurrentIndex + 1].difficulty
+                Space1Answer: '',
+                Space2Answer: '',
+                Space3Answer: '',
+                Space4Answer: ''
             })
-        } else {
-            this.setData({
-                isChecked: false
-            })
+        }
+        if (this.data.isinputdone) {
+            this.cleanvacancyArry()
         }
         this.isTimeToGetNewData(this.data.CurrentIndex + 1)
         if (this.data.NowQuestionNum == this.data.questionSum - 1) {
@@ -220,15 +267,50 @@ Page({
         }
     },
     goToLastQuestion() {
+        if (app.globalData.vacancyArr.length > 0) {
+            app.globalData.answerArray[this.data.CurrentIndex] = app.globalData.vacancyArr
+        }
         if (app.globalData.answerArray[this.data.CurrentIndex - 1]) {
+
+            if (typeof(app.globalData.answerArray[this.data.CurrentIndex - 1]) == 'object') {
+                app.globalData.vacancyArr = app.globalData.answerArray[this.data.CurrentIndex - 1]
+                let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
+                this.setData({
+                    isalterBtnhidden: true,
+                    isChecked: true,
+                    value: newValue,
+                    Inputdisabled: true,
+                    Space1Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][0],
+                    Space2Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][1],
+                    Space3Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][2],
+                    Space4Answer: app.globalData.answerArray[this.data.CurrentIndex - 1][3],
+                })
+            } else {
+                this.setData({
+                    isChecked: false,
+                    value: app.globalData.answerArray[this.data.CurrentIndex - 1].difficulty
+                })
+            }
+        } else {
+            if (app.globalData.TestType != 'vacancy_C1_models') {
+                this.setData({
+                    isalterBtnhidden: true
+                })
+            } else {
+                this.setData({
+                    isalterBtnhidden: false
+                })
+            }
             this.setData({
                 isChecked: false,
-                value: app.globalData.answerArray[this.data.CurrentIndex - 1].difficulty
+                Space1Answer: '',
+                Space2Answer: '',
+                Space3Answer: '',
+                Space4Answer: ''
             })
-        } else {
-            this.setData({
-                isChecked: false
-            })
+        }
+        if (this.data.isinputdone) {
+            this.cleanvacancyArry()
         }
         if (this.data.NowQuestionNum == 0) {
             wx.showToast({
@@ -297,7 +379,7 @@ Page({
     getOtherQuestion(Multiple) {
         //console.log('multiple', Multiple)
         let that = this
-        getSequenceQuestion(db, 'single_C1_models', _, app.globalData.questionGetNum * (Multiple + 1))
+        getSequenceQuestion(db, app.globalData.TestType, _, app.globalData.questionGetNum * (Multiple + 1))
             .then(res => {
                 pushGetlist(res.data)
                 app.globalData.nowMaxQuestionSum = 20 * (Multiple + 1)
@@ -312,8 +394,6 @@ Page({
             })
     },
     isTimeToGetNewData(CurrentID) {
-        //console.log('curID+1', CurrentID + 1)
-        //console.log('app.globalData.nowMaxQuestionSum', app.globalData.nowMaxQuestionSum)
         if ((CurrentID + 1) == app.globalData.nowMaxQuestionSum) {
             this.getOtherQuestion(parseInt((CurrentID + 1) / 20))
             return true
@@ -325,6 +405,52 @@ Page({
             })
             return false
         }
-    }
+    },
+    Space1Input(e) {
+        app.globalData.vacancyArr[0] = e.detail.value
+        this.setData({
+            isalterSpace1: true
+        })
+    },
+    Space2Input(e) {
+        app.globalData.vacancyArr[1] = e.detail.value
+        this.setData({
+            isalterSpace2: true
+        })
+    },
+    Space3Input(e) {
+        app.globalData.vacancyArr[2] = e.detail.value
+        this.setData({
+            isalterSpace3: true
+        })
+    },
+    Space4Input(e) {
+        app.globalData.vacancyArr[3] = e.detail.value
+        this.setData({
+            isalterSpace4: true
+        })
+    },
+    goAlterVacancy() {
+        this.setData({
+            Inputdisabled: false,
+            isNextLastBtndisabled: true,
+            alterBtnText: '完成',
+
+        })
+    },
+    alterDone() {
+        this.setData({
+            isalterBtnhidden: true,
+            isNextLastBtndisabled: false,
+            isChecked: true,
+            Inputdisabled: true,
+            isinputdone: true,
+            alterBtnText: '填写',
+        })
+        console.log(app.globalData.vacancyArr)
+    },
+    cleanvacancyArry() {
+        app.globalData.vacancyArr = []
+    },
 
 })

@@ -4,7 +4,7 @@
     <text class="user_center_username">{{user_name}}</text>
     <text class="user_center_major">{{user_major}}</text>
     <view class="user_center_tab">
-        <view class="user_center_tab_item">
+        <view class="user_center_tab_item" bind:tap="OpenClendar">
             <i class="iconfont icon-rili user_center_tab_item_iconinit"></i>
             <text class="user_center_tab_item_text">签到</text>    
         </view>
@@ -39,3 +39,4 @@
     </view>
      <van-dialog  id="van-dialog" />
 </view>
+<van-calendar show="{{ isCalendarOpen }}" bind:close="oncalendarClose" bind:confirm="oncalendarConfirm" />

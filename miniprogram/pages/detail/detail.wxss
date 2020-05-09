@@ -92,7 +92,8 @@
 }
 
 .question_title_next,
-.question_title_last {
+.question_title_last,
+.question_answer_alter {
     width: 160rpx;
     height: 60rpx;
     position: absolute;
@@ -104,10 +105,17 @@
 
 .question_title_next {
     right: 20rpx;
+    z-index: 99;
 }
 
 .question_title_last {
     right: 240rpx;
+    z-index: 99;
+}
+
+.question_answer_alter {
+    left: 20rpx;
+    z-index: 99;
 }
 
 .question_difficuty {
@@ -209,4 +217,10 @@
 
 .van_action_slot_item_selected {
     border: 4rpx solid #409EFF;
+}
+
+input[disabled] {
+    filter: alpha(opacity=100);
+    opacity: 0.6;
+    background: #fff;
 }

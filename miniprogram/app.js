@@ -46,7 +46,7 @@ App({
         vacancyArr: [],
         notevacancyArr: [],
         getlist: [],
-        TestType: 'single_C1',
+        TestType: '',
         questionGetNum: 20,
         CollectionArray: [],
         islogin: true,
