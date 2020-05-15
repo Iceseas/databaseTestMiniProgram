@@ -1,6 +1,6 @@
 <view class="user_center_box yahei-font" style="top:{{center_box_top}}rpx">
     <text class="navigationText_title">我的</text>
-    <image class="user_center_image" mode="aspectFill" src="{{user_img}}"/>
+    <image class="user_center_image" bind:tap="checkImgOptions" mode="aspectFill" src="{{user_img}}"/>
     <text class="user_center_username">{{user_name}}</text>
     <text class="user_center_major">{{user_major}}</text>
     <view class="user_center_tab">
@@ -23,20 +23,28 @@
 <view class="user_center_menulist">
     <view class="user_center_menulist_item" bind:tap="goToSubjectiveGrade">
         <i class="iconfont icon-shezhi1 user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title">查看综合题成绩</text>
+        <text class="user_center_menulist_item_title center_text_init">查看综合题成绩</text>
         <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
     <view class="user_center_menulist_item" bind:tap="shareToFriend">
          <i class="iconfont icon-fenxiang user_center_menulist_item_icon_init"></i>
-         <text class="user_center_menulist_item_title">推荐给好友</text>
+         <text class="user_center_menulist_item_title center_text_init">推荐给好友</text>
          <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
     <button class="shareBtn" open-type="share">share</button>
     <view class="user_center_menulist_item">
         <i class="iconfont icon-guanyu user_center_menulist_item_icon_init"></i>
-        <text class="user_center_menulist_item_title">关于</text>
+        <text class="user_center_menulist_item_title center_text_init">关于</text>
         <i class="iconfont icon-jiantou user_center_menulist_item_icon_init"></i>
     </view>
      <van-dialog  id="van-dialog" />
 </view>
 <van-calendar show="{{ isCalendarOpen }}" bind:close="oncalendarClose" bind:confirm="oncalendarConfirm" />
+<van-action-sheet
+  close-on-click-overlay="{{true}}"
+  show="{{ ImgOptionsshow }}"
+  actions="{{ actions }}"
+  cancel-text="取消"
+  bind:close="onImgOptionsClose"
+  bind:select="onImgOptionsSelect"
+/>

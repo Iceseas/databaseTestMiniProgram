@@ -1,6 +1,5 @@
 import getpaper from '../../packaging/getOnlineTestPaper.js'
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
-import relaunch from '../../packaging/wxRelaunch.js'
 
 const db = wx.cloud.database() //操作数据库
 let app = getApp();
@@ -206,9 +205,9 @@ Page({
         if (this.data.isinputdone) {
             this.cleanvacancyArry()
         }
-        if (this.data.NowQuestionNum == 99) {
+        if (this.data.NowQuestionNum == 0) {
             wx.showToast({
-                title: '这已经是最后一道题了！',
+                title: '这已经是第一道题了！',
                 icon: 'none',
                 duration: 500
             })
@@ -237,6 +236,43 @@ Page({
         })
     },
     selectActionQuestionNum(e) {
+        if ((e.currentTarget.dataset.id) >= 5 && (e.currentTarget.dataset.id) < 10) {
+            this.setData({
+                isalterBtnhidden: false
+            })
+        } else {
+            this.setData({
+                isalterBtnhidden: true
+            })
+        }
+        //如果答过显示答过的答案
+        if (app.globalData.answerArray[e.currentTarget.dataset.id]) {
+            if (typeof(app.globalData.answerArray[e.currentTarget.dataset.id]) == 'string') {
+                this.setData({
+                    nowSelectItem: app.globalData.answerArray[e.currentTarget.dataset.id]
+                })
+            } else {
+                app.globalData.vacancyArr = app.globalData.answerArray[e.currentTarget.dataset.id]
+                this.setData({
+                    Inputdisabled: true,
+                    Space1Answer: app.globalData.answerArray[e.currentTarget.dataset.id][0],
+                    Space2Answer: app.globalData.answerArray[e.currentTarget.dataset.id][1],
+                    Space3Answer: app.globalData.answerArray[e.currentTarget.dataset.id][2],
+                    Space4Answer: app.globalData.answerArray[e.currentTarget.dataset.id][3],
+                })
+            }
+        } else {
+            this.setData({
+                nowSelectItem: '',
+                Space1Answer: '',
+                Space2Answer: '',
+                Space3Answer: '',
+                Space4Answer: ''
+            })
+        }
+        if (this.data.isinputdone) {
+            this.cleanvacancyArry()
+        }
         this.setData({
             NowQuestionNum: e.currentTarget.dataset.id,
             CurrentIndex: e.currentTarget.dataset.id
@@ -276,6 +312,9 @@ Page({
         })
     },
     alterDone() {
+        if (app.globalData.vacancyArr.length > 0) {
+            app.globalData.answerArray[this.data.CurrentIndex] = app.globalData.vacancyArr
+        }
         this.setData({
             isNextLastBtndisabled: false,
             Inputdisabled: true,
@@ -358,8 +397,9 @@ Page({
                 }
             }
             wx.hideLoading()
-            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
-            relaunch('finaGrade')
+            wx.redirectTo({
+                url: '../finaGrade/finaGrade'
+            })
         }).catch(() => {
             // on cancel
 

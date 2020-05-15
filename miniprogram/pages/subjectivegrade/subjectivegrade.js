@@ -10,7 +10,7 @@ Page({
     //options(Object)
     onLoad: function(options) {
         let that = this
-        db.collection('subjective_modified_models').where({
+        db.collection('subjective_publish_models').where({
                 stuID: app.globalData.nowOnlineUserID
             }).get()
             .then(res => {
@@ -54,10 +54,4 @@ Page({
     onTabItemTap: function(item) {
 
     },
-    onClickLeft() {
-        wx.showToast({ title: '点击返回', icon: 'none' });
-    },
-    onClickRight() {
-        wx.showToast({ title: '点击按钮', icon: 'none' });
-    }
 });

@@ -83,3 +83,16 @@
     margin-left: 70rpx;
     margin-right: 70rpx;
 }
+
+.center_text_init {
+    line-height: 100rpx;
+}
+
+.showUserImg {
+    width: 400rpx;
+    height: 400rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

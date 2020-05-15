@@ -42,7 +42,12 @@ Page({
             countName: '',
             stuID: ''
         },
-        fileID: ''
+        fileID: '',
+        user_name_verify: '',
+        user_password_verify: '',
+        user_major_verify: '',
+        user_stuID_verify: '',
+        user_stuName_verify: ''
     },
     onLoad: function(options) {
         this.setData({
@@ -52,7 +57,6 @@ Page({
     onShow: function() {
         wx.getSystemInfo({
             success: (result) => {
-                console.log(result)
                 this.setData({
                     reslogin_height: (result.windowHeight) * 2
                 })
@@ -142,8 +146,6 @@ Page({
             })
             this.uploaderToCloudimage()
                 .then((res) => {
-                    console.log('consoleUser', this.data.userMessage)
-                    console.log('consoleUser', res)
                     resUser('mini_users_models', this.data.userMessage)
                         .then(res => {
                             console.log('res', res)
@@ -172,6 +174,8 @@ Page({
                                 icon: 'none'
                             })
                         })
+                }).catch(err => {
+                    console.log(err)
                 })
         } else {
             wx.hideLoading()
@@ -183,8 +187,6 @@ Page({
         }
     },
     getCountName(e) {
-        //console.log(e)
-        console.log(e)
         if (e.detail.value != '') {
             this.setData({
                 [countName]: e.detail.value,
@@ -193,7 +195,6 @@ Page({
         }
     },
     getPassword(e) {
-        //console.log(e)
         if (e.detail.value != '') {
             this.setData({
                 [password]: e.detail.value,
@@ -202,46 +203,104 @@ Page({
         }
     },
     getStuID(e) {
+        let reg = /^2220[0-9]{6}$/
         if (e.detail.value != '') {
             this.setData({
                 [stuID]: e.detail.value,
+            })
+        }
+        if (!reg.test(e.detail.value)) {
+            this.setData({
+                user_stuID_verify: '输入的格式错误'
+            })
+        } else {
+            this.setData({
+                user_stuID_verify: '',
                 isStuIDverify: true
             })
         }
     },
     getMajor(e) {
-        //console.log(e)
+        let reg = /^[\u4e00-\u9fa5]{2,8}[0-9]班$/gi
         if (e.detail.value != '') {
             this.setData({
                 [major]: e.detail.value,
+            })
+        }
+        if (!reg.test(e.detail.value)) {
+            this.setData({
+                user_major_verify: '格式：某专业+数字+班'
+            })
+        } else {
+            this.setData({
+                user_major_verify: '',
                 isMajorverify: true
             })
         }
     },
     getName(e) {
-        //console.log(e)
+        let reg = /^[\u4e00-\u9fa5][\u4e00-\u9fa5]+$/gi
         if (e.detail.value != '') {
             this.setData({
                 [name]: e.detail.value,
+            })
+        }
+        if (!reg.test(e.detail.value)) {
+            this.setData({
+                user_stuName_verify: '姓名只能输入大于两位的汉字'
+            })
+        } else {
+            this.setData({
+                user_stuName_verify: '',
                 isNameverify: true
             })
         }
     },
     uploaderToCloudimage() {
+        let that = this
         return new Promise((resolve, reject) => {
-            wx.cloud.uploadFile({
-                cloudPath: `${this.data.userMessage.countName}.jpg`,
-                filePath: this.data.user_image[0], // 文件路径
-            }).then(res => {
-                // get resource ID 
-                this.setData({
-                    [image]: res.fileID
+            if (this.data.user_image[0].length == 1 || this.data.user_image[0].length == 0) {
+                wx.cloud.downloadFile({
+                    fileID: 'cloud://nodetestminicloud-e53ge.6e6f-nodetestminicloud-e53ge-1300092310/DefaultUserImg.jpg',
+                    success: res => {
+                        wx.getFileSystemManager().saveFile({
+                            tempFilePath: res.tempFilePath, // 传入一个本地临时文件路径, http://tmp/开头的
+                            filePath: wx.env.USER_DATA_PATH + '/abc.jpg', //保存到用户目录/abc文件中，此处文件名自定义，因为tempFilePath对应的是一大长串字符
+                            success(res) {
+                                wx.cloud.uploadFile({
+                                    cloudPath: `${that.data.userMessage.countName}.jpg`,
+                                    filePath: res.savedFilePath, // 文件路径
+                                }).then(res => {
+                                    that.setData({
+                                        [image]: res.fileID
+                                    })
+                                    resolve(res)
+                                }).catch(error => {
+                                    console.log(error)
+                                    reject(error)
+                                })
+                            }
+                        })
+                    },
+                    fail: err => {
+                        console.log(err)
+                    }
                 })
-                resolve(res)
-            }).catch(error => {
-                reject(error)
-                    // handle error
-            })
+            } else {
+                wx.cloud.uploadFile({
+                    cloudPath: `${this.data.userMessage.countName}.jpg`,
+                    filePath: that.data.user_image[0], // 文件路径
+                }).then(res => {
+                    // get resource ID 
+                    this.setData({
+                        [image]: res.fileID
+                    })
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                        // handle error
+                })
+            }
         })
     }
 })

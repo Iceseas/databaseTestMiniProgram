@@ -1,5 +1,3 @@
-import relaunch from '../../packaging/wxRelaunch.js'
-
 let app = getApp();
 
 //Page Object
@@ -45,6 +43,15 @@ Page({
 
     },
     backToTest() {
-        relaunch('test')
+        console.log('111')
+        wx.switchTab({
+            url: '../test/test',
+            success: function(res) {
+                console.log(res)
+            },
+            fail: function(err) {
+                console.log(err)
+            }
+        })
     }
 });

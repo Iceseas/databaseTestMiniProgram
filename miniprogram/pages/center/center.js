@@ -1,5 +1,6 @@
 // pages/find/find.js
 let app = getApp();
+
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 import relaunch from '../../packaging/wxRelaunch.js'
 import getUser from '../../packaging/getuser.js'
@@ -15,9 +16,21 @@ Page({
         user_name: '',
         user_img: '',
         dialogshow: false,
-        isCalendarOpen: false
+        isCalendarOpen: false,
+        actions: [{
+                name: '查看大图',
+                operation: 'showImg'
+            },
+            // {
+            //     name: '更换头像',
+            //     operation: 'changeImg'
+            // }
+        ],
+        ImgOptionsshow: false,
+        cloudUserImgFile: ''
     },
     onLoad: function(options) {
+        let that = this
         wx.showLoading({
             title: '加载中',
         })
@@ -25,14 +38,9 @@ Page({
         if (options.countName) {
             checkUserData = options
         } else {
-            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
-            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserClass)
-            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserID)
-            console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUserName)
+            checkUserData = new Object()
             checkUserData.countName = app.globalData.nowOnlineUser
         }
-
-        console.log('checkUserData', checkUserData)
         getUser(db, 'mini_users_models', checkUserData, 'get')
             .then(res => {
                 console.log('center', res)
@@ -53,13 +61,21 @@ Page({
                     app.globalData.nowOnlineUserClass = res.data.data[0].major
                     app.globalData.nowOnlineUserID = res.data.data[0].stuID
                     app.globalData.nowOnlineUserName = res.data.data[0].name
+                    wx.cloud.downloadFile({
+                        fileID: res.data.data[0].img,
+                        success: res => {
+                            console.log(res)
+                            that.setData({
+                                user_img: res.tempFilePath
+                            })
+                        }
+                    })
                     this.setData({
-                        user_img: res.data.data[0].img,
+                        cloudUserImgFile: res.data.data[0].img,
                         user_name: res.data.data[0].name,
                         user_major: res.data.data[0].major
                     })
                     wx.hideLoading()
-                    console.log('app.globalData.nowOnlineUser:', app.globalData.nowOnlineUser)
                 }
 
 
@@ -150,5 +166,64 @@ Page({
         date = new Date(date);
         return `${date.getMonth() + 1}/${date.getDate()}`;
     },
+    checkImgOptions() {
+        this.setData({
+            ImgOptionsshow: true
+        })
+    },
+    onImgOptionsClose() {
+        this.setData({ ImgOptionsshow: false });
+    },
+    onImgOptionsSelect(event) {
+        if (event.detail.operation == 'showImg') {
+            wx.cloud.downloadFile({
+                fileID: this.data.cloudUserImgFile,
+                success: res => {
+                    console.log(res)
+                    let imgarr = [res.tempFilePath]
+                    wx.previewImage({
+                        current: '', // 当前显示图片的http链接0
+                        urls: imgarr // 需要预览的图片http链接列表
+                    })
+                },
+                fail: err => {
+                    console.log(err)
+                }
+            })
 
+        }
+        // else if (event.detail.operation == 'changeImg') {
+        //     let that = this
+        //     wx.chooseImage({
+        //         count: 1,
+        //         sizeType: ['original', 'compressed'],
+        //         sourceType: ['album', 'camera'],
+        //         success(res) {
+        //             that.setData({
+        //                 user_img: res.tempFilePaths
+        //             })
+        //             console.log(that.data.user_img)
+        //             wx.showLoading({
+        //                 title: '头像上传中',
+        //             })
+        //             wx.cloud.uploadFile({
+        //                 cloudPath: `${app.globalData.nowOnlineUser}.jpg`,
+        //                 filePath: that.data.user_img[0], // 文件路径
+        //             }).then(res => {
+        //                 console.log(res)
+        //                 wx.hideLoading()
+        //                 wx.showToast({
+        //                     title: '更新成功',
+        //                     duration: 600,
+        //                     icon: 'success'
+        //                 })
+
+        //             }).catch(error => {
+        //                 wx.hideLoading()
+        //                 console.log(error)
+        //             })
+        //         }
+        //     })
+        // }
+    }
 })

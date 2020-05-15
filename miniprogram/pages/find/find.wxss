@@ -6,7 +6,7 @@
 }
 
 page {
-    background: #13547a;
+    background: #fff;
 }
 
 .Subjective_problems_answer_body {
@@ -16,6 +16,7 @@ page {
     border-radius: 20rpx;
     overflow: hidden;
     background: #eee;
+    box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
 }
 
 .add_new_Subjective_problems_textarea {
@@ -48,7 +49,7 @@ page {
 .Subjective_problems_submit {
     height: 400rpx;
     width: 100%;
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
     position: fixed;
     top: 0rpx;
     padding: 200rpx 0;
