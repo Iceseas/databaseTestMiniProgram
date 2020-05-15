@@ -128,7 +128,7 @@ Page({
         let that = this
         wx.chooseImage({
             count: 1,
-            sizeType: ['original', 'compressed'],
+            sizeType: ['compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
                 that.setData({

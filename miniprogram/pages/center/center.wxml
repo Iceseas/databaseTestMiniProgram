@@ -45,6 +45,7 @@
   show="{{ ImgOptionsshow }}"
   actions="{{ actions }}"
   cancel-text="取消"
+  cancel="onImgOptionsClose"
   bind:close="onImgOptionsClose"
   bind:select="onImgOptionsSelect"
 />
