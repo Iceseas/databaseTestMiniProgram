@@ -18,36 +18,19 @@ Page({
         dialogshow: false,
         isCalendarOpen: false,
         actions: [{
-                name: '查看大图',
-                operation: 'showImg'
-            },
-            // {
-            //     name: '更换头像',
-            //     operation: 'changeImg'
-            // }
-        ],
+            name: '查看大图',
+            operation: 'showImg'
+        }],
         ImgOptionsshow: false,
         cloudUserImgFile: '',
         formatter(day) {
             const month = day.date.getMonth() + 1;
             const date = day.date.getDate();
-
             if (month === 5) {
                 if (date === 1) {
-                    day.topInfo = '劳动节';
-                } else if (date === 4) {
-                    day.topInfo = '五四青年节';
-                } else if (date === 11) {
-                    day.text = '今天';
+                    day.text = '劳动节';
                 }
             }
-
-            if (day.type === 'start') {
-                day.bottomInfo = '入住';
-            } else if (day.type === 'end') {
-                day.bottomInfo = '离店';
-            }
-
             return day;
         },
     },
@@ -217,38 +200,5 @@ Page({
             })
 
         }
-        // else if (event.detail.operation == 'changeImg') {
-        //     let that = this
-        //     wx.chooseImage({
-        //         count: 1,
-        //         sizeType: ['original', 'compressed'],
-        //         sourceType: ['album', 'camera'],
-        //         success(res) {
-        //             that.setData({
-        //                 user_img: res.tempFilePaths
-        //             })
-        //             console.log(that.data.user_img)
-        //             wx.showLoading({
-        //                 title: '头像上传中',
-        //             })
-        //             wx.cloud.uploadFile({
-        //                 cloudPath: `${app.globalData.nowOnlineUser}.jpg`,
-        //                 filePath: that.data.user_img[0], // 文件路径
-        //             }).then(res => {
-        //                 console.log(res)
-        //                 wx.hideLoading()
-        //                 wx.showToast({
-        //                     title: '更新成功',
-        //                     duration: 600,
-        //                     icon: 'success'
-        //                 })
-
-        //             }).catch(error => {
-        //                 wx.hideLoading()
-        //                 console.log(error)
-        //             })
-        //         }
-        //     })
-        // }
     }
 })
