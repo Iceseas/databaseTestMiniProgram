@@ -1,12 +1,15 @@
 <text class="navigationText_title" style="z-index:2">查看成绩</text>
 <view class="subjectivegrade_body">
 
-<van-collapse value="{{ activeNames }}" bind:change="onChange">
-    <van-collapse-item title="第一次作业" name="1" icon="label-o">
-    评语：<text class="remark">{{gradelist[0].remark}}
+<block wx:if="{{gradelist.length>0}}"> 
+<van-divider contentPosition="center">提交记录</van-divider>
+<van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
+<block wx:for="{{gradelist}}" wx:key="Arrayindex">
+    <van-collapse-item title="{{item.problem_Title}}" name="{{Arrayindex}}" icon="label-o">
+    评语：<text class="remark">{{item.remark}}
     </text>
-    成绩：<text class="gradeNum">{{gradelist[0].grade}}</text>分
-        <block wx:for="{{gradelist[0].problemsAnswer}}" wx:key="index">
+    成绩：<text class="gradeNum">{{item.grade}}</text>分
+        <block wx:for="{{item.problemsAnswer}}" wx:key="index">
         <text class="problemAnswerTitle">
         第{{index+1}}题</text>
             <text>
@@ -14,9 +17,13 @@
             </text>  
         </block>
     </van-collapse-item>
-  <van-collapse-item title="第二次作业" name="2" icon="label-o">
-    网店吸粉获客、会员分层营销、一机多种收款，告别经营低效和客户流失
-  </van-collapse-item>
+</block>
 </van-collapse>
+</block>
+<block wx:else>
+  <view>
+<van-divider contentPosition="center">暂无提交记录</van-divider>
+  </view>
+    
+</block>
 </view>
-  

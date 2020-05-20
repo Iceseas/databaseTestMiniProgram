@@ -4,7 +4,7 @@ let app = getApp();
 const _ = db.command; //操作数据库
 Page({
     data: {
-        activeNames: ['1'],
+        activeNames: '1',
         gradelist: []
     },
     //options(Object)
@@ -37,6 +37,7 @@ Page({
 
     },
     onChange(event) {
+        console.log(event.detail)
         this.setData({
             activeNames: event.detail
         });

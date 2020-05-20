@@ -104,7 +104,10 @@ Page({
             message: '您确定要退出吗？'
         }).then(() => {
             // on confirm
-            app.globalData.nowOnlineUser = '';
+            app.globalData.nowOnlineUser = ''
+            app.globalData.nowOnlineUserClass = ''
+            app.globalData.nowOnlineUserID = ''
+            app.globalData.nowOnlineUserName = ''
             relaunch('res')
             wx.showToast({
                 title: '您已退出！',

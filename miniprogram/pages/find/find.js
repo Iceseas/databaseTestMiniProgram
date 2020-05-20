@@ -142,7 +142,6 @@ Page({
         this.setData({
             [value]: e.detail.value
         })
-        console.log(e)
     },
     getTitle(e) {
         this.setData({

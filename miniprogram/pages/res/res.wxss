@@ -52,23 +52,16 @@ page {
     position: relative;
 }
 
-.user_name_title,
-.user_password_title,
-.user_major_title {
+.user_res_title,
+.login_user_title {
     color: #fff;
+    display: inline-block;
     margin-left: 117rpx;
-    display: block;
     font-size: 24rpx;
     font-weight: 600;
 }
 
-.login_user_name_title,
-.login_user_password_title {
-    color: #fff;
-    margin-left: 117rpx;
-    display: block;
-    font-size: 24rpx;
-    font-weight: 600;
+.login_user_title {
     margin-top: 40rpx;
 }
 
@@ -127,8 +120,8 @@ page {
 }
 
 .res_error_msg {
+    margin-left: 80rpx;
     display: inline-block;
-    margin-left: 180rpx;
     font-size: 20rpx;
     color: red;
 }

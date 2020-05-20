@@ -9,44 +9,44 @@
           
         
     </view>
-    <text wx:if="{{isloginres}}" class="login_user_name_title">用户名:</text>
+    <text wx:if="{{isloginres}}" class="login_user_title">用户名：</text>
     <view wx:if="{{isloginres}}" class="user_name input_box_init">
         <i class="iconfont icon-user user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getCountName" type="text" placeholder="请输入用户名" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="login_name" bindinput="getCountName" placeholder="请输入用户名" type="text" />
     </view>
-    <text wx:if="{{isloginres}}" class="login_user_password_title">密码:</text>
+    <text wx:if="{{isloginres}}" class="login_user_title">密码:</text>
     <view wx:if="{{isloginres}}" class="user_password input_box_init" style="margin-bottom:40rpx">
         <i class="iconfont icon-xxhdpiCombinedShape user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getPassword" type="password" placeholder="请输入密码" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="login_password" bindinput="getPassword" placeholder="请输入密码" type="password" />
     </view>
-    <text wx:if="{{!isloginres}}" class="user_name_title">用户名:</text>
+    <text wx:if="{{!isloginres}}" class="user_res_title">用户名:</text>
     <view wx:if="{{!isloginres}}" class="user_name input_box_init">
         <i class="iconfont icon-user user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getCountName" type="text" placeholder="请输入用户名" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="res_userCount" bindinput="getCountName" placeholder="请输入用户名" type="text" />
     </view>
+    <text wx:if="{{!isloginres}}" class="user_res_title">密码:</text>
     <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_name_verify}}</text>
-    <text wx:if="{{!isloginres}}" class="user_password_title">密码:</text>
     <view wx:if="{{!isloginres}}" class="user_password input_box_init">
         <i class="iconfont icon-xxhdpiCombinedShape user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getPassword" type="password" placeholder="请输入密码" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="res_password" bindinput="getPassword" placeholder="请输入密码"  type="password"  />
     </view>
+    <text wx:if="{{!isloginres}}" class="user_res_title ">专业:</text>
     <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_password_verify}}</text>
-    <text wx:if="{{!isloginres}}" class="user_major_title">专业:</text>
     <view wx:if="{{!isloginres}}" class="user_major input_box_init">
         <i class="iconfont icon-zhuanye- user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getMajor" type="text" placeholder="请输入专业及班级" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="res_major" bindinput="getMajor" placeholder="请输入专业" type="text"  />
     </view>
+    <text wx:if="{{!isloginres}}" class="user_res_title ">学号:</text>
     <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_major_verify}}</text>
-    <text wx:if="{{!isloginres}}" class="user_major_title">学号:</text>
     <view wx:if="{{!isloginres}}" class="user_major input_box_init">
         <i class="iconfont icon-zhuanye- user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getStuID" type="text" placeholder="请输入学号" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="res_stuID" bindinput="getStuID" placeholder="请输入学号" type="text" />
     </view>
+    <text wx:if="{{!isloginres}}" class="user_res_title">姓名:</text>
     <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_stuID_verify}}</text>
-    <text wx:if="{{!isloginres}}" class="user_major_title">姓名:</text>
     <view wx:if="{{!isloginres}}" class="user_major input_box_init">
         <i class="iconfont icon-jiazhao user_reslogin_icon_init"></i>
-        <input class="user_reslogin_input" bindinput="getName" type="text" placeholder="请输入姓名" placeholder-class="palceholder_init" />
+        <input class="user_reslogin_input" data-id="res_stuName" bindinput="getName" placeholder="请输入姓名" type="text" />
     </view>
     <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_stuName_verify}}</text>
     <button bind:tap="{{isloginOrRes_button}}" class="user_button">{{login}}</button>

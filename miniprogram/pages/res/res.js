@@ -3,22 +3,10 @@ import resUser from '../../packaging/resUser.js'
 import verifyUserCount from '../../packaging/verifyUserCount.js'
 import showToast from '../../packaging/showToast.js'
 
-
-
-
 const db = wx.cloud.database() //操作数据库
-let countName = 'userMessage.countName'
-let password = 'userMessage.password'
-let major = 'userMessage.major'
-let name = 'userMessage.name'
 let image = 'userMessage.img'
-let stuID = 'userMessage.stuID'
 let app = getApp();
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         user_image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3959542671,3569689889&fm=26&gp=0.jpg',
         login: '登录',
@@ -47,7 +35,7 @@ Page({
         user_password_verify: '',
         user_major_verify: '',
         user_stuID_verify: '',
-        user_stuName_verify: ''
+        user_stuName_verify: '',
     },
     onLoad: function(options) {
         this.setData({
@@ -121,7 +109,6 @@ Page({
                     showToast(err.res.userexist, 1000, 'none')
                 }
             })
-
     },
     // 上传图片
     uploaderimage() {
@@ -135,9 +122,9 @@ Page({
                     user_image: res.tempFilePaths,
                     userimg: true
                 })
+
             }
         })
-
     },
     res_user_count() {
         if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify && this.data.isStuIDverify) {
@@ -187,31 +174,40 @@ Page({
         }
     },
     getCountName(e) {
+
+
         if (e.detail.value != '') {
-            this.setData({
-                [countName]: e.detail.value,
-                isCountNameverify: true
-            })
+            this.data.userMessage.countName = e.detail.value
+            this.data.isCountNameverify = true
         }
+
     },
     getPassword(e) {
+        let reg = /^(?=.*?[0-9])(?=.*?[a-z])[0-9a-z]{8,}$/
         if (e.detail.value != '') {
+            this.data.userMessage.password = e.detail.value
+        }
+        if (!reg.test(e.detail.value)) {
             this.setData({
-                [password]: e.detail.value,
-                isPasswordverify: true
+                user_password_verify: '密码不能少于8位,且必须有数字字母组合',
+                isPasswordverify: false
             })
+        } else {
+            this.setData({
+                user_password_verify: ''
+            })
+            this.data.isPasswordverify = true
         }
     },
     getStuID(e) {
         let reg = /^2220[0-9]{6}$/
         if (e.detail.value != '') {
-            this.setData({
-                [stuID]: e.detail.value,
-            })
+            this.data.userMessage.stuID = e.detail.value
         }
         if (!reg.test(e.detail.value)) {
             this.setData({
-                user_stuID_verify: '输入的格式错误'
+                user_stuID_verify: '输入的格式错误',
+                isStuIDverify: false
             })
         } else {
             this.setData({
@@ -223,37 +219,36 @@ Page({
     getMajor(e) {
         let reg = /^[\u4e00-\u9fa5]{2,8}[0-9]班$/gi
         if (e.detail.value != '') {
-            this.setData({
-                [major]: e.detail.value,
-            })
+            this.data.userMessage.major = e.detail.value
         }
         if (!reg.test(e.detail.value)) {
             this.setData({
-                user_major_verify: '格式：某专业+数字+班'
+                user_major_verify: '格式：某专业+数字+班',
+                isMajorverify: false
             })
         } else {
             this.setData({
                 user_major_verify: '',
-                isMajorverify: true
             })
+            this.data.isMajorverify = true
         }
     },
     getName(e) {
         let reg = /^[\u4e00-\u9fa5][\u4e00-\u9fa5]+$/gi
         if (e.detail.value != '') {
-            this.setData({
-                [name]: e.detail.value,
-            })
+            this.data.userMessage.name = e.detail.value
         }
         if (!reg.test(e.detail.value)) {
             this.setData({
-                user_stuName_verify: '姓名只能输入大于两位的汉字'
+                user_stuName_verify: '姓名只能输入大于两位的汉字',
+                isNameverify: false
             })
         } else {
             this.setData({
-                user_stuName_verify: '',
-                isNameverify: true
+                user_stuName_verify: ''
+
             })
+            this.data.isNameverify = true
         }
     },
     uploaderToCloudimage() {
@@ -302,5 +297,5 @@ Page({
                 })
             }
         })
-    }
+    },
 })
