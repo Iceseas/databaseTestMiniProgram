@@ -9,7 +9,7 @@
             <text class="user_center_tab_item_text">签到</text>    
         </view>
         <text class="cut_off_line"></text> 
-        <view class="user_center_tab_item">
+        <view class="user_center_tab_item" bind:tap="showGrade">
             <i class="iconfont icon-jiludanzilishijilu user_center_tab_item_iconinit"></i>
             <text class="user_center_tab_item_text">记录</text>   
         </view> 
@@ -54,3 +54,17 @@
   bind:close="onImgOptionsClose"
   bind:select="onImgOptionsSelect"
 />
+<van-dialog
+  use-slot
+  title="考试成绩"
+  show="{{ isrecordshow}}"
+  bind:close="onClose"
+>
+<view class="gradedialog">
+    <block wx:for="{{usergradedata}}" wx:key="index">
+    <van-cell-group>
+    <van-cell title="第{{index+1}}次" value="{{item}}分" />
+    </van-cell-group>
+  </block>
+</view>
+</van-dialog>

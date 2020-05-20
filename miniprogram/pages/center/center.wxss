@@ -96,3 +96,8 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+.gradedialog {
+    max-height: 400rpx;
+    overflow: scroll;
+}

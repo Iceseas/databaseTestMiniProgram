@@ -4,6 +4,7 @@ let app = getApp();
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 import relaunch from '../../packaging/wxRelaunch.js'
 import getUser from '../../packaging/getuser.js'
+import getuserSignIndata from '../../packaging/getuserSignIndata.js'
 const db = wx.cloud.database() //操作数据库
 Page({
 
@@ -11,10 +12,12 @@ Page({
      * 页面的初始数据
      */
     data: {
+        usergradedata: [],
         center_box_top: 0,
         user_major: '',
         user_name: '',
         user_img: '',
+        isrecordshow: false,
         dialogshow: false,
         isCalendarOpen: false,
         actions: [{
@@ -26,9 +29,10 @@ Page({
         formatter(day) {
             const month = day.date.getMonth() + 1;
             const date = day.date.getDate();
+
             if (month === 5) {
                 if (date === 1) {
-                    day.text = '劳动节';
+                    day.text = '已签到';
                 }
             }
             return day;
@@ -46,6 +50,7 @@ Page({
             checkUserData = new Object()
             checkUserData.countName = app.globalData.nowOnlineUser
         }
+
         getUser(db, 'mini_users_models', checkUserData, 'get')
             .then(res => {
                 console.log('center', res)
@@ -82,8 +87,16 @@ Page({
                     })
                     wx.hideLoading()
                 }
-
-
+                getuserSignIndata('user_grade_data', app.globalData.nowOnlineUserID)
+                    .then(res => {
+                        console.log(res)
+                        that.setData({
+                            usergradedata: res.data[0].grade
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
             .catch(err => {
                 console.log('err', err)
@@ -200,5 +213,11 @@ Page({
             })
 
         }
+    },
+    onClose() {
+        this.setData({ isrecordshow: false });
+    },
+    showGrade() {
+        this.setData({ isrecordshow: true });
     }
 })

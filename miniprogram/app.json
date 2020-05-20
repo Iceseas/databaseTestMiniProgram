@@ -1,8 +1,7 @@
 {
     "pages": [
-
-        "pages/center/center",
         "pages/res/res",
+        "pages/center/center",
         "pages/subjectivegrade/subjectivegrade",
         "pages/find/find",
         "pages/finaGrade/finaGrade",
@@ -53,7 +52,9 @@
         "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index",
         "van-calendar": "/miniprogram_npm/@vant/weapp/calendar/index",
         "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index",
-        "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
+        "van-divider": "/miniprogram_npm/@vant/weapp/divider/index",
+        "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+        "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index"
     },
     "sitemapLocation": "sitemap3.json"
 

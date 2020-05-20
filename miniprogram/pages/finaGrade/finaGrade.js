@@ -1,5 +1,5 @@
 let app = getApp();
-
+import uploadgrade from '../../packaging/uploadgrade.js'
 //Page Object
 Page({
     data: {
@@ -8,6 +8,7 @@ Page({
     },
     //options(Object)
     onLoad: function(options) {
+        uploadgrade(app.globalData.nowOnlineUserID, app.globalData.finalGrade)
 
     },
     onReady: function() {
