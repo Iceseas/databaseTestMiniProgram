@@ -39,7 +39,12 @@
     </view>
      <van-dialog  id="van-dialog" />
 </view>
-<van-calendar show="{{ isCalendarOpen }}" bind:close="oncalendarClose" bind:confirm="oncalendarConfirm" />
+<van-calendar show="{{ isCalendarOpen }}" 
+              show-confirm="{{true}}" 
+              formatter="{{ formatter }}"  
+              bind:close="oncalendarClose" 
+              bind:confirm="oncalendarConfirm"
+              confirm-text="签到" />
 <van-action-sheet
   close-on-click-overlay="{{true}}"
   show="{{ ImgOptionsshow }}"

@@ -1,8 +1,9 @@
 {
     "pages": [
+
+        "pages/center/center",
         "pages/res/res",
         "pages/subjectivegrade/subjectivegrade",
-        "pages/center/center",
         "pages/find/find",
         "pages/finaGrade/finaGrade",
         "pages/test/test",

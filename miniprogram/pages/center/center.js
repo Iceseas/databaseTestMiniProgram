@@ -27,7 +27,29 @@ Page({
             // }
         ],
         ImgOptionsshow: false,
-        cloudUserImgFile: ''
+        cloudUserImgFile: '',
+        formatter(day) {
+            const month = day.date.getMonth() + 1;
+            const date = day.date.getDate();
+
+            if (month === 5) {
+                if (date === 1) {
+                    day.topInfo = '劳动节';
+                } else if (date === 4) {
+                    day.topInfo = '五四青年节';
+                } else if (date === 11) {
+                    day.text = '今天';
+                }
+            }
+
+            if (day.type === 'start') {
+                day.bottomInfo = '入住';
+            } else if (day.type === 'end') {
+                day.bottomInfo = '离店';
+            }
+
+            return day;
+        },
     },
     onLoad: function(options) {
         let that = this

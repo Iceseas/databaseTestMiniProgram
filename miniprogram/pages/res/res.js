@@ -38,6 +38,18 @@ Page({
         user_stuName_verify: '',
     },
     onLoad: function(options) {
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting['scope.userInfo']) {
+                    wx.authorize({
+                        scope: 'scope.userInfo',
+                        success() {
+                            wx.getUserInfo()
+                        }
+                    })
+                }
+            }
+        })
         this.setData({
             isloginres: app.globalData.islogin
         })
