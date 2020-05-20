@@ -12,5 +12,5 @@
 
 ## 界面
 
-![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/initpintu_%E5%89%AF%E6%9C%AC4.png)
+![image](https://github.com/Iceseas/databaseTestMiniProgram/blob/master/readmeImg/page.jpg)
 
