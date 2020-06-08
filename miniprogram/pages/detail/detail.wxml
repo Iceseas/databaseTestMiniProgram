@@ -91,7 +91,7 @@
       章节：{{questions[CurrentIndex].Chapter}}</text> 
       <text>
       知识点：{{questions[CurrentIndex].KN}}</text> 
-      <text wx:if="{{questions[CurrentIndex].Space1Answer.length<=0}}">
+      <text wx:if="{{questions[CurrentIndex].Answer}}">
       答案：{{questions[CurrentIndex].Answer}}</text> 
       <text wx:if="{{questions[CurrentIndex].Space1Answer.length>0}}">
       答案： {{questions[CurrentIndex].Space1Answer}}
@@ -102,7 +102,7 @@
           
         
    </view>
-   <button class="openGradeTab {{!tab_slot_contorl?'switch':''}}" bind:tap="openGradeTab" style="top:{{tabControlTop}}rpx;"><i class="iconfont icon-jiantou-copy"></i></button>
+   <!-- <button class="openGradeTab {{!tab_slot_contorl?'switch':''}}" bind:tap="openGradeTab" style="top:{{tabControlTop}}rpx;"><i class="iconfont icon-jiantou-copy"></i></button> -->
    <van-action-sheet 
    show="{{ van_action_show }}" 
    title="答题卡"

@@ -35,7 +35,6 @@ App({
                 fail: () => {},
                 complete: () => {}
             });
-
     },
     globalData: {
         userInfo: null,
@@ -51,7 +50,7 @@ App({
         CollectionArray: [],
         islogin: true,
         SystemWindowHeight: null,
-        nowOnlineUser: '420899522',
+        nowOnlineUser: 'iceseasyh',
         nowOnlineUserClass: '软件工程3班',
         nowOnlineUserID: '2220150608',
         nowOnlineUserName: '宋宇航',

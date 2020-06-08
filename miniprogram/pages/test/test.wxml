@@ -26,7 +26,7 @@
             </text>
         </view>
     </view>
-    <view class="test_tab_item" >
+    <!-- <view class="test_tab_item" >
         <view class="test_tab_item_select">
             <i class="iconfont icon-jiachang_cuotiben test_tab_item_icon" style="color:#eb4d4b"></i>
             <text class="test_tab_item_text yahei-font">
@@ -41,7 +41,7 @@
                 收藏夹
             </text>
         </view>
-    </view> 
+    </view>  -->
 </view>
 </view>
 <van-action-sheet

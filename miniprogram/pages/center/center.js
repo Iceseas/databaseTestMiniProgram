@@ -5,55 +5,55 @@ import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 import relaunch from '../../packaging/wxRelaunch.js'
 import getUser from '../../packaging/getuser.js'
 import getuserSignIndata from '../../packaging/getuserSignIndata.js'
+
+
 const db = wx.cloud.database() //操作数据库
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
         usergradedata: [],
         center_box_top: 0,
+        thismonthFirstDay: null,
+        day_magin_left: null,
         user_major: '',
         user_name: '',
         user_img: '',
         isrecordshow: false,
         dialogshow: false,
-        isCalendarOpen: false,
+        isSignInShow: false,
         actions: [{
             name: '查看大图',
             operation: 'showImg'
         }],
         ImgOptionsshow: false,
         cloudUserImgFile: '',
-        formatter(day) {
-            const month = day.date.getMonth() + 1;
-            const date = day.date.getDate();
-
-            if (month === 5) {
-                if (date === 1) {
-                    day.text = '已签到';
-                }
-            }
-            return day;
-        },
+        isSignInNum: []
     },
     onLoad: function(options) {
+        let date = new Date()
+        date = new Date(date.setDate(1))
+        this.setData({
+            thismonthFirstDay: date.getDay()
+        })
         let that = this
         wx.showLoading({
             title: '加载中',
         })
+        that.handleSignInMonthOneDay()
         let checkUserData
         if (options.countName) {
-            checkUserData = options
+            checkUserData = new Object()
+            checkUserData.countName = options.countName
+            checkUserData.stuID = options.stuID
         } else {
             checkUserData = new Object()
             checkUserData.countName = app.globalData.nowOnlineUser
+            checkUserData.stuID = app.globalData.nowOnlineUserID
         }
-
         getUser(db, 'mini_users_models', checkUserData, 'get')
             .then(res => {
-                console.log('center', res)
                 if (res.error != 0) {
                     wx.hideLoading()
                     this.hideTabBar()
@@ -62,7 +62,6 @@ Page({
                         message: '请重新登录！',
                         showCancelButton: false
                     }).then(() => {
-                        // on confirm
                         relaunch('res')
                     })
                 } else {
@@ -74,7 +73,6 @@ Page({
                     wx.cloud.downloadFile({
                         fileID: res.data.data[0].img,
                         success: res => {
-                            console.log(res)
                             that.setData({
                                 user_img: res.tempFilePath
                             })
@@ -87,35 +85,19 @@ Page({
                     })
                     wx.hideLoading()
                 }
-                getuserSignIndata('user_grade_data', app.globalData.nowOnlineUserID)
-                    .then(res => {
-                        console.log(res)
-                        that.setData({
-                            usergradedata: res.data[0].grade
-                        })
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
             })
-            .catch(err => {
-                console.log('err', err)
-            })
+            .catch(err => {})
     },
     onShow: function() {
         wx.showTabBar({
             animation: false,
-            success: function(res) {
-                console.log(res)
-            }
+            success: function(res) {}
         })
     },
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
-
-    },
+    onShareAppMessage: function() {},
     handleUserQuit() {
         Dialog.confirm({
             title: '退出',
@@ -132,10 +114,7 @@ Page({
                 duration: 1000,
                 icon: 'success'
             })
-        }).catch(() => {
-            // on cancel
-
-        });
+        }).catch(() => {});
     },
     shareToFriend() {
         wx.showShareMenu({
@@ -145,39 +124,49 @@ Page({
     hideTabBar() {
         wx.hideTabBar({
             animation: false,
-            success: function(res) {
-                console.log(res)
-            }
-
+            success: function(res) {}
         })
     },
     goToSubjectiveGrade() {
         wx.navigateTo({
             url: '../subjectivegrade/subjectivegrade',
-            success: function(res) {
-                console.log(res)
-            }
+            success: function(res) {}
         })
     },
     showTabBar() {
         wx.showTabBar({
             animation: false,
-            success: function(res) {
-                console.log(res)
-            }
+            success: function(res) {}
         })
     },
     onUnload: function() {
         app.globalData.nowOnlineUser = ''
     },
-    OpenClendar() {
+    OpenSignIn() {
+        wx.showLoading({
+            title: '加载中',
+        })
+        db.collection('signIn_model').where({ stuID: app.globalData.nowOnlineUserID }).get()
+            .then(res => {
+                let signIndate = []
+                for (let i = 0; i < res.data[0].signInCollection.length; i++) {
+                    signIndate.push(res.data[0].signInCollection[i].substring(1, 2))
+                }
+                this.setData({
+                    isSignInNum: signIndate
+                })
+                wx.hideLoading()
+            })
+            .catch(err => {
+                console.log(err)
+            })
         this.setData({
-            isCalendarOpen: true
+            isSignInShow: true
         })
     },
-    oncalendarClose() {
+    onSignInClose() {
         this.setData({
-            isCalendarOpen: false
+            isSignInShow: false
         })
     },
     oncalendarConfirm(event) {
@@ -200,24 +189,98 @@ Page({
             wx.cloud.downloadFile({
                 fileID: this.data.cloudUserImgFile,
                 success: res => {
-                    console.log(res)
                     let imgarr = [res.tempFilePath]
                     wx.previewImage({
                         current: '', // 当前显示图片的http链接0
                         urls: imgarr // 需要预览的图片http链接列表
                     })
                 },
-                fail: err => {
-                    console.log(err)
-                }
+                fail: err => {}
             })
-
         }
     },
     onClose() {
         this.setData({ isrecordshow: false });
     },
     showGrade() {
-        this.setData({ isrecordshow: true });
+        let that = this
+        wx.showLoading({
+            title: '加载中',
+        })
+        getuserSignIndata('user_grade_data', app.globalData.nowOnlineUserID)
+            .then(res => {
+                that.setData({
+                    usergradedata: res.data[0].grade
+                })
+                wx.hideLoading()
+                this.setData({ isrecordshow: true });
+            })
+            .catch(err => {
+                wx.hideLoading()
+                this.setData({ isrecordshow: true });
+            })
+    },
+    handleSignInMonthOneDay() {
+        if (this.data.thismonthFirstDay == 7) {
+            this.setData({
+                thismonthFirstDay: 0
+            })
+        }
+        this.setData({
+            day_magin_left: (this.data.thismonthFirstDay * 14.25) + "%"
+        })
+    },
+    signInAjax() {
+        wx.showLoading({
+            title: '签到中',
+        })
+        let date = new Date()
+        let nowDate = (date.getMonth() + 1).toString() + (date.getDate()).toString()
+        wx.request({
+            url: 'http://localhost:3000/signIn/api/saveSignInData',
+            data: {
+                date: (date.getMonth() + 1).toString() + (date.getDate()).toString(),
+                stuID: app.globalData.nowOnlineUserID
+            },
+            method: 'POST',
+            success: (result) => {
+                wx.hideLoading()
+                if (nowDate == result.date) {
+                    wx.showToast({
+                        title: '签到成功',
+                        duration: 1000,
+                        icon: 'success'
+                    })
+                }
+            },
+        });
+    },
+    signInSave() {
+        let signInObj = {
+            signInCollection: [],
+            stuID: app.globalData.nowOnlineUserID,
+            stuName: app.globalData.nowOnlineUserName
+        }
+        db.collection('signIn_model').where({
+            stuID: app.globalData.nowOnlineUserID
+        }).get().then(res => {
+            if (res.data.length > 0) {
+                this.signInAjax()
+            } else {
+                db.collection('signIn_model').add({
+                    data: signInObj
+                }).then(res => {
+
+                }).catch(err => {
+
+                })
+            }
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
+    },
+    consleDay(e) {
+        console.log(e.currentTarget.dataset.id)
     }
 })

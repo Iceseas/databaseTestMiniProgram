@@ -20,7 +20,7 @@ Page({
         van_action_show: false,
         questionGetNumMultiple: 1,
         anction_e_id: null,
-        countDown: 2 * 60 * 60 * 1000,
+        countDown: 40 * 60 * 1000,
         nowSelectItem: '',
         Item1: 'A',
         Item2: 'B',
@@ -91,6 +91,7 @@ Page({
     onUnload: function() {
         //将虚拟题库list清空
         app.globalData.answerArray = []
+        app.globalData.questionAnswerArray = []
     },
     onChange(event) {
         this.setData({
@@ -396,10 +397,23 @@ Page({
                     }
                 }
             }
-            wx.hideLoading()
-            wx.redirectTo({
-                url: '../finaGrade/finaGrade'
-            })
+            wx.nextTick(() => {
+                wx.request({
+                    url: 'http://localhost:3000/statisticGrade/api/statisticGrade',
+                    data: {
+                        stuID: app.globalData.nowOnlineUserID,
+                        stuGrade: app.globalData.finalGrade
+                    },
+                    method: 'POST',
+                    success: (result) => {
+                        wx.hideLoading()
+                        wx.redirectTo({
+                            url: '../finaGrade/finaGrade'
+                        })
+                    }
+                });
+            });
+
         }).catch(() => {
             // on cancel
 

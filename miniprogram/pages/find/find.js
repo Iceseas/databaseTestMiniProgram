@@ -32,6 +32,17 @@ Page({
     },
     //options(Object)
     onLoad: function(options) {
+        wx.request({
+            url: 'http://localhost:3000/signIn/api/saveSignInData',
+            data: {},
+            header: { 'content-type': 'application/json' },
+            method: 'POST',
+            success: (result) => {
+                console.log(result)
+            },
+            fail: () => {},
+            complete: () => {}
+        });
 
     },
     onReady: function() {

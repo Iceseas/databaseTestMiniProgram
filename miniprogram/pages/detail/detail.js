@@ -144,10 +144,13 @@ Page({
     },
     handleSelectItem(e) {
         let that = this;
+        console.log(this.data.CurrentIndex)
+        console.log(this.data.questions[this.data.CurrentIndex])
         let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
+        console.log(newValue)
         this.setData({
                 isChecked: true,
-                value: newValue
+                value: 2
             })
             //用于控制每次请求的题数
         let RightAnswer = this.data.questions[this.data.CurrentIndex].Answer //正确答案

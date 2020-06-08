@@ -1,7 +1,15 @@
 import getUser from './getuser'
 const db = wx.cloud.database();
 export default function resUser(collectionName, data) {
-    console.log('resdata', data)
+    let total, obj
+    db.collection('user_grade_data').get().then(res => {
+        total = res.data.length
+        obj = {
+            grade: [],
+            id: total + 1,
+            stuID: data.stuID
+        }
+    })
     return new Promise((resolve, reject) => {
         getUser(db, collectionName, data, 'check')
             .then(res => {
@@ -10,6 +18,9 @@ export default function resUser(collectionName, data) {
                         data: data
                     })
                     .then(res => {
+                        db.collection('user_grade_data').add({
+                            data: obj
+                        })
                         resolve(res)
                     })
                     .catch(err => {

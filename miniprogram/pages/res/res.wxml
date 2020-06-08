@@ -15,9 +15,14 @@
         <input class="user_reslogin_input" data-id="login_name" bindinput="getCountName" placeholder="请输入用户名" type="text" />
     </view>
     <text wx:if="{{isloginres}}" class="login_user_title">密码:</text>
-    <view wx:if="{{isloginres}}" class="user_password input_box_init" style="margin-bottom:40rpx">
+    <view wx:if="{{isloginres}}" class="user_password input_box_init">
         <i class="iconfont icon-xxhdpiCombinedShape user_reslogin_icon_init"></i>
         <input class="user_reslogin_input" data-id="login_password" bindinput="getPassword" placeholder="请输入密码" type="password" />
+    </view>
+        <text wx:if="{{isloginres}}" class="login_user_title">学号:</text>
+    <view wx:if="{{isloginres}}" class="user_name input_box_init" style="margin-bottom:40rpx">
+        <i class="iconfont icon-xxhdpiCombinedShape user_reslogin_icon_init"></i>
+        <input class="user_reslogin_input" data-id="login_stuID" bindinput="getStuID" placeholder="请输入学号" type="text" />
     </view>
     <text wx:if="{{!isloginres}}" class="user_res_title">用户名:</text>
     <view wx:if="{{!isloginres}}" class="user_name input_box_init">

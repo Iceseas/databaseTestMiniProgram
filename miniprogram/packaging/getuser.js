@@ -1,39 +1,44 @@
+import getCountNameUser from './getCountNameUser.js'
+
 export default function getUser(db, collectionName, data, how) {
     return new Promise((resolve, reject) => {
-        if (data.countName) {
-            db.collection(collectionName).where({
-                countName: data.countName
-            }).get().then(res => {
-                //console.log('get', res)
-                if (res.data.length > 0) {
-                    switch (how) {
-                        case 'get':
+        db.collection(collectionName).where({
+            stuID: data.stuID
+        }).get().then(res => {
+            if (res.data.length > 0) {
+                switch (how) {
+                    case 'get':
+                        resolve({
+                            data: res,
+                            error: 0
+                        })
+                        break;
+                    case 'check':
+                        reject({
+                            msg: '该帐号或学号已存在，请重新输入或登录！',
+                            error: -1
+                        })
+                        break;
+                }
+            } else {
+                getCountNameUser(data.countName)
+                    .then(res => {
+                        if (res.error == 0 && how == 'check') {
                             resolve({
-                                data: res,
+                                msg: '该账户可以注册',
                                 error: 0
                             })
-                            break;
-                        case 'check':
+                        } else {
                             reject({
-                                msg: '用户已存在，请登录！',
+                                msg: '该账户或学号已存在，请重新输入或登录！',
                                 error: -1
                             })
-                            break;
-                    }
-                } else {
-                    resolve({
-                        userexist: '用户不存在，请注册！',
-                        error: -2
+                        }
                     })
-                }
-            }).catch(err => {
-                console.log(err)
-            })
-        } else {
-            resolve({
-                userexist: '请输入用户名！',
-                error: -3
-            })
-        }
+                    .catch(err => {
+                        console.log('未知错误')
+                    })
+            }
+        })
     })
 }

@@ -101,3 +101,55 @@
     max-height: 400rpx;
     overflow: scroll;
 }
+
+.noDataCenter {
+    width: 100%;
+    height: 100%;
+    font-size: 24rpx;
+    text-align: center;
+    background: #eee;
+}
+
+.signIn_weekItem {
+    font-size: 24rpx;
+    box-sizing: border-box;
+    background: #9face6;
+    text-align: center;
+    color: #fff;
+    flex: 1;
+}
+
+.signIn_dayItem {
+    font-size: 24rpx;
+    box-sizing: border-box;
+    background: #eee;
+    border: 2rpx solid #fff;
+    text-align: center;
+    color: #636e72;
+    float: left;
+    width: 14.25%;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.signIn_weeks {
+    margin-top: 20rpx;
+    height: 40rpx;
+    width: 100%;
+    background: #636e72;
+    display: flex;
+}
+
+.signIn_days {
+    height: 200rpx;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 152rpx;
+}
+
+.signIn_Calendar {
+    width: 100%;
+    background: #eee;
+}

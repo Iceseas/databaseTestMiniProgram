@@ -101,25 +101,28 @@ Page({
         }
     },
     gotocenter() {
+        let that = this
         wx.showLoading({
             title: '验证中',
         })
-        verifyUserCount(db, 'mini_users_models', { countName: this.data.userMessage.countName, password: this.data.userMessage.password })
+        verifyUserCount(db, 'mini_users_models', { countName: this.data.userMessage.countName, password: this.data.userMessage.password, stuID: this.data.userMessage.stuID })
             .then(res => {
                 wx.hideLoading()
-                console.log('res.jsres', res)
                 if (res.error == 0) {
-                    showToast(res.msg, 1000, 'success')
-                    wxRelaunch('center', { countName: this.data.userMessage.countName })
+                    wx.showToast({
+                        title: res.msg,
+                        duration: 1000,
+                        icon: 'success',
+                        success: function() {
+                            wxRelaunch('center', { countName: that.data.userMessage.countName, stuID: that.data.userMessage.stuID })
+                        }
+                    })
                 }
             })
             .catch(err => {
-                console.log('reserr', err)
-                if (err.error) {
-                    showToast(err.msg, 1000, 'none')
-                } else {
-                    showToast(err.res.userexist, 1000, 'none')
-                }
+                wx.hideLoading()
+                console.log(err)
+                showToast(err.userexist, 2000, 'none')
             })
     },
     // 上传图片
@@ -147,7 +150,6 @@ Page({
                 .then((res) => {
                     resUser('mini_users_models', this.data.userMessage)
                         .then(res => {
-                            console.log('res', res)
                             if (res.errMsg == 'collection.add:ok') {
                                 wx.hideLoading()
                                 wx.showToast({
@@ -159,13 +161,14 @@ Page({
                             } else {
                                 wx.hideLoading()
                                 wx.showToast({
-                                    title: err.msg,
+                                    title: '注册失败请检查参数',
                                     duration: 2000,
                                     icon: 'none'
                                 })
                             }
                         })
                         .catch(err => {
+                            console.log(err)
                             wx.hideLoading()
                             wx.showToast({
                                 title: err.msg,
@@ -186,13 +189,10 @@ Page({
         }
     },
     getCountName(e) {
-
-
         if (e.detail.value != '') {
             this.data.userMessage.countName = e.detail.value
             this.data.isCountNameverify = true
         }
-
     },
     getPassword(e) {
         let reg = /^(?=.*?[0-9])(?=.*?[a-z])[0-9a-z]{8,}$/

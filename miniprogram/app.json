@@ -1,13 +1,14 @@
 {
     "pages": [
-        "pages/res/res",
         "pages/center/center",
+        "pages/res/res",
+
+        "pages/test/test",
+        "pages/detail/detail",
         "pages/subjectivegrade/subjectivegrade",
         "pages/find/find",
         "pages/finaGrade/finaGrade",
-        "pages/test/test",
-        "pages/onlineTest/onlineTest",
-        "pages/detail/detail"
+        "pages/onlineTest/onlineTest"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -32,7 +33,6 @@
             {
                 "pagePath": "pages/center/center",
                 "text": "我的",
-
                 "iconPath": "src/listimage/user.png",
                 "selectedIconPath": "src/listimage/user2.png"
             }
@@ -54,9 +54,8 @@
         "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index",
         "van-divider": "/miniprogram_npm/@vant/weapp/divider/index",
         "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
-        "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index"
+        "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+        "van-steps": "/miniprogram_npm/@vant/weapp/steps/index"
     },
     "sitemapLocation": "sitemap3.json"
-
-
 }
