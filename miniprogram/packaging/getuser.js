@@ -1,3 +1,4 @@
+// 检查登录
 import getCountNameUser from './getCountNameUser.js'
 
 export default function getUser(db, collectionName, data, how) {

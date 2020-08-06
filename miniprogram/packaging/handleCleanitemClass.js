@@ -1,3 +1,4 @@
+// 清除样式
 export default function handleCleanitemClass(that) {
     that.setData({
         item1classControl: '',

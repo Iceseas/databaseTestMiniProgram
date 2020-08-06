@@ -78,14 +78,12 @@ Page({
     },
 
     onSelect(event) {
-        console.log(event.detail);
         this.setData({
             SelectQuestionType: event.detail.questionType
         })
         wx.navigateTo({
             url: '../detail/detail',
             success: (result) => {
-                console.log(result)
                 result.eventChannel.emit('ToDetailData', { Type: this.data.SelectQuestionType })
             },
             fail: (err) => {

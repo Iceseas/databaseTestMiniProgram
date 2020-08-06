@@ -1,3 +1,4 @@
+// 跳转
 export default function wxRelaunch(page, data) {
     let newurl
     if (data) {

@@ -1,3 +1,4 @@
+// 获取考试卷
 export default async function getCollectionSum(db) {
     let paperArr = []
     await db.collection('single_models').aggregate().sample({ size: 5 }).end().then(res => {

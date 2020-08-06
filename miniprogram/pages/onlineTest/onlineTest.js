@@ -15,7 +15,6 @@ Page({
         SystemWindowHeight: 1000, //初始化高度
         isdisabled: false,
         tab_slot_contorl: true,
-        tabControlTop: 1120,
         van_action_show: false,
         questionGetNumMultiple: 1,
         anction_e_id: null,
@@ -213,9 +212,6 @@ Page({
         }
     },
     onPageScroll: function(e) {
-        this.setData({
-            tabControlTop: 1120 + (e.scrollTop * 2)
-        })
     },
 
     open_van_action() {

@@ -1,3 +1,4 @@
+// 注册用户
 import getUser from './getuser'
 const db = wx.cloud.database();
 export default function resUser(collectionName, data) {

@@ -1,3 +1,4 @@
+// 提交主观题
 const db = wx.cloud.database();
 export default function submitSubjectiveAnswer(collectionName, data) {
     return new Promise((resolve, reject) => {

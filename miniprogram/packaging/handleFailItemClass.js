@@ -1,3 +1,4 @@
+// 渲染错误样式
 export default function handleFailItemClass(userselectItem, that) {
     //处理item正确的class
     switch (userselectItem) {

@@ -1,3 +1,4 @@
+// 渲染样式
 export default function handleCorrectItemClass(userselectItem, that) {
     //处理item正确的class
     switch (userselectItem) {

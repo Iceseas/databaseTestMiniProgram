@@ -1,3 +1,4 @@
+// 检测用户登录
 import getUser from './getuser'
 
 export default function verifyUserCount(db, collectionName, data) {

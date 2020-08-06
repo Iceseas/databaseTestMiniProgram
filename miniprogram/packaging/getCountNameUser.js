@@ -1,3 +1,4 @@
+// 检测用户名
 const db = wx.cloud.database();
 export default function getCountNameUser(countName) {
     console.log(countName)
