@@ -10,7 +10,6 @@ Page({
     data: {
         user_image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3959542671,3569689889&fm=26&gp=0.jpg',
         login: '登录',
-        navigationText_title: "登录",
         ishaventip: '没有帐号？',
         loginorretip: '注册',
         isloginres: null,
@@ -31,7 +30,7 @@ Page({
             stuID: ''
         },
         fileID: '',
-        user_name_verify: '',
+        user_countName_verify:'',
         user_password_verify: '',
         user_major_verify: '',
         user_stuID_verify: '',
@@ -55,15 +54,6 @@ Page({
         })
     },
     onShow: function() {
-        wx.getSystemInfo({
-            success: (result) => {
-                this.setData({
-                    reslogin_height: (result.windowHeight) * 2
-                })
-            },
-            fail: () => {},
-            complete: () => {}
-        });
     },
     /**
      * 用户点击右上角分享
@@ -79,16 +69,17 @@ Page({
         if (app.globalData.islogin) {
             this.setData({
                 login: '登录',
-                navigationText_title: "登录",
                 ishaventip: '没有帐号？',
                 loginorretip: '注册',
                 isloginres: app.globalData.islogin,
                 isloginOrRes_button: 'gotocenter'
             })
+            wx.setNavigationBarTitle({
+                title: '登录'
+            })
         } else {
             this.setData({
                 login: '注册',
-                navigationText_title: "注册",
                 ishaventip: '已有帐号？',
                 loginorretip: '登录',
                 isloginres: app.globalData.islogin,
@@ -97,6 +88,9 @@ Page({
                 isCountNameverify: false,
                 isPasswordverify: false,
                 isMajorverify: false
+            })
+            wx.setNavigationBarTitle({
+                title: '注册'
             })
         }
     },
@@ -121,8 +115,8 @@ Page({
             })
             .catch(err => {
                 wx.hideLoading()
-                console.log(err)
                 showToast(err.userexist, 2000, 'none')
+                showToast(err.msg, 2000, 'none')
             })
     },
     // 上传图片
@@ -189,8 +183,19 @@ Page({
         }
     },
     getCountName(e) {
+        let reg = /^[a-zA-Z0-9_-]{4,16}$/
         if (e.detail.value != '') {
             this.data.userMessage.countName = e.detail.value
+        }
+        if (!reg.test(e.detail.value)) {
+            this.setData({
+                user_countName_verify: '用户名为4到16位',
+                isCountNameverify: false
+            })
+        } else {
+            this.setData({
+                user_countName_verify: ''
+            })
             this.data.isCountNameverify = true
         }
     },

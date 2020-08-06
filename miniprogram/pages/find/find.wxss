@@ -2,11 +2,11 @@
     width: 100%;
     box-sizing: border-box;
     overflow: scroll;
-    padding-top: 420rpx;
+    padding-top: 295rpx;
 }
 
 page {
-    background: #fff;
+    background: #eee;
 }
 
 .Subjective_problems_answer_body {
@@ -47,14 +47,15 @@ page {
 }
 
 .Subjective_problems_submit {
-    height: 400rpx;
+    height: 290rpx;
     width: 100%;
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
     position: fixed;
     top: 0rpx;
-    padding: 200rpx 0;
     box-sizing: border-box;
     z-index: 99;
+    padding-top: 5rpx;
+    box-shadow: -5rpx 5rpx 30rpx #cbd3d8;
 }
 
 .Subjective_menu_btn {

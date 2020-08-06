@@ -1,5 +1,6 @@
 {
     "usingComponents": {
         "tab-slot-control": "/components/tab-slot-control/tab-slot-control"
-    }
+    },
+    "navigationBarTitleText": "答题"
 }

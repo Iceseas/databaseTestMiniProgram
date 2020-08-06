@@ -1,5 +1,4 @@
-<text class="navigationText_title" style="z-index:2">答题</text>
-<view class="detail_body" style="height:{{detail_height}}px;">
+<view class="detail_body">
    <view class="question_title ">
      <text class="question_ID_text">第{{CurrentIndex+1}}道</text>
        <text class="question_title_text">{{questions[CurrentIndex].Question}}</text>

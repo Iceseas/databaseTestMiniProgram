@@ -3,7 +3,6 @@ let app = getApp();
 Page({
     data: {
         grade: 0,
-        final_height: null,
     },
     //options(Object)
     onLoad: function(options) {
@@ -15,7 +14,6 @@ Page({
     },
     onShow: function() {
         this.setData({
-            final_height: app.globalData.SystemWindowHeight,
             grade: app.globalData.finalGrade
         })
     },
@@ -42,15 +40,8 @@ Page({
 
     },
     backToTest() {
-        console.log('111')
         wx.switchTab({
-            url: '../test/test',
-            success: function(res) {
-                console.log(res)
-            },
-            fail: function(err) {
-                console.log(err)
-            }
+            url: '../test/test'
         })
     }
 });

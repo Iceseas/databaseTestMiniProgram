@@ -8,7 +8,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        detail_height: null,
         questions: [], //存放接收的题库
         CurrentIndex: 0, //存放当前的Index
         questionSum: 0, //题目总数
@@ -46,7 +45,6 @@ Page({
         })
         getpaper(db)
             .then(res => {
-                console.log(res)
                 for (let i = 0; i < res.length; i++) {
                     for (let j = 0; j < res[i].length; j++) {
                         let noteArr = []
@@ -75,15 +73,11 @@ Page({
                     questions: this.data.questions
                 })
                 wx.hideLoading()
-                console.log(app.globalData.questionAnswerArray)
-                console.log(this.data.questions)
             })
 
     },
     onShow: function() {
-        this.setData({
-            detail_height: app.globalData.SystemWindowHeight
-        })
+        
     },
     /**
      * 生命周期函数--监听页面卸载
@@ -163,7 +157,6 @@ Page({
                 NowQuestionNum: this.data.NowQuestionNum + 1
             })
         }
-        console.log(app.globalData.answerArray)
     },
     goToLastQuestion() {
         if (app.globalData.vacancyArr.length > 0) {
@@ -218,7 +211,6 @@ Page({
                 NowQuestionNum: this.data.NowQuestionNum - 1
             })
         }
-        console.log(app.globalData.answerArray)
     },
     onPageScroll: function(e) {
         this.setData({
@@ -322,7 +314,6 @@ Page({
             isinputdone: true,
             alterBtnText: '填写',
         })
-        console.log(app.globalData.vacancyArr)
     },
     cleanvacancyArry() {
         app.globalData.vacancyArr = []
@@ -387,7 +378,6 @@ Page({
                                     }
                                 }
                             }
-                            console.log('跳出for l')
                         }
                     }
                     //判断答案是否是选择或者判断

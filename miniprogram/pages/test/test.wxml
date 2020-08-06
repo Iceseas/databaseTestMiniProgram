@@ -1,5 +1,4 @@
 <view class="container_height" style="height:{{center_box_top}}px">
-<text class="navigationText_title" style="z-index:2">测验</text>
 <view class="anime_circle1">
 </view>
 <view class="anime_circle2">
@@ -7,8 +6,6 @@
 <text class="anime_title yahei-font" decode="{{true}}">
     千里之行
         始于足下</text>
-  
-  
 <view class="test_tab">
     <view class="test_tab_item" >
         <view class="test_tab_item_select" bind:tap="gotoOnlineTest">

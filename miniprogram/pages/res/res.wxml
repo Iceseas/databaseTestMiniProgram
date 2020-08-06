@@ -1,13 +1,9 @@
-<view class="user_reslogin_box yahei-font" style="height:{{reslogin_height}}rpx">
-    <text class="navigationText_title">{{navigationText_title}}</text>
-    <!-- <image wx:if="{{!isloginres}}" class="user_image" mode="aspectFit" src="{{user_image}}"/> -->
+<view class="user_reslogin_box yahei-font">
     <view wx:if="{{!isloginres}}" bind:tap="uploaderimage" class="user_image">
         <image wx:if="{{userimg}}" style="width:100%;height:100%" mode="aspectFill" src="{{user_image}}"/>
         <view style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%)">
             <i wx:if="{{!userimg}}" class="iconfont icon-tupian2 user_icon"></i>
         </view>
-          
-        
     </view>
     <text wx:if="{{isloginres}}" class="login_user_title">用户名：</text>
     <view wx:if="{{isloginres}}" class="user_name input_box_init">
@@ -25,6 +21,7 @@
         <input class="user_reslogin_input" data-id="login_stuID" bindinput="getStuID" placeholder="请输入学号" type="text" />
     </view>
     <text wx:if="{{!isloginres}}" class="user_res_title">用户名:</text>
+    <text wx:if="{{!isloginres}}" class="res_error_msg">{{user_countName_verify}}</text>
     <view wx:if="{{!isloginres}}" class="user_name input_box_init">
         <i class="iconfont icon-user user_reslogin_icon_init"></i>
         <input class="user_reslogin_input" data-id="res_userCount" bindinput="getCountName" placeholder="请输入用户名" type="text" />

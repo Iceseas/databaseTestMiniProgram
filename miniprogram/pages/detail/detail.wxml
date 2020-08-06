@@ -1,5 +1,4 @@
-<text class="navigationText_title" style="z-index:2">答题</text>
-<view class="detail_body" style="height:{{detail_height}}px;">
+<view class="detail_body">
    <view class="question_title ">
      <text class="question_ID_text">第{{CurrentIndex+1}}道</text>
        <text class="question_title_text">{{questions[CurrentIndex].Question}}</text>
@@ -10,19 +9,19 @@
        <button class="question_title_last" bind:tap="goToLastQuestion">上一题</button>
    </view>
    <image wx:if="{{item.url}}" mode="aspectFit" class="question_image" src="{{item.url}}" />
-   <view wx:if="{{questions[CurrentIndex].Item1}}" class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="handleSelectItem">
+   <view wx:if="{{questions[CurrentIndex].Item1}}" class="user_center_menulist_item {{item1classControl}}" id="A" bind:tap="{{ selectQuestionEvent }}">
         <i class="iconfont icon-101 user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item1}}</text>
     </view>
-    <view wx:if="{{questions[CurrentIndex].Item2}}" class="user_center_menulist_item {{item2classControl}}" id="B" bind:tap="handleSelectItem">
+    <view wx:if="{{questions[CurrentIndex].Item2}}" class="user_center_menulist_item {{item2classControl}}" id="B" bind:tap="{{ selectQuestionEvent }}">
         <i class="iconfont icon-201 user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item2}}</text>
     </view>
-    <view wx:if="{{questions[CurrentIndex].Item3}}" class="user_center_menulist_item {{item3classControl}}" id="C" bind:tap="handleSelectItem">
+    <view wx:if="{{questions[CurrentIndex].Item3}}" class="user_center_menulist_item {{item3classControl}}" id="C" bind:tap="{{ selectQuestionEvent }}">
         <i class="iconfont icon-301 user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item3}}</text>
     </view>
-    <view wx:if="{{questions[CurrentIndex].Item4}}" class="user_center_menulist_item {{item4classControl}}" id="D" bind:tap="handleSelectItem">
+    <view wx:if="{{questions[CurrentIndex].Item4}}" class="user_center_menulist_item {{item4classControl}}" id="D" bind:tap="{{ selectQuestionEvent }}">
         <i class="iconfont icon-401 user_center_menulist_item_icon_init"></i>
         <text class="user_center_menulist_item_title init_detai_text">{{questions[CurrentIndex].Item4}}</text>
     </view>

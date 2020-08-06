@@ -1,5 +1,4 @@
-<view class="user_center_box yahei-font" style="top:{{center_box_top}}rpx">
-    <text class="navigationText_title">我的</text>
+<view class="user_center_box yahei-font">
     <image class="user_center_image" bind:tap="checkImgOptions" mode="aspectFill" src="{{user_img}}"/>
     <text class="user_center_username">{{user_name}}</text>
     <text class="user_center_major">{{user_major}}</text>

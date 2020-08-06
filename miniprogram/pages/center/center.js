@@ -14,7 +14,6 @@ Page({
      */
     data: {
         usergradedata: [],
-        center_box_top: 0,
         thismonthFirstDay: null,
         day_magin_left: null,
         user_major: '',

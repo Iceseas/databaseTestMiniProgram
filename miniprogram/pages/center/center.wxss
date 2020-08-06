@@ -1,6 +1,6 @@
 .user_center_box {
     position: relative;
-    height: 520rpx;
+    height: 470rpx;
     width: 100%;
     background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
     color: #fff;
@@ -12,7 +12,7 @@
     width: 160rpx;
     height: 160rpx;
     border-radius: 100%;
-    top: 140rpx;
+    top: 85rpx;
     box-sizing: border-box;
     border: 6rpx solid #fff;
 }
@@ -34,11 +34,11 @@
 
 .user_center_username {
     font-size: 28rpx;
-    top: 320rpx;
+    top: 290rpx;
 }
 
 .user_center_major {
-    top: 360rpx;
+    top: 345rpx;
     font-size: 30rpx;
 }
 
@@ -46,7 +46,7 @@
     background: #fff;
     height: 140rpx;
     width: 600rpx;
-    top: 448rpx;
+    top: 420rpx;
     border-radius: 20rpx;
     box-shadow: -5rpx 10rpx 20rpx #74ebd5;
     display: flex;

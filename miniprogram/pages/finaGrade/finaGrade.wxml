@@ -1,10 +1,4 @@
-<text class="navigationText_title" style="z-index:2">成绩</text>
-<view class="finalGrade_body" style="height:{{final_height}}px;">
-   <view class="goback" bind:tap="backToTest">
-      <view class="goback_icon_background">
-         <i class="iconfont icon-jiantou-copy goback_icon_init"></i>
-      </view> 
-   </view> 
+<view class="finalGrade_body">
    <text class="finalGrade_show yahei-font">您本次成绩： {{grade}}分</text>
    <view class="badage_head">
       <view class="badage_rectangle"></view>

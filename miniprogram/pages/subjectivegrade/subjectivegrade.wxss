@@ -1,9 +1,8 @@
 page {
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    background: #fff;
 }
 
 .subjectivegrade_body {
-    margin-top: 250rpx;
     width: 100%;
 }
 

@@ -37,9 +37,6 @@ Page({
             data: {},
             header: { 'content-type': 'application/json' },
             method: 'POST',
-            success: (result) => {
-                console.log(result)
-            },
             fail: () => {},
             complete: () => {}
         });
@@ -57,7 +54,6 @@ Page({
 
     },
     onUnload: function() {
-        console.log('find gg')
         this.setData({
             [problemTitle]: '',
             [problemsAnswer]: []
@@ -103,6 +99,15 @@ Page({
             title: '提交主观题作答',
             message: '您确定要提交吗？'
         }).then(() => {
+
+            if (that.data.Subjective_problems.problem_Title === '') {
+                wx.showToast({
+                    title: '请填写作业名！',
+                    duration: 1000,
+                    icon:'none'
+                })
+                return
+            }
             // on confirm
             wx.showLoading({
                 title: '提交中...',
@@ -135,7 +140,6 @@ Page({
                                 [problemTitle]: '',
                                 [problemsAnswer]: []
                             })
-                            console.log(res)
                         })
                         .catch(err => {
                             console.log(err)
@@ -159,4 +163,11 @@ Page({
             [problemTitle]: e.detail
         })
     },
+    onClickIcon() {
+        wx.showToast({
+            title: '此次作业的名称',
+            duration: 500,
+            icon: 'none'
+        })
+    }
 });

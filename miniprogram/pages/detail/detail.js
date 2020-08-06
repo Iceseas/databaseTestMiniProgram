@@ -19,7 +19,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        detail_height: null,
         questions: [], //存放接收的题库
         CurrentIndex: 0, //存放当前的Index
         questionSum: 0, //题目总数
@@ -33,13 +32,13 @@ Page({
         itemFail2classControl: '',
         isCollection: '',
         isdisabled: false,
-        buttonBindTap: 'handleSelectItem',
         tab_slot_contorl: true,
         tabControlTop: 1120,
         correctNum: 0,
         failNum: 0,
         van_action_show: false,
         questionGetNumMultiple: 1,
+        selectQuestionEvent: 'handleSelectItem',
         anction_e_id: null,
         value: 1,
         isChecked: false,
@@ -61,7 +60,6 @@ Page({
         let that = this
         const eventChannel = this.getOpenerEventChannel()
         eventChannel.on('ToDetailData', function(data) {
-            console.log(data)
             if (data.Type) {
                 app.globalData.TestType = data.Type
                 wx.showLoading({
@@ -79,7 +77,6 @@ Page({
                     })
                 getSequenceQuestion(db, app.globalData.TestType, _, app.globalData.questionGetNum)
                     .then(res => {
-                        console.log('res', res)
                         pushGetlist(res.data)
                     })
                     .then(() => {
@@ -101,16 +98,13 @@ Page({
 
     },
     onShow: function() {
-        this.setData({
-            detail_height: app.globalData.SystemWindowHeight
-        })
+
     },
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function() {
-        console.log('页面gg')
-            //将虚拟题库list清空
+        //将虚拟题库list清空
         app.globalData.TestType = ''
         app.globalData.getlist = []
         app.globalData.answerArray = []
@@ -144,13 +138,10 @@ Page({
     },
     handleSelectItem(e) {
         let that = this;
-        console.log(this.data.CurrentIndex)
-        console.log(this.data.questions[this.data.CurrentIndex])
         let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
-        console.log(newValue)
         this.setData({
                 isChecked: true,
-                value: 2
+                value: newValue
             })
             //用于控制每次请求的题数
         let RightAnswer = this.data.questions[this.data.CurrentIndex].Answer //正确答案
@@ -169,7 +160,8 @@ Page({
                     difficulty: newValue
                 })
                 that.setData({
-                    correctNum: this.data.correctNum + 1
+                    correctNum: this.data.correctNum + 1,
+                    selectQuestionEvent: ''
                 })
                 handleCorrectItemClass(e.currentTarget.id, this)
             })
@@ -183,7 +175,8 @@ Page({
                     difficulty: newValue
                 })
                 that.setData({
-                    failNum: this.data.failNum + 1
+                    failNum: this.data.failNum + 1,
+                    selectQuestionEvent: ''
                 })
                 handleFailItemClass(e.currentTarget.id, this)
                 handleCorrectItemClass(RightAnswer, this)
@@ -208,11 +201,19 @@ Page({
         })
     },
     goToNextQuestion() {
+        if (app.globalData.answerArray[this.data.CurrentIndex + 1]) {
+            this.setData({
+                selectQuestionEvent: ''
+            })
+        } else {
+            this.setData({
+                selectQuestionEvent: 'handleSelectItem'
+            })
+        }
         if (app.globalData.vacancyArr.length > 0) {
             app.globalData.answerArray[this.data.CurrentIndex] = app.globalData.vacancyArr
         }
         if (app.globalData.answerArray[this.data.CurrentIndex + 1]) {
-
             if (typeof(app.globalData.answerArray[this.data.CurrentIndex + 1]) == 'object') {
                 app.globalData.vacancyArr = app.globalData.answerArray[this.data.CurrentIndex + 1]
                 let newValue = this.handledifficultStart(this.data.questions[this.data.CurrentIndex].difficulty)
@@ -260,6 +261,9 @@ Page({
                 icon: 'none',
                 duration: 500
             })
+            this.setData({
+                isChecked: true
+            })
         } else {
             this.setData({
                 CurrentIndex: this.data.CurrentIndex + 1,
@@ -270,6 +274,15 @@ Page({
         }
     },
     goToLastQuestion() {
+        if (app.globalData.answerArray[this.data.CurrentIndex - 1]) {
+            this.setData({
+                selectQuestionEvent: ''
+            })
+        } else {
+            this.setData({
+                selectQuestionEvent: 'handleSelectItem'
+            })
+        }
         if (app.globalData.vacancyArr.length > 0) {
             app.globalData.answerArray[this.data.CurrentIndex] = app.globalData.vacancyArr
         }
@@ -321,6 +334,9 @@ Page({
                 icon: 'none',
                 duration: 500
             })
+            this.setData({
+                isChecked: true
+            })
         } else {
             this.setData({
                 CurrentIndex: this.data.CurrentIndex - 1,
@@ -335,7 +351,6 @@ Page({
     },
     handleRememberAnsweredItemClass(CurrentIndex) {
         let DecideItemData = app.globalData.answerArray[CurrentIndex]
-            //console.log(DecideItemData)
         if (DecideItemData) {
             this.setData({
                 isChecked: true
@@ -380,7 +395,6 @@ Page({
         this.close_van_action()
     },
     getOtherQuestion(Multiple) {
-        //console.log('multiple', Multiple)
         let that = this
         getSequenceQuestion(db, app.globalData.TestType, _, app.globalData.questionGetNum * (Multiple + 1))
             .then(res => {
@@ -450,7 +464,6 @@ Page({
             isinputdone: true,
             alterBtnText: '填写',
         })
-        console.log(app.globalData.vacancyArr)
     },
     cleanvacancyArry() {
         app.globalData.vacancyArr = []

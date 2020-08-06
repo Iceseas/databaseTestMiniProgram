@@ -1,24 +1,23 @@
 {
     "pages": [
-        "pages/center/center",
         "pages/res/res",
-
+        "pages/find/find",
         "pages/test/test",
         "pages/detail/detail",
-        "pages/subjectivegrade/subjectivegrade",
-        "pages/find/find",
+
         "pages/finaGrade/finaGrade",
-        "pages/onlineTest/onlineTest"
+        "pages/center/center",
+        "pages/onlineTest/onlineTest",
+        "pages/subjectivegrade/subjectivegrade"
     ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
         "navigationBarTitleText": "WeChat",
-        "navigationBarTextStyle": "white",
-        "navigationStyle": "custom"
+        "navigationBarTextStyle": "black"
     },
     "tabBar": {
-        "selectedColor": "#636e72",
+        "selectedColor": "#4B7BEC",
         "list": [{
                 "pagePath": "pages/test/test",
                 "text": "测验",

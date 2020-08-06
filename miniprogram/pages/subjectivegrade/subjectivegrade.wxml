@@ -1,8 +1,6 @@
-<text class="navigationText_title" style="z-index:2">查看成绩</text>
-<view class="subjectivegrade_body">
 
+<view class="subjectivegrade_body">
 <block wx:if="{{gradelist.length>0}}"> 
-<van-divider contentPosition="center">提交记录</van-divider>
 <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
 <block wx:for="{{gradelist}}" wx:key="Arrayindex">
     <van-collapse-item title="{{item.problem_Title}}" name="{{Arrayindex}}" icon="label-o">

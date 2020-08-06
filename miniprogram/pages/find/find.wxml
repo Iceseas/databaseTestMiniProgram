@@ -1,5 +1,4 @@
 <view class="Subjective_problems_submit">
-    <text class="navigationText_title" style="z-index:2">主观题提交</text>
     <van-field
     value="{{ Subjective_problems.problem_Title }}"
     required
