@@ -1,6 +1,7 @@
 // pages/find/find.js
 import submitSubjectiveAnswer from '../../packaging/submitSubjectiveAnswer.js'
 import getCollectionSum from '../../packaging/getCollectionSum.js'
+import Request from '../../api/api'
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 const stuname = 'Subjective_problems.stuName'
 const stuID = 'Subjective_problems.stuID'
@@ -18,7 +19,6 @@ Page({
     data: {
         Subjective_problems_body_height: null,
         Subjective_problems: {
-            Id: null,
             problem_Title: '',
             stuName: '',
             stuID: '',
@@ -99,7 +99,6 @@ Page({
             title: '提交主观题作答',
             message: '您确定要提交吗？'
         }).then(() => {
-
             if (that.data.Subjective_problems.problem_Title === '') {
                 wx.showToast({
                     title: '请填写作业名！',
@@ -112,44 +111,41 @@ Page({
             wx.showLoading({
                 title: '提交中...',
             })
-            getCollectionSum(db, 'subjective_publish_models')
-                .then(res => {
-                    let dt = new Date();
-                    let yy = dt.getFullYear();
-                    let mm = (dt.getMonth() + 1).toString().padStart(2, '0');
-                    let ww = (dt.getDate()).toString().padStart(2, '0');
-                    let hh = (dt.getHours()).toString().padStart(2, '0');
-                    let m = (dt.getMinutes()).toString().padStart(2, '0');
-                    let ss = (dt.getSeconds()).toString().padStart(2, '0');
-                    this.setData({
-                        [Id]: res.total + 1,
-                        [stuname]: app.globalData.nowOnlineUserName,
-                        [stuID]: app.globalData.nowOnlineUserID,
-                        [stuClass]: app.globalData.nowOnlineUserClass,
-                        [submitTime]: `${yy}-${mm}-${ww} ${hh}:${m}:${ss}`
-                    })
-                    submitSubjectiveAnswer('subjective_publish_models', this.data.Subjective_problems)
-                        .then(res => {
-                            wx.hideLoading()
-                            wx.showToast({
-                                title: '上传成功！',
-                                duration: 2000,
-                                icon: 'success'
-                            })
-                            that.setData({
-                                [problemTitle]: '',
-                                [problemsAnswer]: []
-                            })
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
+            let dt = new Date();
+            let yy = dt.getFullYear();
+            let mm = (dt.getMonth() + 1).toString().padStart(2, '0');
+            let ww = (dt.getDate()).toString().padStart(2, '0');
+            let hh = (dt.getHours()).toString().padStart(2, '0');
+            let m = (dt.getMinutes()).toString().padStart(2, '0');
+            let ss = (dt.getSeconds()).toString().padStart(2, '0');
+            this.setData({
+                [stuname]: app.globalData.nowOnlineUserName,
+                [stuID]: app.globalData.nowOnlineUserID,
+                [stuClass]: app.globalData.nowOnlineUserClass,
+                [submitTime]: `${yy}-${mm}-${ww} ${hh}:${m}:${ss}`
+            })
+            console.log(this.data.Subjective_problems)
+            Request('http://localhost:3000/addQuestion/api/addSubjectiveData','POST',this.data.Subjective_problems)
+            .then(res=>{
+                wx.hideLoading()
+                wx.showToast({
+                    title: '上传成功！',
+                    duration: 2000,
+                    icon: 'success'
                 })
-
-        }).catch(() => {
-            // on cancel
-
+                console.log(res)
+            })
+            .catch(err=>{
+                wx.hideLoading()
+                wx.showToast({
+                    title: '上传失败！',
+                    duration: 2000,
+                    icon: 'none'
+                })
+                console.log(err)
+            })
         });
+
     },
     getInputValue(e) {
         let id = e.currentTarget.dataset.id
