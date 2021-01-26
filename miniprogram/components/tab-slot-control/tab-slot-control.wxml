@@ -8,5 +8,5 @@
     <view class="tab-slot-control-right">
         <slot name="tab_slot_control_right"></slot>
     </view>
-</view>
+</view> 
   

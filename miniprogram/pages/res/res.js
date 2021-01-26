@@ -1,10 +1,6 @@
-import wxRelaunch from '../../packaging/wxRelaunch'
-import resUser from '../../packaging/resUser.js'
-import verifyUserCount from '../../packaging/verifyUserCount.js'
-import showToast from '../../packaging/showToast.js'
+import { userLoginApi, fileUploadApi } from '../../api/api'
+import { okMsg, errMsg, noIconMsg } from '../../utils/showMsg'
 
-const db = wx.cloud.database() //操作数据库
-let image = 'userMessage.img'
 let app = getApp();
 Page({
     data: {
@@ -95,91 +91,71 @@ Page({
         }
     },
     gotocenter() {
-        let that = this
         wx.showLoading({
             title: '验证中',
         })
-        verifyUserCount(db, 'mini_users_models', { countName: this.data.userMessage.countName, password: this.data.userMessage.password, stuID: this.data.userMessage.stuID })
-            .then(res => {
-                wx.hideLoading()
-                if (res.error == 0) {
-                    wx.showToast({
-                        title: res.msg,
-                        duration: 1000,
-                        icon: 'success',
-                        success: function() {
-                            wxRelaunch('center', { countName: that.data.userMessage.countName, stuID: that.data.userMessage.stuID })
-                        }
-                    })
-                }
-            })
-            .catch(err => {
-                wx.hideLoading()
-                showToast(err.userexist, 2000, 'none')
-                showToast(err.msg, 2000, 'none')
-            })
+        userLoginApi.login({
+            discount:this.data.userMessage.countName,
+            password:this.data.userMessage.password,
+            stuID: this.data.userMessage.stuID
+        }).then(res=>{
+            wx.hideLoading()
+            okMsg(res.data.msg, 1000)
+        }).catch(err=>{
+            wx.hideLoading()
+            noIconMsg(err.data.msg, 1000)
+        })
     },
     // 上传图片
     uploaderimage() {
-        let that = this
         wx.chooseImage({
-            count: 1,
-            sizeType: ['compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                that.setData({
-                    user_image: res.tempFilePaths,
-                    userimg: true
-                })
-
+            success (res) {
+              const tempFilePaths = res.tempFilePaths
+              fileUploadApi.imgUpload({
+                  tempFilePaths: tempFilePaths[0],
+                  name: 'test'
+              }).then(res=>{
+                  console.log('图片上传后res:',res)
+              }).catch(err=>{
+                  console.log('图像上传后err:',err)
+              })
             }
-        })
+          })
+    //     let that = this
+    //     wx.chooseImage({
+    //         count: 1,
+    //         sizeType: ['compressed'],
+    //         sourceType: ['album', 'camera'],
+    //         success(res) {
+    //             that.setData({
+    //                 user_image: res.tempFilePaths,
+    //                 userimg: true
+    //             })
+
+    //         }
+    //     })
     },
+    // 注册用户
     res_user_count() {
         if (this.data.isNameverify && this.data.isCountNameverify && this.data.isPasswordverify && this.data.isMajorverify && this.data.isStuIDverify) {
             wx.showLoading({
-                title: '注册中',
+                title: '注册中'
             })
-            this.uploaderToCloudimage()
-                .then((res) => {
-                    resUser('mini_users_models', this.data.userMessage)
-                        .then(res => {
-                            if (res.errMsg == 'collection.add:ok') {
-                                wx.hideLoading()
-                                wx.showToast({
-                                    title: '注册成功！',
-                                    duration: 2000,
-                                    icon: 'success'
-                                })
-                                this.swichisloginres()
-                            } else {
-                                wx.hideLoading()
-                                wx.showToast({
-                                    title: '注册失败请检查参数',
-                                    duration: 2000,
-                                    icon: 'none'
-                                })
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            wx.hideLoading()
-                            wx.showToast({
-                                title: err.msg,
-                                duration: 2000,
-                                icon: 'none'
-                            })
-                        })
-                }).catch(err => {
-                    console.log(err)
-                })
-        } else {
-            wx.hideLoading()
-            wx.showToast({
-                title: '请填写好信息',
-                duration: 2000,
-                icon: 'none'
+            userLoginApi.register({
+                userName: this.data.userMessage.name,
+                stuID: this.data.userMessage.stuID,
+                password: this.data.userMessage.password,
+                discount:this.data.userMessage.countName,
+                major: this.data.userMessage.major,
+                img: this.data.userMessage.img
+            }).then(res=>{
+                okMsg(res.data.msg, 1000);
+            }).catch(err=>{
+                noIconMsg(err.data.msg, 1000);
             })
+        }else {
+            noIconMsg('请填写好信息', 1000);
+            return false;
         }
     },
     getCountName(e) {
@@ -268,51 +244,51 @@ Page({
             this.data.isNameverify = true
         }
     },
-    uploaderToCloudimage() {
-        let that = this
-        return new Promise((resolve, reject) => {
-            if (this.data.user_image[0].length == 1 || this.data.user_image[0].length == 0) {
-                wx.cloud.downloadFile({
-                    fileID: 'cloud://nodetestminicloud-e53ge.6e6f-nodetestminicloud-e53ge-1300092310/DefaultUserImg.jpg',
-                    success: res => {
-                        wx.getFileSystemManager().saveFile({
-                            tempFilePath: res.tempFilePath, // 传入一个本地临时文件路径, http://tmp/开头的
-                            filePath: wx.env.USER_DATA_PATH + '/abc.jpg', //保存到用户目录/abc文件中，此处文件名自定义，因为tempFilePath对应的是一大长串字符
-                            success(res) {
-                                wx.cloud.uploadFile({
-                                    cloudPath: `${that.data.userMessage.countName}.jpg`,
-                                    filePath: res.savedFilePath, // 文件路径
-                                }).then(res => {
-                                    that.setData({
-                                        [image]: res.fileID
-                                    })
-                                    resolve(res)
-                                }).catch(error => {
-                                    console.log(error)
-                                    reject(error)
-                                })
-                            }
-                        })
-                    },
-                    fail: err => {
-                        console.log(err)
-                    }
-                })
-            } else {
-                wx.cloud.uploadFile({
-                    cloudPath: `${this.data.userMessage.countName}.jpg`,
-                    filePath: that.data.user_image[0], // 文件路径
-                }).then(res => {
-                    // get resource ID 
-                    this.setData({
-                        [image]: res.fileID
-                    })
-                    resolve(res)
-                }).catch(error => {
-                    reject(error)
-                        // handle error
-                })
-            }
-        })
-    },
+    // uploaderToCloudimage() {
+    //     let that = this
+    //     return new Promise((resolve, reject) => {
+    //         if (this.data.user_image[0].length == 1 || this.data.user_image[0].length == 0) {
+    //             wx.cloud.downloadFile({
+    //                 fileID: 'cloud://nodetestminicloud-e53ge.6e6f-nodetestminicloud-e53ge-1300092310/DefaultUserImg.jpg',
+    //                 success: res => {
+    //                     wx.getFileSystemManager().saveFile({
+    //                         tempFilePath: res.tempFilePath, // 传入一个本地临时文件路径, http://tmp/开头的
+    //                         filePath: wx.env.USER_DATA_PATH + '/abc.jpg', //保存到用户目录/abc文件中，此处文件名自定义，因为tempFilePath对应的是一大长串字符
+    //                         success(res) {
+    //                             wx.cloud.uploadFile({
+    //                                 cloudPath: `${that.data.userMessage.countName}.jpg`,
+    //                                 filePath: res.savedFilePath, // 文件路径
+    //                             }).then(res => {
+    //                                 that.setData({
+    //                                     [image]: res.fileID
+    //                                 })
+    //                                 resolve(res)
+    //                             }).catch(error => {
+    //                                 console.log(error)
+    //                                 reject(error)
+    //                             })
+    //                         }
+    //                     })
+    //                 },
+    //                 fail: err => {
+    //                     console.log(err)
+    //                 }
+    //             })
+    //         } else {
+    //             wx.cloud.uploadFile({
+    //                 cloudPath: `${this.data.userMessage.countName}.jpg`,
+    //                 filePath: that.data.user_image[0], // 文件路径
+    //             }).then(res => {
+    //                 // get resource ID 
+    //                 this.setData({
+    //                     [image]: res.fileID
+    //                 })
+    //                 resolve(res)
+    //             }).catch(error => {
+    //                 reject(error)
+    //                     // handle error
+    //             })
+    //         }
+    //     })
+    // },
 })
