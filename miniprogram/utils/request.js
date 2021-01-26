@@ -68,11 +68,9 @@ function file (url, data) {
             filePath: data.tempFilePaths,
             name: data.name,
             success: (result) => {
-                console.log('封装接口res:',result)
                 resolve(result)
              },
              fail: (err) => {
-                 console.log('封装接口err:',err)
                  reject({
                      data: {
                      msg: '系统错误，请联系管理员',

@@ -101,6 +101,10 @@ Page({
         }).then(res=>{
             wx.hideLoading()
             okMsg(res.data.msg, 1000)
+            wx.switchTab({
+                url: '/pages/center/center',
+            });
+              
         }).catch(err=>{
             wx.hideLoading()
             noIconMsg(err.data.msg, 1000)
@@ -111,11 +115,12 @@ Page({
         wx.chooseImage({
             success (res) {
               const tempFilePaths = res.tempFilePaths
+              console.log('tempfilePaths:',tempFilePaths)
               fileUploadApi.imgUpload({
                   tempFilePaths: tempFilePaths[0],
                   name: 'test'
               }).then(res=>{
-                  console.log('图片上传后res:',res)
+                  console.log('图片上传后:',res)
               }).catch(err=>{
                   console.log('图像上传后err:',err)
               })
@@ -131,7 +136,6 @@ Page({
     //                 user_image: res.tempFilePaths,
     //                 userimg: true
     //             })
-
     //         }
     //     })
     },
