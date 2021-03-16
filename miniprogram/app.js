@@ -53,6 +53,8 @@ App({
         nowOnlineUserClass: '软件工程3班',
         nowOnlineUserID: '2220150608',
         nowOnlineUserName: '宋宇航',
+        // 现在登陆的用户账户
+        nowOnlineDiscount: '',
         nowMaxQuestionSum: 20,
         finalGradeArry: [],
         finalGrade: 0

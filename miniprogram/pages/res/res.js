@@ -89,22 +89,23 @@ Page({
             stuID: this.data.userMessage.stuID
         }).then(res=>{
             wx.hideLoading()
-            okMsg(res.data.msg, 1000)
+            okMsg(res.data.msg, 1000);
+            app.globalData.nowOnlineDiscount = this.data.userMessage.countName;
             wx.switchTab({
-                url: '/pages/center/center',
+                url: '/pages/newCenter/newCenter',
             });
-              
-        }).catch(err=>{
-            wx.hideLoading()
-            noIconMsg(err.data.msg, 1000)
         })
+        // .catch(err=>{ 
+        //     console.log(err)
+        //     wx.hideLoading()
+        //     noIconMsg(err.data.msg, 1000)
+        // })
     },
     // 上传图片
     uploaderimage() {
         wx.chooseImage({
             success (res) {
               const tempFilePaths = res.tempFilePaths
-              console.log('tempfilePaths:',tempFilePaths)
               fileUploadApi.imgUpload({
                   tempFilePaths: tempFilePaths[0],
                   name: 'test'

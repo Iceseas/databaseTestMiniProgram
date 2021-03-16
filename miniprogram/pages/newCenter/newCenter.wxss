@@ -1,0 +1,155 @@
+.user_center_box {
+    position: relative;
+    height: 470rpx;
+    width: 100%;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+    color: #fff;
+    border-bottom-left-radius: 100rpx;
+    border-bottom-right-radius: 100rpx;
+}
+
+.user_center_image {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 100%;
+    top: 85rpx;
+    box-sizing: border-box;
+    border: 6rpx solid #fff;
+}
+
+.navigationText_title,
+.user_center_image,
+.user_center_username,
+.user_center_major,
+.user_center_tab {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.signIn,
+.navigationText_title {
+    top: 70rpx;
+}
+
+.user_center_username {
+    font-size: 28rpx;
+    top: 290rpx;
+}
+
+.user_center_major {
+    top: 345rpx;
+    font-size: 30rpx;
+}
+
+.user_center_tab {
+    background: #fff;
+    height: 140rpx;
+    width: 600rpx;
+    top: 420rpx;
+    border-radius: 20rpx;
+    box-shadow: -5rpx 10rpx 20rpx #74ebd5;
+    display: flex;
+}
+
+.user_center_tab_item {
+    flex-grow: 1;
+    color: #636e72;
+    text-align: center;
+    font-size: 28rpx;
+    padding-top: 35rpx;
+    box-sizing: border-box;
+}
+
+.user_center_tab_item_iconinit {
+    display: block;
+    font-size: 34rpx;
+    margin-bottom: 10rpx;
+}
+
+.user_center_tab_item_text {
+    display: block;
+}
+
+.shareBtn {
+    position: absolute;
+    height: 120rpx;
+    background: #fff;
+    border-radius: 20rpx;
+    color: #636e72;
+    top: 821rpx;
+    width: 610rpx;
+    opacity: 0;
+    margin-left: 70rpx;
+    margin-right: 70rpx;
+}
+
+.center_text_init {
+    line-height: 100rpx;
+}
+
+.showUserImg {
+    width: 400rpx;
+    height: 400rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.gradedialog {
+    max-height: 400rpx;
+    overflow: scroll;
+}
+
+.noDataCenter {
+    width: 100%;
+    height: 100%;
+    font-size: 24rpx;
+    text-align: center;
+    background: #eee;
+}
+
+.signIn_weekItem {
+    font-size: 24rpx;
+    box-sizing: border-box;
+    background: #9face6;
+    text-align: center;
+    color: #fff;
+    flex: 1;
+}
+
+.signIn_dayItem {
+    font-size: 24rpx;
+    box-sizing: border-box;
+    background: #eee;
+    border: 2rpx solid #fff;
+    text-align: center;
+    color: #636e72;
+    float: left;
+    width: 14.25%;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.signIn_weeks {
+    margin-top: 20rpx;
+    height: 40rpx;
+    width: 100%;
+    background: #636e72;
+    display: flex;
+}
+
+.signIn_days {
+    height: 200rpx;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 152rpx;
+}
+
+.signIn_Calendar {
+    width: 100%;
+    background: #eee;
+}
