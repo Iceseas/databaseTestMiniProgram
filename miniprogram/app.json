@@ -1,15 +1,14 @@
 {
   "pages": [
     "pages/res/res",
+    "pages/find/find",
+    "pages/subjectivegrade/subjectivegrade",
     "pages/newCenter/newCenter",
     "pages/center/center",
-    "pages/find/find",
     "pages/test/test",
     "pages/detail/detail",
     "pages/finaGrade/finaGrade",
-    "pages/onlineTest/onlineTest",
-    "pages/subjectivegrade/subjectivegrade"
-    
+    "pages/onlineTest/onlineTest"
   ],
   "window": {
     "backgroundTextStyle": "light",

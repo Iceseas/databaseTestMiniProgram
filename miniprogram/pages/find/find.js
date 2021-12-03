@@ -1,8 +1,7 @@
 // pages/find/find.js
-import submitSubjectiveAnswer from '../../packaging/submitSubjectiveAnswer.js'
-import getCollectionSum from '../../packaging/getCollectionSum.js'
-import Request from '../../api/api'
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import { questionApi } from '../../api/api'
+// 用于增加回答框
 const stuname = 'Subjective_problems.stuName'
 const stuID = 'Subjective_problems.stuID'
 const stuClass = 'Subjective_problems.stuClass'
@@ -32,14 +31,6 @@ Page({
     },
     //options(Object)
     onLoad: function(options) {
-        wx.request({
-            url: 'http://localhost:3000/signIn/api/saveSignInData',
-            data: {},
-            header: { 'content-type': 'application/json' },
-            method: 'POST',
-            fail: () => {},
-            complete: () => {}
-        });
 
     },
     onReady: function() {
@@ -124,16 +115,14 @@ Page({
                 [stuClass]: app.globalData.nowOnlineUserClass,
                 [submitTime]: `${yy}-${mm}-${ww} ${hh}:${m}:${ss}`
             })
-            console.log(this.data.Subjective_problems)
-            Request('http://localhost:3000/addQuestion/api/addSubjectiveData','POST',this.data.Subjective_problems)
-            .then(res=>{
+            questionApi.subUpload(this.data.Subjective_problems)
+            .then(()=>{
                 wx.hideLoading()
                 wx.showToast({
                     title: '上传成功！',
                     duration: 2000,
                     icon: 'success'
                 })
-                console.log(res)
             })
             .catch(err=>{
                 wx.hideLoading()
@@ -142,7 +131,6 @@ Page({
                     duration: 2000,
                     icon: 'none'
                 })
-                console.log(err)
             })
         });
 

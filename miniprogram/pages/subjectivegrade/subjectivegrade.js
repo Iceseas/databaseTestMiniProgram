@@ -1,22 +1,21 @@
 //Page Object
-const db = wx.cloud.database() //操作数据库
 let app = getApp();
-const _ = db.command; //操作数据库
+import { questionApi } from '../../api/api'
 Page({
     data: {
         activeNames: '1',
         gradelist: []
     },
     onLoad: function(options) {
-        let that = this
-        db.collection('subjective_publish_models').where({
-                stuID: app.globalData.nowOnlineUserID
-            }).get()
-            .then(res => {
-                that.setData({
-                    gradelist: res.data
-                })
-            })
+        questionApi.subGetData({
+            stuID: app.globalData.nowOnlineUserID
+        })
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     },
     onReady: function() {
 

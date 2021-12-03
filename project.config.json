@@ -39,7 +39,7 @@
   },
   "appid": "wx2e302cc19c76480c",
   "projectname": "databaseTestMiniProgram",
-  "libVersion": "2.8.1",
+  "libVersion": "2.14.4",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

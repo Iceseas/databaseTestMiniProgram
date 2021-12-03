@@ -49,10 +49,9 @@ App({
         CollectionArray: [],
         islogin: true,
         SystemWindowHeight: null,
-        nowOnlineUser: 'iceseasyh',
-        nowOnlineUserClass: '软件工程3班',
-        nowOnlineUserID: '2220150608',
-        nowOnlineUserName: '宋宇航',
+        nowOnlineUserClass: '',
+        nowOnlineUserID: '',
+        nowOnlineUserName: '',
         // 现在登陆的用户账户
         nowOnlineDiscount: '',
         nowMaxQuestionSum: 20,

@@ -20,9 +20,17 @@ const userMessageApi = {
     // 查询
     findData: parmas => post(baseURL + 'ManagerCount/api/getUserDataByDiscount', parmas)
 }
+// 题数据相关
+const questionApi = {
+    // 主观题上传
+    subUpload: parmas => post(baseURL + 'addQuestion/api/addSubjectiveData', parmas),
+    // 用户主观题查询
+    subGetData: parmas => post(baseURL + 'getQuestion/api/miniGetSubjectiveList', parmas),
+}
 
 export {
     userLoginApi,
     fileUploadApi,
-    userMessageApi
+    userMessageApi,
+    questionApi
 }

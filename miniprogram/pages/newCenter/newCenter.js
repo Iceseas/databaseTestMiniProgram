@@ -34,7 +34,7 @@ Page({
         isSignInNum: []
     },
     onLoad: function(options) {
-        let that = this;
+      let that = this;
       userMessageApi.findData({
         discount: app.globalData.nowOnlineDiscount
       })
@@ -43,6 +43,9 @@ Page({
             user_major : res.data.data[0].major,
             user_name : res.data.data[0].userName
         })
+        app.globalData.nowOnlineUserClass = res.data.data[0].userClass;
+        app.globalData.nowOnlineUserID = res.data.data[0].stuID;
+        app.globalData.nowOnlineUserName = res.data.data[0].userName;
       })
       .catch((err)=>{
         console.log(err)
@@ -101,7 +104,7 @@ Page({
         })
     },
     onUnload: function() {
-        app.globalData.nowOnlineUser = ''
+
     },
     // 关闭签到
     onSignInClose() {
